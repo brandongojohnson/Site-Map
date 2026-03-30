@@ -1,13 +1,10 @@
-import VellumSitemap from "./VellumSiteMap";
 import Dashboard from "./dashboard";
-// import VellumSitemap from './components/sitemap/VellumSitemap';
-
+import VellumSitemap from "./VellumSitemap2";
 
 export default function App() {
   return (
     <>
-      <Dashboard />
-      {/* <VellumSitemap /> */}
+      <VellumSitemap />
     </>
   );
 }
