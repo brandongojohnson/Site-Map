@@ -35,6 +35,7 @@ const VellumSitemap = () => {
   const panStart = useRef(null);
   const svgRef = useRef(null);
   const isSavingRef = useRef(false);
+  const isAddingRef = useRef(false);
 
   const sitemapRef = ref(db, 'vellumSitemap');
 
@@ -110,8 +111,9 @@ const VellumSitemap = () => {
 
   // ====================== Handlers ======================
   const handleAddChild = useCallback((parentId) => {
-    if (!tree) return;
+    if (!tree || isAddingRef.current) return;
 
+    isAddingRef.current = true;
     const newNode = {
       id: uid(),
       title: 'New Page',
@@ -124,11 +126,13 @@ const VellumSitemap = () => {
     };
 
     const newTree = addChild(tree, parentId || 'root', newNode);
-    const normalizedTree = normalizeTree(newTree);   // Extra safety
+    const normalizedTree = normalizeTree(newTree);
 
     setTree(normalizedTree);
     saveToFirebase(normalizedTree);
     setSelectedId(newNode.id);
+
+    setTimeout(() => { isAddingRef.current = false; }, 300);
   }, [tree, saveToFirebase]);
 
   const handleUpdate = useCallback((patch) => {

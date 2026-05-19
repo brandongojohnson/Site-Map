@@ -48,8 +48,8 @@ const SitemapCanvas = ({
               <NodeCard
                 key={node.id}
                 node={node}
-                isSelected={node.id === selectedId}
-                onSelect={() => setSelectedId(node.id === selectedId ? null : node.id)}
+                isSelected={selectedId !== null && String(node.id) === String(selectedId)}
+                onSelect={() => setSelectedId(String(node.id) === String(selectedId) ? null : node.id)}
                 onAddChild={onAddChild}
               />
             ))}
