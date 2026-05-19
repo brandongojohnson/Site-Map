@@ -2,35 +2,37 @@ import React from 'react';
 
 export const Footer = () => {
   const links = {
-    Product: ['Features', 'Pricing', 'Templates', 'Security'],
+    Product: ['Features', 'Pricing', 'Template Gallery', 'Updates'],
     Company: ['About', 'Blog', 'Careers', 'Contact'],
-    Resources: ['Documentation', 'API', 'Community', 'Help Center'],
-    Legal: ['Privacy', 'Terms', 'Cookies'],
+    Resources: ['Documentation', 'API Reference', 'Community', 'Help'],
+    Legal: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'],
   };
 
   const socials = ['Twitter', 'GitHub', 'LinkedIn'];
 
   return (
-    <footer className="bg-gray-900 text-gray-400 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-5 gap-8 mb-12">
+    <footer className="bg-surface-lowest border-t border-border-light py-16 px-page-margin">
+      <div className="max-w-content mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-16 pb-16 border-b border-border-light">
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">SB</span>
+              <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+                <span className="text-on-primary font-serif font-bold text-sm">SB</span>
               </div>
-              <span className="font-semibold text-white">Sitemap Builder</span>
+              <span className="font-serif font-bold text-on-surface">Sitemap Builder</span>
             </div>
-            <p className="text-sm">Build better sitemaps, faster.</p>
+            <p className="text-label-md text-on-surface-variant">Build better site structures, together.</p>
           </div>
 
           {Object.entries(links).map(([category, items]) => (
             <div key={category}>
-              <h4 className="font-semibold text-white mb-4">{category}</h4>
-              <ul className="space-y-2 text-sm">
+              <h4 className="font-sans font-medium text-on-surface mb-4 text-label-md">{category}</h4>
+              <ul className="space-y-2">
                 {items.map((item) => (
-                  <li key={item} className="hover:text-white transition-colors cursor-pointer">
-                    {item}
+                  <li key={item}>
+                    <a href="#" className="text-label-md text-on-surface-variant hover:text-tertiary transition-colors">
+                      {item}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -38,11 +40,15 @@ export const Footer = () => {
           ))}
         </div>
 
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm">© 2024 Sitemap Builder. All rights reserved.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-label-sm text-text-muted">© 2024 Sitemap Builder. All rights reserved.</p>
+          <div className="flex gap-8">
             {socials.map((social) => (
-              <a key={social} href="#" className="text-sm hover:text-white transition-colors">
+              <a
+                key={social}
+                href="#"
+                className="text-label-sm text-on-surface-variant hover:text-tertiary transition-colors"
+              >
                 {social}
               </a>
             ))}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,38 +10,130 @@
   }
 
   body {
+    @apply bg-surface text-on-surface font-serif;
     font-feature-settings: "kern" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-bold text-on-surface;
+  }
+
+  a {
+    @apply text-tertiary hover:underline;
+  }
 }
 
 @layer components {
+  /* Typography classes */
+  .display-lg {
+    @apply text-display-lg font-serif font-bold;
+  }
+
+  .headline-lg {
+    @apply text-headline-lg font-serif font-bold;
+  }
+
+  @screen sm {
+    .headline-lg-responsive {
+      @apply text-headline-lg;
+    }
+  }
+
+  @screen max-sm {
+    .headline-lg-responsive {
+      @apply text-headline-lg-mobile;
+    }
+  }
+
+  .body-lg {
+    @apply text-body-lg font-serif leading-reading;
+  }
+
+  .body-md {
+    @apply text-body-md font-serif leading-reading;
+  }
+
+  .label-md {
+    @apply text-label-md font-sans uppercase;
+  }
+
+  .label-sm {
+    @apply text-label-sm font-sans;
+  }
+
+  .mono-code {
+    @apply font-mono text-label-md bg-surface-gray p-1 rounded-sm;
+  }
+
+  /* Button styles */
   .btn-primary {
-    @apply bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all font-semibold;
+    @apply bg-primary text-on-primary px-6 py-3 rounded-sm font-sans font-medium hover:bg-primary transition-colors;
   }
 
   .btn-secondary {
-    @apply border-2 border-gray-300 text-gray-900 px-6 py-2 rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-all font-semibold;
+    @apply border border-on-surface text-on-surface px-6 py-3 rounded-sm font-sans font-medium hover:bg-surface-gray transition-colors;
   }
 
+  .btn-ghost {
+    @apply text-on-surface px-4 py-2 font-sans font-medium hover:text-tertiary transition-colors;
+  }
+
+  .btn-accent {
+    @apply bg-tertiary text-white px-6 py-3 rounded-sm font-sans font-medium hover:opacity-90 transition-opacity;
+  }
+
+  /* Card styles - editorial */
   .card {
-    @apply bg-white p-8 rounded-xl border border-gray-200 hover:border-gray-300 transition-all;
+    @apply bg-surface-lowest p-8 rounded-sm border border-border-light;
   }
 
-  .section-title {
-    @apply text-4xl sm:text-5xl font-bold text-gray-900;
+  .card-elevated {
+    @apply bg-surface-lowest p-8 rounded-sm border border-border-light;
   }
 
-  .section-subtitle {
-    @apply text-xl text-gray-600;
+  /* Pull quote */
+  .pull-quote {
+    @apply text-body-lg font-serif italic border-l-4 border-tertiary pl-6 py-4 my-8;
+  }
+
+  /* Content container */
+  .content-container {
+    @apply max-w-content mx-auto px-page-margin;
+  }
+
+  /* Section spacing */
+  .section-spacing {
+    @apply py-stack-xl;
+  }
+
+  @screen max-md {
+    .section-spacing {
+      @apply py-stack-lg;
+    }
+  }
+
+  /* Divider */
+  .divider {
+    @apply border-t border-border-light;
+  }
+
+  /* Tag/Chip styles */
+  .chip {
+    @apply inline-block bg-surface-gray text-on-surface px-3 py-1 rounded-full text-label-sm font-sans;
+  }
+
+  /* Code block */
+  .code-block {
+    @apply bg-surface-gray border border-border-light p-4 rounded-sm font-mono text-label-md overflow-x-auto;
   }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -47,47 +141,19 @@
   }
 }
 
-@keyframes slideInRight {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateX(20px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes glow {
-  0%, 100% {
-    text-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
-  }
-  50% {
-    text-shadow: 0 0 30px rgba(37, 99, 235, 0.8);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
   }
 }
 
 .animate-fadeInUp {
-  animation: fadeInUp 0.5s ease-out;
+  animation: fadeInUp 0.6s ease-out;
 }
 
-.animate-slideInRight {
-  animation: slideInRight 0.5s ease-out;
-}
-
-.animate-glow {
-  animation: glow 3s ease-in-out infinite;
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
 }
