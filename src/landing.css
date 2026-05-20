@@ -152,13 +152,44 @@ button { font-family: var(--ff-sans); cursor: pointer; border: none; background:
   color: var(--secondary); transition: color .15s;
 }
 .nav__link:hover { color: var(--indigo); }
-.nav__actions { display: none; align-items: center; gap: var(--sp-md); margin-left: auto; z-index: 1; }
-.nav__burger  { color: var(--on-surface); padding: 4px; }
+.nav__actions { display: none; align-items: center; gap: 12px; margin-left: auto; z-index: 1; }
+.nav__burger  { color: var(--on-surface); padding: 4px; background: none; border: none; cursor: pointer; }
+
+.nav__icon-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--secondary); transition: color .15s; padding: 4px;
+}
+.nav__icon-btn:hover { color: var(--on-surface); }
+
+.nav__avatar {
+  width: 32px; height: 32px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+}
+.nav__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Mobile drawer */
+.nav__drawer {
+  position: fixed; top: 80px; right: 0; width: 256px;
+  background: var(--white); border-left: 1px solid var(--border);
+  box-shadow: -4px 0 24px rgba(0,0,0,.08);
+  z-index: 40; transform: translateX(100%); transition: transform .3s ease;
+}
+.nav__drawer--open { transform: translateX(0); }
+.nav__drawer-inner { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.nav__drawer-link  { display: block; font-size: 14px; font-weight: 500; color: var(--secondary); }
+.nav__drawer-link:hover { color: var(--indigo); }
+.nav__drawer-divider { border-top: 1px solid var(--border); margin-block: 8px; }
+.nav__drawer-action {
+  display: flex; align-items: center; gap: 12px;
+  background: none; border: none; cursor: pointer;
+  font-size: 14px; color: var(--secondary); transition: color .15s;
+}
+.nav__drawer-action:hover { color: var(--on-surface); }
 
 @media (min-width: 768px) {
   .nav__links   { display: flex; }
   .nav__actions { display: flex; }
   .nav__burger  { display: none; }
+  .nav__drawer  { display: none; }
 }
 
 /* ── Hero ────────────────────────────────────────────────────────────────── */
