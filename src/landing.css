@@ -24,7 +24,7 @@
   --muted:         #6B6B6B;
   --border:        #E6E6E6;
 
-  --ff-serif:  'Source Serif 4', Georgia, serif;
+  --ff-serif:  Inter, system-ui, sans-serif;
   --ff-sans:   Inter, system-ui, sans-serif;
 
   --sp-sm:     8px;
@@ -164,14 +164,14 @@ button { font-family: var(--ff-sans); cursor: pointer; border: none; background:
 /* ── Hero ────────────────────────────────────────────────────────────────── */
 .hero {
   min-height: 85vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  display: flex; flex-direction: row; align-items: center; justify-content: center;
   text-align: center; padding: var(--sp-xl) var(--sp-page);
   background-image:
     radial-gradient(at 50% 0%, rgba(99,102,241,.08) 0px, transparent 50%),
     radial-gradient(at 100% 0%, rgba(99,102,241,.05) 0px, transparent 50%);
   overflow: hidden;
 }
-.hero__inner { max-width: 896px; margin-inline: auto; position: relative; z-index: 1; }
+.hero__inner { width: 100%; margin-inline: auto; position: relative; z-index: 1; flex: 1;}
 
 .hero__badge {
   display: inline-flex; align-items: center; gap: 8px;
@@ -187,20 +187,22 @@ button { font-family: var(--ff-sans); cursor: pointer; border: none; background:
 }
 .hero__heading {
   font-family: var(--ff-serif);
-  font-size: clamp(42px, 7vw, 72px); font-weight: 700;
+  font-size: clamp(35px, 7vw, 72px); font-weight: 700;
   line-height: 1.1; letter-spacing: -.02em;
   color: var(--on-surface); margin-bottom: var(--sp-md);
+  text-align: left;
+  margin-bottom: .5em;
 }
 .hero__sub {
-  font-family: var(--ff-serif); font-size: 20px; line-height: 1.7;
+  font-family: var(--ff-serif); font-size: 18px; line-height: 1.7;
   color: var(--muted); max-width: 640px; margin-inline: auto;
   margin-bottom: var(--sp-lg);
 }
 .hero__ctas {
-  display: flex; flex-direction: column; align-items: center;
+  display: flex; flex-direction: column; align-items: start;
   gap: 16px; margin-bottom: 64px;
 }
-.hero__img-wrap { width: 100%; max-width: 1024px; margin-inline: auto; padding-inline: 16px; }
+.hero__img-wrap { width: 80%; margin-inline: auto; padding-inline: 16px; flex:1}
 .hero__img-card {
   position: relative; border-radius: var(--rad-xl); overflow: hidden;
   background: var(--dark); padding: 16px;
