@@ -6,7 +6,7 @@ const Icon = ({ name, className = '' }) => (
 );
 
 /* ── Nav ─────────────────────────────────────────────────────────────────── */
-const Nav = () => {
+const Nav = ({ onGetStarted }) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Nav = () => {
         </div>
 
         <div className="nav__actions">
-          <button className="btn btn--nav">Get Started</button>
+          <button className="btn btn--nav" onClick={onGetStarted}>Get Started</button>
         </div>
 
         <button className="nav__burger">
@@ -46,7 +46,7 @@ const Nav = () => {
 };
 
 /* ── Hero ────────────────────────────────────────────────────────────────── */
-const Hero = () => (
+const Hero = ({ onGetStarted }) => (
   <section className="hero">
     <div className="hero__inner">
       <div className="hero__badge">
@@ -64,7 +64,7 @@ const Hero = () => (
       </p>
 
       <div className="hero__ctas">
-        <button className="btn btn--primary">Start building for free</button>
+        <button className="btn btn--primary" onClick={onGetStarted}>Start building for free</button>
         <button className="btn btn--outline">View example</button>
       </div>
     </div>
@@ -353,11 +353,11 @@ const FooterComp = () => (
 );
 
 /* ── Page root ───────────────────────────────────────────────────────────── */
-const LandingPage = () => (
+const LandingPage = ({ onGetStarted }) => (
   <>
-    <Nav />
+    <Nav onGetStarted={onGetStarted} />
     <main style={{ paddingTop: 80 }}>
-      <Hero />
+      <Hero onGetStarted={onGetStarted} />
       <Features />
       <HowItWorks />
       <UseCases />
