@@ -1,400 +1,446 @@
-import React, { useState } from 'react';
-import { Navigation } from './components/Navigation';
-import { Footer } from './components/Footer';
-import { Check, ArrowRight, BookOpen, Users, Download, Layers, Clock, Upload } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 
-/* ─── Shared layout constants ──────────────────────────────────────────────── */
-const READING_WIDTH = 'max-w-[740px]';
-const WIDE_WIDTH    = 'max-w-7xl';
-
-/* ─── Small reusable pieces ─────────────────────────────────────────────────── */
-const Eyebrow = ({ children }) => (
-  <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-text-muted mb-4">
-    {children}
-  </p>
+/* ── Material Symbol helper ─────────────────────────────────────────────── */
+const Icon = ({ name, className = '' }) => (
+  <span className={`material-symbols-outlined ${className}`}>{name}</span>
 );
 
-const GreenPill = ({ children, large = false }) => (
-  <a
-    href="#"
-    className={`inline-flex items-center gap-2 bg-tertiary text-white font-sans font-medium rounded-full hover:opacity-90 transition-opacity no-underline
-      ${large ? 'text-[15px] px-6 py-3' : 'text-[14px] px-5 py-[9px]'}`}
-  >
-    {children}
-  </a>
-);
+/* ── Nav ────────────────────────────────────────────────────────────────── */
+const Nav = () => {
+  const [scrolled, setScrolled] = useState(false);
 
-const OutlinePill = ({ children }) => (
-  <a
-    href="#"
-    className="inline-flex items-center gap-2 border border-on-surface text-on-surface font-sans font-medium text-[14px] px-5 py-[9px] rounded-full hover:bg-surface-gray transition-colors no-underline"
-  >
-    {children}
-  </a>
-);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-/* ─── Feature card (Medium "article row" style) ─────────────────────────────── */
-const FeatureRow = ({ icon: Icon, title, description, index }) => (
-  <div className="flex items-start gap-6 py-8 border-b border-border-light last:border-0">
-    {/* Thumbnail / icon block — like an article image thumbnail */}
-    <div className="flex-shrink-0 w-16 h-16 bg-surface-gray rounded-sm flex items-center justify-center">
-      <Icon className="w-7 h-7 text-on-surface-variant" strokeWidth={1.5} />
-    </div>
-    <div className="flex-1 min-w-0">
-      <p className="font-sans text-[11px] font-semibold uppercase tracking-widest text-text-muted mb-1">
-        0{index + 1}
-      </p>
-      <h3 className="font-serif font-bold text-[20px] leading-[28px] text-on-surface mb-2">
-        {title}
-      </h3>
-      <p className="font-serif text-[16px] leading-[26px] text-on-surface-variant">
-        {description}
-      </p>
-    </div>
-  </div>
-);
-
-/* ─── Use-case card (horizontal card row, Medium recommendation style) ──────── */
-const UseCaseCard = ({ role, use, tag }) => (
-  <div className="flex items-start gap-5 py-6 border-b border-border-light last:border-0">
-    <div className="flex-shrink-0 mt-1">
-      <span className="inline-block font-sans text-[11px] font-semibold uppercase tracking-widest text-tertiary border border-tertiary/30 bg-tertiary/5 px-2 py-0.5 rounded-sm">
-        {tag}
-      </span>
-    </div>
-    <div>
-      <h3 className="font-serif font-bold text-[18px] leading-[26px] text-on-surface mb-1">{role}</h3>
-      <p className="font-serif text-[15px] leading-[24px] text-on-surface-variant">{use}</p>
-    </div>
-  </div>
-);
-
-/* ─── Main component ─────────────────────────────────────────────────────────── */
-const LandingPage = () => {
-  const [expandedFaq, setExpandedFaq] = useState(null);
-
-  const features = [
-    { icon: Layers,    title: 'Drag-and-Drop Simplicity',   description: 'Arrange pages by dragging. The hierarchy snaps into place as you work — no manual fiddling required.' },
-    { icon: BookOpen,  title: 'Intelligent Auto-Layout',     description: 'Let the engine arrange your pages automatically, or override it freely with manual positioning.' },
-    { icon: Download,  title: 'Multiple Export Formats',     description: 'Export as XML for search engines, PNG for slide decks, or PDF for stakeholder handoffs.' },
-    { icon: Users,     title: 'Real-Time Collaboration',     description: 'Teammates join your canvas live. Leave threaded comments directly on individual pages.' },
-    { icon: Upload,    title: 'Smart URL Import',            description: 'Paste any live URL and we generate a working sitemap from the existing structure automatically.' },
-    { icon: Clock,     title: 'Persistent Version History',  description: 'Every save is a checkpoint. Name versions, compare them, and roll back in one click.' },
-  ];
-
-  const useCases = [
-    { tag: 'Design',   role: 'UX Designers',       use: 'Lay out information architecture before a single wireframe is drawn.' },
-    { tag: 'Product',  role: 'Product Managers',   use: 'Map feature scope and user journeys without touching Figma.' },
-    { tag: 'Dev',      role: 'Developers',          use: 'Document endpoints, schemas, and system topology in a visual tree.' },
-    { tag: 'Agency',   role: 'Agencies',            use: 'Deliver polished site structure proposals clients can actually read.' },
-  ];
-
-  const faqs = [
-    {
-      q: 'Can I import an existing website?',
-      a: "Yes. Paste any URL and we'll crawl the structure and generate a starting sitemap you can refine.",
-    },
-    {
-      q: 'Is technical experience required?',
-      a: "Not at all. Drag pages into place, name them, and nest them. That's the entire workflow.",
-    },
-    {
-      q: 'Can teams collaborate in real time?',
-      a: 'Completely. Multiple editors, live presence indicators, and threaded comments per page.',
-    },
-    {
-      q: 'What formats can I export?',
-      a: 'XML (SEO), PNG (presentations), PDF (print), and shareable live links for stakeholder review.',
-    },
-    {
-      q: 'How is my data protected?',
-      a: 'Encrypted at rest and in transit. Granular per-member permissions on every project.',
-    },
-  ];
+  const scrollTo = (id) => (e) => {
+    e.preventDefault();
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <div className="bg-surface-lowest min-h-screen">
-      <Navigation />
-
-      {/* ── Hero ──────────────────────────────────────────────────────────────── */}
-      <section className="pt-24 pb-20 px-6">
-        <div className={`${READING_WIDTH} mx-auto`}>
-          <Eyebrow>Visual site planning · Built for teams</Eyebrow>
-
-          <h1 className="font-serif font-bold text-[48px] sm:text-[56px] leading-[1.1] tracking-[-0.02em] text-on-surface mb-6">
-            Build your site structure the way you think.
-          </h1>
-
-          <p className="font-serif text-[20px] leading-[32px] text-on-surface-variant mb-10 max-w-[600px]">
-            Sitemap Builder is the focused canvas for information architecture.
-            Drag pages into hierarchy, collaborate live with your team,
-            and export anywhere — no setup, no bloat.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3 mb-10">
-            <GreenPill large>
-              Start building free
-              <ArrowRight className="w-4 h-4" />
-            </GreenPill>
-            <OutlinePill>See an example</OutlinePill>
-          </div>
-
-          <p className="font-sans text-[13px] text-text-muted">
-            Free for personal projects. No credit card required.
-          </p>
+    <nav
+      className={`fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-border-light transition-shadow ${
+        scrolled ? 'shadow-sm' : ''
+      }`}
+    >
+      <div className="flex justify-between items-center px-page-margin h-20 max-w-7xl mx-auto relative">
+        {/* Logo */}
+        <div className="font-display-lg text-headline-lg-mobile tracking-tighter text-primary">
+          Sitemap Builder
         </div>
-      </section>
 
-      {/* ── Hero canvas placeholder — full reading-width, tall ─────────────── */}
-      <div className={`${READING_WIDTH} mx-auto px-6 mb-20`}>
-        <div className="w-full aspect-[16/9] bg-surface-gray border border-border-light rounded flex items-center justify-center">
-          <div className="text-center">
-            <p className="font-sans text-[11px] uppercase tracking-widest text-text-muted mb-2">Interactive Canvas</p>
-            <p className="font-serif text-[16px] text-on-surface-variant">Drag, nest, and export your site structure</p>
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-stack-lg">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-stack-lg">
+            {[
+              { label: 'Features',  href: '#features'   },
+              { label: 'Templates', href: '#templates'  },
+              { label: 'Pricing',   href: '#pricing'    },
+            ].map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                onClick={scrollTo(href)}
+                className="font-label-md text-label-md text-secondary hover:text-primary transition-colors"
+              >
+                {label}
+              </a>
+            ))}
           </div>
+          <button className="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:opacity-80 transition-all active:scale-95 duration-150 ml-auto z-10">
+            Get Started
+          </button>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button className="md:hidden text-primary">
+          <Icon name="menu" />
+        </button>
+      </div>
+    </nav>
+  );
+};
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+const Hero = () => (
+  <section className="flex flex-col lg:flex-row min-h-[calc(100vh-80px)] overflow-hidden">
+    {/* Left — light */}
+    <div className="lg:w-1/2 bg-background flex flex-col justify-center px-page-margin py-stack-xl lg:py-0 border-r border-border-light">
+      <div className="max-w-[540px] mx-auto lg:ml-auto lg:mr-12">
+        {/* Badge */}
+        <div className="inline-flex items-center px-3 py-1 rounded-full border border-border-light bg-surface-gray text-label-sm mb-6 animate-fade-in">
+          <span className="w-2 h-2 rounded-full bg-accent-green mr-2 flex-shrink-0" />
+          <span className="text-secondary font-label-sm">New: Real-time sitemap sync</span>
+        </div>
+
+        <h1 className="font-display-lg text-display-lg md:text-6xl mb-stack-md leading-tight text-primary">
+          Build sitemaps visually in minutes
+        </h1>
+
+        <p className="font-body-lg text-body-lg text-text-muted mb-stack-lg">
+          Drag, drop, and structure your website without complexity. Treat your digital architecture
+          with the respect of a printed architectural blueprint.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <button className="bg-primary text-on-primary px-8 py-4 rounded-xl font-label-md text-label-md shadow-sm hover:opacity-90 transition-all">
+            Start building for free
+          </button>
+          <button className="border border-border-light bg-surface px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-surface-gray transition-all">
+            View example
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {/* Right — dark */}
+    <div className="lg:w-1/2 bg-[#191919] relative flex items-center justify-center p-8 lg:p-20 overflow-hidden">
+      <div className="relative w-full max-w-2xl">
+        <div className="absolute -inset-1 bg-gradient-to-r from-accent-green/20 to-primary/20 blur-3xl opacity-30" />
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi3BL0_AqHdWbAkXpneh3WyqwSkJAWr4KgS5KMsOJPszDqy_aUg-JIcqg6X_mF2nMyqPi0-5dVwSWg3n_X5CD3Uhru27ST72eRWpRm3GgwmHtBhMPolNllJgBUgNIG9Y3h7GtSDiNOYkQ8uQwepIS8vOon9QMIS72VJjwlOxT6NpHDKZHDOvANOW9zYgLksTD5x2M5GUmRsO0gds2uvqbWR_dZAtCCUGozXZa57EkbHMOVFBCJEsVWSSOob6zAeN863dGlZn5KeyxF"
+          alt="Dark Sitemap Visualization"
+          className="relative w-full h-auto rounded-2xl shadow-2xl border border-white/5"
+        />
+      </div>
+      <div className="absolute top-0 right-0 p-12 opacity-10">
+        <Icon name="grid_view" className="text-white" style={{ fontSize: '96px' }} />
+      </div>
+    </div>
+  </section>
+);
+
+/* ── Features bento grid ─────────────────────────────────────────────────── */
+const Features = () => (
+  <section className="px-page-margin py-stack-xl max-w-7xl mx-auto" id="features">
+    <div className="mb-stack-xl">
+      <span className="text-accent-green font-label-md text-label-md tracking-widest uppercase">
+        Precision Tools
+      </span>
+      <h2 className="font-headline-lg text-headline-lg mt-stack-sm">
+        Everything you need to architect
+      </h2>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
+      {/* Large */}
+      <div className="md:col-span-2 lg:col-span-3 border border-border-light p-8 rounded-2xl flex flex-col justify-between bg-surface-container-low group hover:border-primary transition-colors">
+        <div>
+          <Icon name="drag_indicator" className="text-4xl mb-4 text-primary" />
+          <h3 className="font-headline-lg text-2xl mb-4">Drag-and-drop builder</h3>
+          <p className="text-text-muted">
+            Intuitive canvas where your thoughts take shape. Move entire branches of your hierarchy
+            with one fluid motion.
+          </p>
         </div>
       </div>
 
-      {/* ── Hairline divider ───────────────────────────────────────────────── */}
-      <div className="border-t border-border-light" />
+      {/* Medium */}
+      <div className="md:col-span-1 lg:col-span-3 border border-border-light p-8 rounded-2xl bg-surface group hover:border-primary transition-colors">
+        <Icon name="auto_awesome" className="text-4xl mb-4 text-primary" />
+        <h3 className="font-headline-lg text-2xl mb-4">Auto-layout generation</h3>
+        <p className="text-text-muted">
+          Messy maps become clear diagrams instantly. Our algorithm balances your tree for optimal
+          visual hierarchy.
+        </p>
+      </div>
 
-      {/* ── Features — article-row layout ─────────────────────────────────── */}
-      <section className="py-16 px-6">
-        <div className={`${READING_WIDTH} mx-auto`}>
-          <Eyebrow>Capabilities</Eyebrow>
-          <h2 className="font-serif font-bold text-[32px] leading-[40px] tracking-[-0.01em] text-on-surface mb-12">
-            Everything serious work demands.
-          </h2>
+      {/* Small ×3 */}
+      {[
+        { icon: 'ios_share',  title: 'Multi-Format Export',      desc: 'XML for devs, PNG/PDF for stakeholders.',          bg: 'bg-surface' },
+        { icon: 'group',      title: 'Real-time Collaboration',   desc: 'Work together like you\'re in the same studio.', bg: 'bg-surface-container-high' },
+        { icon: 'history',    title: 'Version History',           desc: 'Never lose a draft. Roll back with one click.',   bg: 'bg-surface' },
+      ].map(({ icon, title, desc, bg }) => (
+        <div
+          key={title}
+          className={`md:col-span-1 lg:col-span-2 border border-border-light p-8 rounded-2xl ${bg} hover:border-primary transition-colors`}
+        >
+          <Icon name={icon} className="text-3xl mb-4 text-primary" />
+          <h4 className="font-headline-lg text-xl mb-2">{title}</h4>
+          <p className="font-label-md text-label-md text-text-muted">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+);
 
-          <div>
-            {features.map((f, idx) => (
-              <FeatureRow key={idx} {...f} index={idx} />
-            ))}
+/* ── How it works ────────────────────────────────────────────────────────── */
+const HowItWorks = () => (
+  <section className="bg-surface-gray py-stack-xl border-y border-border-light">
+    <div className="px-page-margin max-w-7xl mx-auto">
+      <div className="text-center mb-stack-xl">
+        <h2 className="font-headline-lg text-headline-lg">Workflow simplicity</h2>
+        <p className="text-text-muted mt-4">Three steps from chaos to structural clarity.</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+        {[
+          { n: '1', title: 'Add pages',        desc: 'Bulk import list or manually add individual nodes to your canvas.' },
+          { n: '2', title: 'Drag to structure', desc: 'Visually define parent-child relationships and page priorities.' },
+          { n: '3', title: 'Export or share',  desc: 'Send a secure link to your team or download assets for your dev sprint.' },
+        ].map(({ n, title, desc }) => (
+          <div key={n} className="flex flex-col items-center text-center relative z-10">
+            <div className="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center font-display-lg text-2xl mb-6">
+              {n}
+            </div>
+            <h4 className="font-headline-lg text-2xl mb-2">{title}</h4>
+            <p className="text-text-muted font-body-md">{desc}</p>
           </div>
+        ))}
+        {/* connector line */}
+        <div className="hidden md:block absolute top-8 left-1/4 right-1/4 h-[2px] bg-border-light -z-0" />
+      </div>
+    </div>
+  </section>
+);
+
+/* ── Use cases ───────────────────────────────────────────────────────────── */
+const UseCases = () => (
+  <section className="px-page-margin py-stack-xl max-w-7xl mx-auto overflow-hidden">
+    <div className="flex flex-col lg:flex-row gap-stack-xl items-center">
+      <div className="lg:w-1/2">
+        <h2 className="font-headline-lg text-headline-lg mb-stack-md">
+          Built for the modern web workforce
+        </h2>
+
+        <div className="space-y-8">
+          {[
+            { icon: 'palette',    role: 'UX Designers',      desc: 'Map user journeys and information architecture before touching Figma.' },
+            { icon: 'assignment', role: 'Product Managers',  desc: 'Scope MVPs and organize features into logical page hierarchies.' },
+            { icon: 'code',       role: 'Developers',        desc: 'Auto-generate XML sitemaps for SEO and structure clean codebase routing.' },
+          ].map(({ icon, role, desc }) => (
+            <div key={role} className="flex gap-6 group">
+              <div className="shrink-0 w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-all">
+                <Icon name={icon} />
+              </div>
+              <div>
+                <h4 className="font-headline-lg text-xl mb-1">{role}</h4>
+                <p className="text-text-muted font-body-md">{desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </div>
 
-      <div className="border-t border-border-light" />
-
-      {/* ── Pull-quote interlude ────────────────────────────────────────────── */}
-      <section className="py-20 px-6 bg-surface-gray">
-        <div className={`${READING_WIDTH} mx-auto`}>
-          <blockquote className="border-l-[3px] border-tertiary pl-6">
-            <p className="font-serif font-bold text-[28px] sm:text-[34px] leading-[1.25] tracking-[-0.01em] text-on-surface">
-              "Good information architecture is invisible. It just feels right. Sitemap Builder helps you find that shape before you build a single page."
-            </p>
-            <footer className="mt-6 font-sans text-[13px] text-text-muted">
-              — Sarah K., Lead UX Designer at Vercel
-            </footer>
-          </blockquote>
-        </div>
-      </section>
-
-      <div className="border-t border-border-light" />
-
-      {/* ── How it works ───────────────────────────────────────────────────── */}
-      <section className="py-16 px-6">
-        <div className={`${READING_WIDTH} mx-auto`}>
-          <Eyebrow>Process</Eyebrow>
-          <h2 className="font-serif font-bold text-[32px] leading-[40px] tracking-[-0.01em] text-on-surface mb-14">
-            Three steps. That really is it.
-          </h2>
-
-          <div className="space-y-14">
-            {[
-              {
-                num: '1',
-                title: 'Add your pages.',
-                body: 'Name every page your site needs. The canvas is a blank slate — start anywhere.',
-              },
-              {
-                num: '2',
-                title: 'Drag to build hierarchy.',
-                body: 'Nest pages under parents by dragging. Reorder freely. The structure is always visual.',
-              },
-              {
-                num: '3',
-                title: 'Export or share.',
-                body: 'Download XML, PNG, or PDF. Or share a live link for teammates to review in context.',
-              },
-            ].map(({ num, title, body }) => (
-              <div key={num} className="flex gap-8 items-start">
-                <span className="font-serif font-bold text-[56px] leading-none text-tertiary flex-shrink-0 translate-y-[-8px]">
-                  {num}
-                </span>
-                <div>
-                  <h3 className="font-serif font-bold text-[22px] leading-[30px] text-on-surface mb-2">
-                    {title}
-                  </h3>
-                  <p className="font-serif text-[17px] leading-[28px] text-on-surface-variant">{body}</p>
+      {/* Decorative sitemap mock */}
+      <div className="lg:w-1/2 relative">
+        <div className="bg-surface-gray rounded-3xl p-12 relative overflow-hidden aspect-square flex items-center justify-center">
+          <div className="w-full h-full bg-white rounded-2xl shadow-xl p-8 border border-border-light relative z-10 transform rotate-2">
+            <div className="space-y-4">
+              <div className="h-8 w-32 bg-surface-gray rounded" />
+              <div className="ml-8 space-y-4">
+                <div className="h-6 w-48 bg-surface-gray rounded" />
+                <div className="h-6 w-40 bg-surface-gray rounded opacity-50" />
+                <div className="ml-8 space-y-4">
+                  <div className="h-6 w-32 bg-primary/10 rounded" />
+                  <div className="h-6 w-36 bg-surface-gray rounded" />
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="border-t border-border-light" />
-
-      {/* ── Use cases — recommendation-row style ───────────────────────────── */}
-      <section className="py-16 px-6">
-        <div className={`${READING_WIDTH} mx-auto`}>
-          <Eyebrow>Who it's for</Eyebrow>
-          <h2 className="font-serif font-bold text-[32px] leading-[40px] tracking-[-0.01em] text-on-surface mb-10">
-            For every team that ships.
-          </h2>
-
-          <div>
-            {useCases.map((item, idx) => (
-              <UseCaseCard key={idx} {...item} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="border-t border-border-light" />
-
-      {/* ── Collaboration ──────────────────────────────────────────────────── */}
-      <section className="py-16 px-6">
-        <div className={`${READING_WIDTH} mx-auto`}>
-          <Eyebrow>Teamwork</Eyebrow>
-          <h2 className="font-serif font-bold text-[32px] leading-[40px] tracking-[-0.01em] text-on-surface mb-8">
-            Built for people who work together.
-          </h2>
-
-          <p className="font-serif text-[19px] leading-[32px] text-on-surface-variant mb-10">
-            Multiple teammates, one canvas, zero conflicts. See who's editing what in real time. Leave threaded comments on any page. Audit every change with full history.
-          </p>
-
-          <ul className="space-y-3 mb-12">
-            {[
-              'Live presence — see teammates cursors as they move',
-              'Threaded comments pinned to individual pages',
-              'Role-based access — editor, commenter, or viewer',
-              'Named version checkpoints for easy rollback',
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <Check className="w-4 h-4 text-tertiary flex-shrink-0 mt-1" strokeWidth={2.5} />
-                <span className="font-serif text-[17px] leading-[27px] text-on-surface">{item}</span>
-              </li>
-            ))}
-          </ul>
-
-          {/* Collaboration mockup */}
-          <div className="w-full aspect-[16/9] bg-surface-gray border border-border-light rounded flex items-center justify-center">
-            <p className="font-sans text-[12px] text-text-muted uppercase tracking-widest">Team collaboration preview</p>
-          </div>
-        </div>
-      </section>
-
-      <div className="border-t border-border-light" />
-
-      {/* ── Export & integrations ──────────────────────────────────────────── */}
-      <section className="py-16 px-6">
-        <div className={`${READING_WIDTH} mx-auto`}>
-          <Eyebrow>Export &amp; Integrations</Eyebrow>
-          <h2 className="font-serif font-bold text-[32px] leading-[40px] tracking-[-0.01em] text-on-surface mb-10">
-            Your sitemap, your format.
-          </h2>
-
-          {/* Export grid — Medium card grid style */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-14">
-            {[
-              { format: 'XML', desc: 'For SEO and CMS platforms. Submit directly to Google Search Console.' },
-              { format: 'PNG', desc: 'High-resolution image for slide decks, Notion docs, or Confluence.' },
-              { format: 'PDF', desc: 'Print-ready, paginated document for stakeholder sign-off.' },
-            ].map(({ format, desc }) => (
-              <div key={format} className="border border-border-light rounded p-6 hover:border-outline-variant transition-colors">
-                <p className="font-serif font-bold text-[28px] text-on-surface mb-2">{format}</p>
-                <p className="font-sans text-[13px] leading-[20px] text-on-surface-variant">{desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Integrations inline list — sparse like Medium's tag list */}
-          <div className="border-t border-border-light pt-10">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-widest text-text-muted mb-6">
-              Integrations
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {['Figma', 'Notion', 'Webflow', 'Confluence', 'Jira'].map((tool) => (
-                <span
-                  key={tool}
-                  className="inline-block border border-border-light rounded-full px-4 py-1.5 font-sans text-[13px] text-on-surface hover:border-outline-variant transition-colors cursor-pointer"
-                >
-                  {tool}
-                </span>
-              ))}
             </div>
           </div>
+          <div className="absolute -top-12 -right-12 w-64 h-64 bg-accent-green/5 rounded-full blur-3xl" />
+          <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
         </div>
-      </section>
-
-      <div className="border-t border-border-light" />
-
-      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
-      <section className="py-16 px-6">
-        <div className={`${READING_WIDTH} mx-auto`}>
-          <Eyebrow>FAQ</Eyebrow>
-          <h2 className="font-serif font-bold text-[32px] leading-[40px] tracking-[-0.01em] text-on-surface mb-10">
-            Common questions.
-          </h2>
-
-          <div>
-            {faqs.map(({ q, a }, idx) => (
-              <div key={idx} className="border-b border-border-light">
-                <button
-                  onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
-                  className="w-full text-left flex items-start justify-between gap-6 py-6 group"
-                >
-                  <span className="font-serif font-bold text-[18px] leading-[27px] text-on-surface group-hover:text-tertiary transition-colors">
-                    {q}
-                  </span>
-                  <span className="font-sans text-[18px] text-text-muted flex-shrink-0 mt-0.5 select-none">
-                    {expandedFaq === idx ? '−' : '+'}
-                  </span>
-                </button>
-                {expandedFaq === idx && (
-                  <p className="font-serif text-[17px] leading-[28px] text-on-surface-variant pb-6">
-                    {a}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="border-t border-border-light" />
-
-      {/* ── Final CTA — Medium's centered sign-up block ────────────────────── */}
-      <section className="py-24 px-6">
-        <div className={`${READING_WIDTH} mx-auto text-center`}>
-          <h2 className="font-serif font-bold text-[40px] sm:text-[48px] leading-[1.1] tracking-[-0.02em] text-on-surface mb-5">
-            Start building today.
-          </h2>
-          <p className="font-serif text-[19px] leading-[30px] text-on-surface-variant mb-10 max-w-md mx-auto">
-            Free for personal projects. Team plans from $12 / month.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <GreenPill large>
-              Get started free
-              <ArrowRight className="w-4 h-4" />
-            </GreenPill>
-            <OutlinePill>View pricing</OutlinePill>
-          </div>
-
-          <p className="font-sans text-[13px] text-text-muted mt-8">
-            Questions?{' '}
-            <a href="#" className="text-tertiary hover:underline">Talk to sales</a>
-          </p>
-        </div>
-      </section>
-
-      <Footer />
+      </div>
     </div>
+  </section>
+);
+
+/* ── Templates ───────────────────────────────────────────────────────────── */
+const templates = [
+  {
+    title: 'SaaS Website',
+    desc:  'Marketing, pricing, and app dashboard structures.',
+    src:   'https://lh3.googleusercontent.com/aida-public/AB6AXuAFsHjpeS03uLBIUoDNJ07dV0vd053kNsp6fFQAXR9-CiPhMaL4fD8NICCKgjq7BJv6WUK_NBEosBPVTj-wuQ27f3vcC9o8FBVIkdpObev9vQMElBo98h2k03crNOiVi1hy68eQwxZULbb2heL1avG_cB53ev7YpTeVdj6igJt4YflLNwLV0e50x7DJI8UOJr7_Ck9uRsHJ1esVFCEXoex7xjaauNzULz1AbRaWxFYO3aBIxslCj53MzfRLIFgrueIgvcsxFYCoN3FZ',
+  },
+  {
+    title: 'E-commerce',
+    desc:  'Complex product hierarchies and checkout flows.',
+    src:   'https://lh3.googleusercontent.com/aida-public/AB6AXuDIb5rNdGUg9wEOFUKJpGAFlv0ydOp6Y7E6il1kdqtoJ3Ab3Whs1B152GsmVKoUAPMnIBZV5MHe9sXyjbR2qUsO5a56_79dS5NIWTHFQ-3e7MD0t8GJCXwsHXSHiLgxQ6d1LT4mS16AqY2PHI0OcHZZXsLdQ4ks3N4bpdZATELY1PIgtRPDWvc9HJi8ezU3Sm3kbKjzKevmuLkd3bh95L-IEgHo-ZWyUx129NTZorTHo8oXD2QWcCwRgXh4Yz-pGNjcgNPauX9FvTd1',
+  },
+  {
+    title: 'Portfolio',
+    desc:  'Case studies, about pages, and gallery layouts.',
+    src:   'https://lh3.googleusercontent.com/aida-public/AB6AXuA4HepzISBZcDUG0QoTGsj-7wrLxhJPToVHBY7JCqJNHgungzPMFtUPH559VUHYDFUqL8mjTVp1sg3bHzGPDnw3mLCoJUbm9GZwRD57V3e3w7Ps93Em4GHLyKnOhVO1wmQ06YZeQDBfmp1VwWndpOfp0KtQO85c9CfCjf3kMncHz8eQdrtRXm_2x8r_OXdMKwM8nUYNx0xnwqGL4x4WphBudYGXCooPnN7an_H1z-8xqphp6uiQ07bg5-QF2AR3Bt86j7lmmFHDiCpd',
+  },
+  {
+    title: 'Blog',
+    desc:  'Archive layouts, tag structures, and article templates.',
+    src:   'https://lh3.googleusercontent.com/aida-public/AB6AXuAbPD2xJnN-h4q2Tue9hupDTbFJ_XimTdm2B_4yI77XD4KpjEtBGe8Oj2g4JCjy8iZdcLv0EH8Ax-iTTpeQLBrw0vImPIW6G2tyqhf1Czzr5-uBnQFz9_U-jHGyxQwmu0OXqmgT3MM4qZfle2ZDrNZW2P1IjdiDNmMwrvg9c9nonKranqj3tdFJLeNOLU5RR8IvRiLoHlUvHEHQo3YsH0s8kEHAL7MP-RdtP0OhdJm-2WjD3zRn5UrosRtfQlSggcLcijRk2hxcgjh_',
+  },
+];
+
+const Templates = () => (
+  <section className="bg-white py-stack-xl border-t border-border-light" id="templates">
+    <div className="px-page-margin max-w-7xl mx-auto">
+      <div className="flex justify-between items-end mb-stack-xl">
+        <div>
+          <h2 className="font-headline-lg text-headline-lg">Starting points for every project</h2>
+          <p className="text-text-muted mt-2">Professional blueprints to accelerate your workflow.</p>
+        </div>
+        <button className="hidden md:flex items-center gap-2 font-label-md text-label-md text-primary hover:underline">
+          Browse all 50+ templates <Icon name="arrow_forward" />
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {templates.map(({ title, desc, src }) => (
+          <div key={title} className="group cursor-pointer">
+            <div className="bg-surface-container-low aspect-[4/3] rounded-xl mb-4 border border-border-light group-hover:border-primary transition-all flex items-center justify-center p-8 overflow-hidden">
+              <img
+                src={src}
+                alt={title}
+                className="w-full h-full object-cover rounded-lg transform group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <h4 className="font-headline-lg text-xl mb-1">{title}</h4>
+            <p className="font-label-sm text-label-sm text-text-muted">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+/* ── Integrations ────────────────────────────────────────────────────────── */
+const Integrations = () => (
+  <section className="py-stack-xl px-page-margin max-w-7xl mx-auto border-b border-border-light">
+    <div className="text-center mb-stack-xl">
+      <h2 className="font-headline-lg text-headline-lg">Works where you do</h2>
+    </div>
+    <div className="flex flex-wrap justify-center items-center gap-16 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+      {[
+        { icon: 'integration_instructions', label: 'Figma'   },
+        { icon: 'notes',                    label: 'Notion'  },
+        { icon: 'language',                 label: 'Webflow' },
+        { icon: 'description',              label: 'XML'     },
+      ].map(({ icon, label }) => (
+        <div key={label} className="flex items-center gap-2 font-display-lg text-2xl">
+          <Icon name={icon} className="text-4xl" />
+          {label}
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+/* ── FAQ ─────────────────────────────────────────────────────────────────── */
+const faqs = [
+  {
+    q: 'Can I import an existing website?',
+    a: "Yes. Simply provide your URL and our crawler will automatically generate a structural map based on your site's navigation hierarchy.",
+    defaultOpen: true,
+  },
+  {
+    q: 'Do I need technical experience?',
+    a: 'Not at all. The interface is designed for visual thinkers. If you can drag a box on a screen, you can build a sitemap.',
+  },
+  {
+    q: 'Can teams collaborate in real time?',
+    a: 'Absolutely. Multi-user editing allows your whole team to architect together, with live cursor tracking and contextual commenting.',
+  },
+];
+
+const FAQ = () => {
+  const [open, setOpen] = useState(0);
+  return (
+    <section className="py-stack-xl px-page-margin max-w-content-max-width mx-auto">
+      <h2 className="font-headline-lg text-headline-lg text-center mb-stack-xl">
+        Frequently Asked Questions
+      </h2>
+      <div className="space-y-4">
+        {faqs.map(({ q, a }, idx) => (
+          <div key={idx} className="group border-b border-border-light pb-4">
+            <button
+              className="w-full flex justify-between items-center cursor-pointer py-4 font-headline-lg text-xl text-left"
+              onClick={() => setOpen(open === idx ? -1 : idx)}
+            >
+              <span>{q}</span>
+              <Icon
+                name="expand_more"
+                className={`transition-transform ${open === idx ? 'rotate-180' : ''}`}
+              />
+            </button>
+            {open === idx && (
+              <p className="text-text-muted font-body-md pr-8">{a}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
+
+/* ── Final CTA ───────────────────────────────────────────────────────────── */
+const CTA = () => (
+  <section className="py-stack-xl bg-primary text-on-primary text-center px-page-margin">
+    <div className="max-w-content-max-width mx-auto">
+      <h2 className="font-display-lg text-4xl md:text-5xl mb-stack-md">
+        Start building your sitemap in minutes
+      </h2>
+      <p className="font-body-lg text-on-primary-container mb-stack-lg opacity-80">
+        Join 20,000+ designers and architects building better foundations for the web.
+      </p>
+      <button className="bg-surface text-primary px-10 py-5 rounded-xl font-label-md text-lg hover:bg-surface-gray transition-all active:scale-95">
+        Get started free
+      </button>
+      <p className="mt-6 text-sm opacity-60">No credit card required. Free tier forever.</p>
+    </div>
+  </section>
+);
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+const FooterComp = () => (
+  <footer className="bg-surface-gray border-t border-border-light w-full py-stack-xl">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:justify-between px-page-margin max-w-7xl mx-auto gap-stack-lg">
+      <div className="space-y-4">
+        <div className="font-display-lg text-headline-lg-mobile text-primary">Sitemap Builder</div>
+        <p className="font-label-sm text-label-sm text-text-muted max-w-xs">
+          © 2024 Sitemap Builder. Editorial Clarity for Web Architects.
+        </p>
+      </div>
+
+      <div className="flex flex-wrap gap-x-12 gap-y-8">
+        <div className="flex flex-col gap-2">
+          <span className="font-label-md font-bold text-primary">Product</span>
+          {['Privacy Policy', 'Terms of Service'].map((l) => (
+            <a key={l} href="#" className="font-label-sm text-label-sm text-text-muted hover:text-primary hover:underline transition-all">
+              {l}
+            </a>
+          ))}
+        </div>
+        <div className="flex flex-col gap-2">
+          <span className="font-label-md font-bold text-primary">Support</span>
+          {['Help Center', 'Contact'].map((l) => (
+            <a key={l} href="#" className="font-label-sm text-label-sm text-text-muted hover:text-primary hover:underline transition-all">
+              {l}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </footer>
+);
+
+/* ── Page root ───────────────────────────────────────────────────────────── */
+const LandingPage = () => (
+  <div className="bg-background text-on-surface font-body-md selection:bg-primary selection:text-on-primary">
+    <Nav />
+    <main className="pt-20">
+      <Hero />
+      <Features />
+      <HowItWorks />
+      <UseCases />
+      <Templates />
+      <Integrations />
+      <FAQ />
+      <CTA />
+    </main>
+    <FooterComp />
+  </div>
+);
 
 export default LandingPage;

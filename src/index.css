@@ -1,160 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&family=JetBrains+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    @apply bg-surface text-on-surface font-serif;
-    font-feature-settings: "kern" 1;
+    @apply bg-background text-on-surface;
+    font-family: 'Source Serif 4', Georgia, serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-bold text-on-surface;
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+  a { text-decoration: none; color: inherit; }
 }
 
-@layer components {
-  /* Typography classes */
-  .display-lg {
-    @apply text-display-lg font-serif font-bold;
+@layer utilities {
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    vertical-align: middle;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
 
-  .headline-lg {
-    @apply text-headline-lg font-serif font-bold;
+  .hero-gradient {
+    background: radial-gradient(circle at 50% 50%, rgba(242,242,242,0.5) 0%, rgba(249,249,249,1) 100%);
   }
 
-  @screen sm {
-    .headline-lg-responsive {
-      @apply text-headline-lg;
-    }
-  }
-
-  @screen max-sm {
-    .headline-lg-responsive {
-      @apply text-headline-lg-mobile;
-    }
-  }
-
-  .body-lg {
-    @apply text-body-lg font-serif leading-reading;
-  }
-
-  .body-md {
-    @apply text-body-md font-serif leading-reading;
-  }
-
-  .label-md {
-    @apply text-label-md font-sans uppercase;
-  }
-
-  .label-sm {
-    @apply text-label-sm font-sans;
-  }
-
-  .mono-code {
-    @apply font-mono text-label-md bg-surface-gray p-1 rounded-sm;
-  }
-
-  /* Button styles */
-  .btn-primary {
-    @apply bg-primary text-on-primary px-6 py-3 rounded-sm font-sans font-medium hover:bg-primary transition-colors;
-  }
-
-  .btn-secondary {
-    @apply border border-on-surface text-on-surface px-6 py-3 rounded-sm font-sans font-medium hover:bg-surface-gray transition-colors;
-  }
-
-  .btn-ghost {
-    @apply text-on-surface px-4 py-2 font-sans font-medium hover:text-tertiary transition-colors;
-  }
-
-  .btn-accent {
-    @apply bg-tertiary text-white px-6 py-3 rounded-sm font-sans font-medium hover:opacity-90 transition-opacity;
-  }
-
-  /* Card styles - editorial */
-  .card {
-    @apply bg-surface-lowest p-8 rounded-sm border border-border-light;
-  }
-
-  .card-elevated {
-    @apply bg-surface-lowest p-8 rounded-sm border border-border-light;
-  }
-
-  /* Pull quote */
-  .pull-quote {
-    @apply text-body-lg font-serif italic border-l-4 border-tertiary pl-6 py-4 my-8;
-  }
-
-  /* Content container */
-  .content-container {
-    @apply max-w-content mx-auto px-page-margin;
-  }
-
-  /* Section spacing */
-  .section-spacing {
-    @apply py-stack-xl;
-  }
-
-  @screen max-md {
-    .section-spacing {
-      @apply py-stack-lg;
-    }
-  }
-
-  /* Divider */
-  .divider {
-    @apply border-t border-border-light;
-  }
-
-  /* Tag/Chip styles */
-  .chip {
-    @apply inline-block bg-surface-gray text-on-surface px-3 py-1 rounded-full text-label-sm font-sans;
-  }
-
-  /* Code block */
-  .code-block {
-    @apply bg-surface-gray border border-border-light p-4 rounded-sm font-mono text-label-md overflow-x-auto;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
   }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease-out;
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
