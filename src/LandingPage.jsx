@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './landing.css';
 
 const Icon = ({ name, className = '' }) => (
@@ -285,6 +285,7 @@ const FAQ_ITEMS = [
   {
     q: 'Can I import an existing website?',
     a: "Yes. Simply provide your URL and our crawler will automatically generate a structural map based on your site's navigation hierarchy.",
+    defaultOpen: true,
   },
   {
     q: 'Do I need technical experience?',
@@ -296,30 +297,24 @@ const FAQ_ITEMS = [
   },
 ];
 
-const FAQ = () => {
-  const [open, setOpen] = useState(0);
-  return (
-    <section className="section">
-      <div className="wrap--sm">
-        <h2 className="headline" style={{ textAlign: 'center', marginBottom: 64 }}>
-          Frequently Asked Questions
-        </h2>
-        {FAQ_ITEMS.map(({ q, a }, i) => (
-          <div key={i} className="faq-item">
-            <button
-              className={`faq-btn${open === i ? ' faq-btn--open' : ''}`}
-              onClick={() => setOpen(open === i ? -1 : i)}
-            >
-              {q}
-              <Icon name="expand_more" />
-            </button>
-            {open === i && <p className="faq-answer">{a}</p>}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
+const FAQ = () => (
+  <section className="section">
+    <div className="wrap--sm">
+      <h2 className="headline" style={{ textAlign: 'center', marginBottom: 64 }}>
+        Frequently Asked Questions
+      </h2>
+      {FAQ_ITEMS.map(({ q, a, defaultOpen }, i) => (
+        <details key={i} className="faq-details" open={defaultOpen || undefined}>
+          <summary className="faq-summary">
+            {q}
+            <Icon name="expand_more" />
+          </summary>
+          <p className="faq-answer">{a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+);
 
 /* ── CTA ─────────────────────────────────────────────────────────────────── */
 const CTA = () => (
