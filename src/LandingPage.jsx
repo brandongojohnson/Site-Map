@@ -6,7 +6,7 @@ const Icon = ({ name, className = '' }) => (
 );
 
 /* ── Nav ─────────────────────────────────────────────────────────────────── */
-const Nav = () => {
+const Nav = ({ onGetStarted }) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Nav = () => {
         </div>
 
         <div className="nav__actions">
-          <button className="btn btn--nav">Get Started</button>
+          <button className="btn btn--nav" onClick={onGetStarted}>Get Started</button>
         </div>
 
         <button className="nav__burger">
@@ -46,16 +46,16 @@ const Nav = () => {
 };
 
 /* ── Hero ────────────────────────────────────────────────────────────────── */
-const Hero = () => (
+const Hero = ({ onGetStarted }) => (
   <section className="hero">
-    <div className="hero__inner">
+    <div className="hero__left">
       <div className="hero__badge">
         <span className="hero__badge-dot" />
         New: Real-time sitemap sync
       </div>
 
       <h1 className="hero__heading">
-        Build sitemaps visually<br />in minutes
+        Build sitemaps visually in minutes
       </h1>
 
       <p className="hero__sub">
@@ -64,12 +64,12 @@ const Hero = () => (
       </p>
 
       <div className="hero__ctas">
-        <button className="btn btn--primary">Start building for free</button>
+        <button className="btn btn--primary" onClick={onGetStarted}>Start building for free</button>
         <button className="btn btn--outline">View example</button>
       </div>
     </div>
 
-    <div className="hero__img-wrap">
+    <div className="hero__right">
       <div className="hero__img-card">
         <img
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi3BL0_AqHdWbAkXpneh3WyqwSkJAWr4KgS5KMsOJPszDqy_aUg-JIcqg6X_mF2nMyqPi0-5dVwSWg3n_X5CD3Uhru27ST72eRWpRm3GgwmHtBhMPolNllJgBUgNIG9Y3h7GtSDiNOYkQ8uQwepIS8vOon9QMIS72VJjwlOxT6NpHDKZHDOvANOW9zYgLksTD5x2M5GUmRsO0gds2uvqbWR_dZAtCCUGozXZa57EkbHMOVFBCJEsVWSSOob6zAeN863dGlZn5KeyxF"
@@ -353,11 +353,11 @@ const FooterComp = () => (
 );
 
 /* ── Page root ───────────────────────────────────────────────────────────── */
-const LandingPage = () => (
+const LandingPage = ({ onGetStarted }) => (
   <>
-    <Nav />
+    <Nav onGetStarted={onGetStarted} />
     <main style={{ paddingTop: 80 }}>
-      <Hero />
+      <Hero onGetStarted={onGetStarted} />
       <Features />
       <HowItWorks />
       <UseCases />
