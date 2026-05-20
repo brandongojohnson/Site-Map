@@ -1,36 +1,43 @@
 import React from 'react';
 
 export const Footer = () => {
-  const links = {
-    Product: ['Features', 'Pricing', 'Template Gallery', 'Updates'],
-    Company: ['About', 'Blog', 'Careers', 'Contact'],
-    Resources: ['Documentation', 'API Reference', 'Community', 'Help'],
-    Legal: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'],
-  };
-
-  const socials = ['Twitter', 'GitHub', 'LinkedIn'];
+  const cols = [
+    { heading: 'Product', items: ['Features', 'Pricing', 'Templates', 'Changelog'] },
+    { heading: 'Company', items: ['About', 'Blog', 'Careers', 'Press'] },
+    { heading: 'Resources', items: ['Docs', 'API', 'Community', 'Help'] },
+    { heading: 'Legal', items: ['Privacy', 'Terms', 'Cookies'] },
+  ];
 
   return (
-    <footer className="bg-surface-lowest border-t border-border-light py-16 px-page-margin">
-      <div className="max-w-content mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-16 pb-16 border-b border-border-light">
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
-                <span className="text-on-primary font-serif font-bold text-sm">SB</span>
-              </div>
-              <span className="font-serif font-bold text-on-surface">Sitemap Builder</span>
+    <footer className="border-t border-border-light bg-surface-lowest">
+      {/* Top band — logo + tagline */}
+      <div className="max-w-7xl mx-auto px-6 pt-14 pb-10 flex flex-col sm:flex-row sm:items-start gap-10">
+        <div className="flex-shrink-0 sm:w-56">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-7 h-7 bg-primary rounded-sm flex items-center justify-center">
+              <span className="text-on-primary font-serif font-bold text-xs">SB</span>
             </div>
-            <p className="text-label-md text-on-surface-variant">Build better site structures, together.</p>
+            <span className="font-serif font-bold text-on-surface text-[17px]">Sitemap Builder</span>
           </div>
+          <p className="font-sans text-[13px] text-text-muted leading-5">
+            Visualize, collaborate, and ship better site structures.
+          </p>
+        </div>
 
-          {Object.entries(links).map(([category, items]) => (
-            <div key={category}>
-              <h4 className="font-sans font-medium text-on-surface mb-4 text-label-md">{category}</h4>
-              <ul className="space-y-2">
+        {/* Link columns */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 flex-1">
+          {cols.map(({ heading, items }) => (
+            <div key={heading}>
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-widest text-text-muted mb-4">
+                {heading}
+              </p>
+              <ul className="space-y-3">
                 {items.map((item) => (
                   <li key={item}>
-                    <a href="#" className="text-label-md text-on-surface-variant hover:text-tertiary transition-colors">
+                    <a
+                      href="#"
+                      className="font-sans text-[13px] text-on-surface-variant hover:text-on-surface transition-colors no-underline"
+                    >
                       {item}
                     </a>
                   </li>
@@ -39,17 +46,22 @@ export const Footer = () => {
             </div>
           ))}
         </div>
+      </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-label-sm text-text-muted">© 2024 Sitemap Builder. All rights reserved.</p>
-          <div className="flex gap-8">
-            {socials.map((social) => (
+      {/* Bottom bar */}
+      <div className="border-t border-border-light">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="font-sans text-[12px] text-text-muted">
+            © 2024 Sitemap Builder, Inc.
+          </p>
+          <div className="flex items-center gap-6">
+            {['Twitter / X', 'GitHub', 'LinkedIn'].map((s) => (
               <a
-                key={social}
+                key={s}
                 href="#"
-                className="text-label-sm text-on-surface-variant hover:text-tertiary transition-colors"
+                className="font-sans text-[12px] text-text-muted hover:text-on-surface transition-colors no-underline"
               >
-                {social}
+                {s}
               </a>
             ))}
           </div>

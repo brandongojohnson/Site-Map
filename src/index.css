@@ -21,7 +21,8 @@
   }
 
   a {
-    @apply text-tertiary hover:underline;
+    text-decoration: none;
+    color: inherit;
   }
 }
 

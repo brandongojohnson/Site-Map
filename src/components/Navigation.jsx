@@ -1,78 +1,81 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Button } from './Button';
+import { Menu, X, PenSquare } from 'lucide-react';
 
 export const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navigationItems = [
-    { label: 'Features', href: '#features' },
-    { label: 'How it works', href: '#how-it-works' },
-    { label: 'Use cases', href: '#use-cases' },
-  ];
-
   return (
     <nav className="fixed top-0 w-full bg-surface-lowest border-b border-border-light z-50">
-      <div className="px-page-margin py-4">
-        <div className="max-w-content mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
-              <span className="text-on-primary font-serif font-bold text-sm">SB</span>
-            </div>
-            <span className="font-serif font-bold text-on-surface">Sitemap Builder</span>
-          </div>
+      <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between gap-6">
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
-            {navigationItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-on-surface hover:text-tertiary transition-colors text-label-md font-sans"
-              >
-                {item.label}
-              </a>
-            ))}
+        {/* Logo */}
+        <a href="#" className="flex items-center gap-2 no-underline flex-shrink-0">
+          <div className="w-7 h-7 bg-primary rounded-sm flex items-center justify-center">
+            <span className="text-on-primary font-serif font-bold text-xs leading-none">SB</span>
           </div>
+          <span className="font-serif font-bold text-on-surface text-[17px] hidden sm:block">Sitemap Builder</span>
+        </a>
 
-          <div className="hidden md:flex items-center gap-4">
-            <button className="text-on-surface hover:text-tertiary font-sans text-label-md transition-colors">
-              Sign in
-            </button>
-            <Button variant="primary">Get started</Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+        {/* Center nav — full viewport width, Medium-style */}
+        <div className="hidden md:flex items-center gap-8 flex-1 justify-center">
+          {['Features', 'Pricing', 'Blog', 'About'].map((label) => (
+            <a
+              key={label}
+              href="#"
+              className="font-sans text-[14px] text-on-surface-variant hover:text-on-surface transition-colors no-underline"
+            >
+              {label}
+            </a>
+          ))}
         </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border-light py-4 mt-4 space-y-3">
-            {navigationItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="block text-on-surface hover:text-tertiary font-sans text-label-md py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.label}
-              </a>
-            ))}
-            <div className="flex gap-3 pt-3">
-              <button className="flex-1 text-on-surface hover:text-tertiary font-sans text-label-md py-2">
-                Sign in
-              </button>
-              <Button variant="primary">Get started</Button>
-            </div>
-          </div>
-        )}
+        {/* Right actions */}
+        <div className="hidden md:flex items-center gap-4 flex-shrink-0">
+          <button className="font-sans text-[14px] text-on-surface-variant hover:text-on-surface transition-colors">
+            Sign in
+          </button>
+          <a
+            href="#"
+            className="flex items-center gap-2 bg-tertiary text-white font-sans text-[14px] font-medium px-4 py-[7px] rounded-full hover:opacity-90 transition-opacity no-underline"
+          >
+            <PenSquare className="w-4 h-4" />
+            Get started
+          </a>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden p-1 text-on-surface"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {/* Mobile drawer */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-border-light bg-surface-lowest px-6 py-4 space-y-1">
+          {['Features', 'Pricing', 'Blog', 'About'].map((label) => (
+            <a
+              key={label}
+              href="#"
+              className="block py-3 font-sans text-[15px] text-on-surface border-b border-border-light last:border-0 no-underline hover:text-tertiary transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {label}
+            </a>
+          ))}
+          <div className="flex items-center gap-3 pt-4">
+            <button className="font-sans text-[14px] text-on-surface-variant">Sign in</button>
+            <a
+              href="#"
+              className="flex items-center gap-2 bg-tertiary text-white font-sans text-[14px] font-medium px-4 py-2 rounded-full no-underline"
+            >
+              Get started
+            </a>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
