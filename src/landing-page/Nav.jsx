@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PILL_PRIMARY } from './buttonStyles';
 import { GLASS_NAV_TOP, GLASS_NAV_SCROLLED, DROPDOWN_GLASS } from './glassStyles';
+import AuthModal from './AuthModal';
 
 const START_OPTIONS = [
   { target: 'cardsort', icon: 'style', label: 'Card Sort', desc: 'Start a sorting study' },
@@ -20,6 +21,7 @@ const scrollTo = (href) => {
 const Nav = ({ onGetStarted }) => {
   const [scrolled, setScrolled] = useState(false);
   const [startOpen, setStartOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -29,6 +31,7 @@ const Nav = ({ onGetStarted }) => {
   }, []);
 
   return (
+    <>
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled ? GLASS_NAV_SCROLLED : GLASS_NAV_TOP
@@ -45,6 +48,7 @@ const Nav = ({ onGetStarted }) => {
               key={l.label}
               onClick={() => scrollTo(l.href)}
               className="text-[13px] font-normal uppercase tracking-wide text-white/50 hover:text-[#F5F3F0] transition-colors"
+              style={{ fontSize: "12px", color: "rgba(229,226,225,.6)", fontWeight: "400", letterSpacing: ".05rem" }}
             >
               {l.label}
             </button>
@@ -53,7 +57,7 @@ const Nav = ({ onGetStarted }) => {
 
         <div className="flex items-center gap-4 justify-self-end">
           <button
-            onClick={onGetStarted}
+            onClick={() => setAuthOpen(true)}
             className="hidden sm:inline text-[14px] font-normal text-white/60 hover:text-[#F5F3F0] transition-colors"
           >
             Log in
@@ -106,6 +110,13 @@ const Nav = ({ onGetStarted }) => {
         </div>
       </nav>
     </header>
+
+    {/* Rendered as a header sibling, not a child — GLASS_NAV_SCROLLED's
+       backdrop-blur creates a containing block for fixed descendants once
+       scrolled, which would otherwise shrink this modal's fixed overlay
+       down to the header's own bounding box instead of the full viewport. */}
+    {authOpen && <AuthModal onClose={() => setAuthOpen(false)} />}
+    </>
   );
 };
 
