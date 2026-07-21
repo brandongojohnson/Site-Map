@@ -55,12 +55,6 @@ const Hero = ({ onGetStarted }) => {
           }}
         />
       )}
-      {isImage && (
-        // Keeps text legible over an arbitrary uploaded photo, whose
-        // contrast is unknown — the built-in gradients are already tuned
-        // dark enough not to need it.
-        <div className="absolute inset-0 bg-[#131313]/55" />
-      )}
 
       <HeroBackgroundPicker bg={heroBg} setBg={setHeroBg} />
 
