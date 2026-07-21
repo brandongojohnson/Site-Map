@@ -52,7 +52,7 @@ const Capabilities = () => (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10">
           {ITEMS.map((item) => (
             <div key={item.title} className="group bg-[#131313] hover:bg-white/[0.04] p-8 transition-colors duration-300">
-              <span className="material-symbols-outlined text-[22px] text-white/70 mb-5 block transition-all duration-300 group-hover:text-[#9B8FF5] group-hover:-translate-y-0.5">
+              <span className="material-symbols-outlined text-[22px] text-white/70 mb-5 block transition-all duration-300 group-hover:text-white group-hover:-translate-y-0.5">
                 {item.icon}
               </span>
               <h3 className="text-[15px] font-semibold text-[#F5F3F0] mb-2">{item.title}</h3>
