@@ -26,20 +26,36 @@ const Hero = ({ onGetStarted }) => {
     return () => cancelAnimationFrame(frame);
   }, [mounted]);
 
-  // Uploaded files and pasted URLs are image sources (need url(...)); the
-  // built-in presets (including the default aurora) are already CSS
-  // gradient functions, used as-is.
-  const isImageSource = heroBg?.startsWith('data:') || heroBg?.startsWith('http://') || heroBg?.startsWith('https://');
-  const backgroundStyle = {
-    backgroundImage: heroBg ? (isImageSource ? `url(${heroBg})` : heroBg) : DEFAULT_AURORA,
-    backgroundSize: 'cover',
-    backgroundPosition: 'top',
-    backgroundColor: '#131313',
-  };
+  const isImage = heroBg?.type === 'image';
+  // object-fit/object-position/opacity are properties of a rendered <img>,
+  // not of a CSS background-image — a custom photo renders as an actual img
+  // element so those controls have something real to act on. Presets (and
+  // the default) stay CSS gradients, which have no such element to adjust.
+  const sectionStyle = isImage
+    ? { backgroundColor: '#131313' }
+    : {
+        backgroundImage: heroBg?.type === 'preset' ? heroBg.value : DEFAULT_AURORA,
+        backgroundSize: 'cover',
+        backgroundPosition: 'top',
+        backgroundColor: '#131313',
+      };
 
   return (
-    <section id="top" className="relative overflow-hidden pt-28 pb-40 md:pt-36 md:pb-56" style={backgroundStyle}>
-      {isImageSource && (
+    <section id="top" className="relative overflow-hidden pt-28 pb-40 md:pt-36 md:pb-56" style={sectionStyle}>
+      {isImage && (
+        <img
+          src={heroBg.src}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full"
+          style={{
+            objectFit: heroBg.fit,
+            objectPosition: `${heroBg.posX}% ${heroBg.posY}%`,
+            opacity: heroBg.opacity / 100,
+          }}
+        />
+      )}
+      {isImage && (
         // Keeps text legible over an arbitrary uploaded photo, whose
         // contrast is unknown — the built-in gradients are already tuned
         // dark enough not to need it.
