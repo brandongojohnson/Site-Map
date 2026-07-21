@@ -4,7 +4,7 @@ import React from 'react';
 // not part of the functional icon vocabulary used elsewhere on the page.
 const ScatteredIcon = ({ icon, className = '', style }) => (
   <span
-    className={`material-symbols-outlined absolute text-[#18181B] dark:text-[#F5F3F0] pointer-events-none select-none ${className}`}
+    className={`material-symbols-outlined absolute text-[#F5F3F0] pointer-events-none select-none ${className}`}
     style={style}
   >
     {icon}
