@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PILL_PRIMARY } from './buttonStyles';
-import { GLASS_NAV_TOP, GLASS_NAV_SCROLLED, GLASS_PANEL } from './glassStyles';
+import { GLASS_NAV_TOP, GLASS_NAV_SCROLLED, DROPDOWN_GLASS } from './glassStyles';
 
 const START_OPTIONS = [
   { target: 'cardsort', icon: 'style', label: 'Card Sort', desc: 'Start a sorting study' },
@@ -77,8 +77,7 @@ const Nav = ({ onGetStarted }) => {
                   className="fixed inset-0 z-40 cursor-default"
                 />
                 <div
-                  className={`absolute right-0 top-[calc(100%+8px)] z-50 w-64 rounded-2xl p-2 ${GLASS_PANEL}`}
-                  style={{ backdropFilter: 'blur(24px)' }}
+                  className={`absolute right-0 top-[calc(100%+8px)] z-50 w-64 rounded-2xl p-2 ${DROPDOWN_GLASS}`}
                 >
                   {START_OPTIONS.map((opt) => (
                     <button

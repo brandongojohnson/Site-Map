@@ -13,6 +13,10 @@ export const SURFACE_PILL = 'bg-white/[0.05] border border-white/10';
 export const GLASS_PANEL = SURFACE_PANEL;
 export const GLASS_PILL = SURFACE_PILL;
 
+// A visibly darker, frosted floating surface — for menus/dropdowns that
+// need to read as elevated above the page rather than blending into it.
+export const DROPDOWN_GLASS = 'bg-[#0A0A0C]/85 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)]';
+
 export const GLASS_NAV_TOP = 'bg-transparent border-b border-transparent';
 
 export const GLASS_NAV_SCROLLED =
