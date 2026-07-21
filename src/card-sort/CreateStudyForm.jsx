@@ -4,7 +4,7 @@ import { db } from '../config/firebase';
 import { SORT_TYPES, SAMPLE_CARDS, SAMPLE_CATEGORIES, treeToCardLabels } from './sortUtils';
 
 const inputCls =
-  'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-black focus:ring-0';
+  'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-[#7161EF] focus:ring-0';
 
 const StepShell = ({ eyebrow, title, subtitle, children }) => (
   <div className="w-full max-w-2xl">
@@ -99,7 +99,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex flex-col">
       <header className="flex items-center justify-between px-8 py-5 border-b border-[#c6c6c6]/40 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center text-white">
+          <div className="w-10 h-10 bg-[#7161EF] rounded-lg flex items-center justify-center text-white">
             <span className="material-symbols-outlined">send</span>
           </div>
           <div>
@@ -121,7 +121,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
           <div
             key={s}
             className={`h-1.5 rounded-full flex-grow transition-all ${
-              i <= stepIndex ? 'bg-black' : 'bg-[#dcdcdc]'
+              i <= stepIndex ? 'bg-[#7161EF]' : 'bg-[#dcdcdc]'
             }`}
           />
         ))}
@@ -140,7 +140,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
                   }}
                   className={`text-left rounded-xl p-5 border-2 transition-all ${
                     type === key
-                      ? 'border-black bg-white shadow-md'
+                      ? 'border-[#7161EF] bg-white shadow-md'
                       : 'border-transparent bg-white/60 hover:bg-white hover:shadow-sm'
                   }`}
                 >
@@ -208,7 +208,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
                 <button
                   onClick={importFromSitemap}
                   disabled={importing}
-                  className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-widest bg-black text-white hover:opacity-90 disabled:opacity-50 transition-all"
+                  className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-widest bg-[#7161EF] text-white hover:opacity-90 disabled:opacity-50 transition-all"
                 >
                   {importing ? 'Importing…' : 'Import Sitemap Pages'}
                 </button>
@@ -304,7 +304,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
         <button
           onClick={goNext}
           disabled={!canAdvance || creating}
-          className="px-8 py-3 bg-black text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 disabled:opacity-40 disabled:active:scale-100 transition-all"
+          className="px-8 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 disabled:opacity-40 disabled:active:scale-100 transition-all"
         >
           {step === 'review' ? (creating ? 'Creating…' : 'Create Study & Get Link') : 'Continue'}
         </button>

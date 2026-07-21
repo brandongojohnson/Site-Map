@@ -107,7 +107,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
         onCardClick(card.id, zoneId);
       }}
       className={`px-4 py-2.5 rounded-lg bg-white text-sm font-medium shadow-sm border cursor-grab active:cursor-grabbing select-none transition-all hover:shadow-md ${
-        selectedCardId === card.id ? 'border-black ring-2 ring-black/20' : 'border-[#c6c6c6]/50'
+        selectedCardId === card.id ? 'border-[#7161EF] ring-2 ring-[#7161EF]/20' : 'border-[#c6c6c6]/50'
       }`}
     >
       <span className="material-symbols-outlined text-sm align-middle mr-2 text-[#8a8a8a]">
@@ -121,7 +121,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex flex-col">
       <header className="flex items-center justify-between px-8 py-4 border-b border-[#c6c6c6]/40 bg-white sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center text-white">
+          <div className="w-10 h-10 bg-[#7161EF] rounded-lg flex items-center justify-center text-white">
             <span className="material-symbols-outlined">style</span>
           </div>
           <div>
@@ -136,7 +136,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
           <div className="flex items-center gap-3">
             <div className="w-40 h-2 rounded-full bg-[#e8e8e8] overflow-hidden">
               <div
-                className="h-full bg-black transition-all"
+                className="h-full bg-[#7161EF] transition-all"
                 style={{ width: `${(sortedCount / cards.length) * 100}%` }}
               />
             </div>
@@ -153,7 +153,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
           <button
             onClick={() => onFinish(categories, assignments)}
             disabled={sortedCount === 0}
-            className="px-6 py-2.5 bg-black text-white rounded-lg font-bold text-xs uppercase tracking-widest hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all"
+            className="px-6 py-2.5 bg-[#7161EF] text-white rounded-lg font-bold text-xs uppercase tracking-widest hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all"
           >
             {allSorted ? 'Finish' : `Finish (${unsortedCards.length} left)`}
           </button>
@@ -211,7 +211,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                   onClick={() => onZoneClick(cat.id)}
                   className={`rounded-xl border-2 bg-white/70 p-4 min-h-[10rem] transition-all ${
                     dragOverId === cat.id
-                      ? 'border-black bg-white shadow-md'
+                      ? 'border-[#7161EF] bg-white shadow-md'
                       : selectedCardId
                       ? 'border-dashed border-[#8a8a8a] cursor-pointer'
                       : 'border-transparent shadow-sm'
@@ -231,7 +231,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                           if (e.key === 'Enter') e.target.blur();
                           if (e.key === 'Escape') setEditingCatId(null);
                         }}
-                        className="flex-grow rounded-md border border-black px-2 py-1 text-sm font-bold focus:ring-0"
+                        className="flex-grow rounded-md border border-[#7161EF] px-2 py-1 text-sm font-bold focus:ring-0"
                       />
                     ) : (
                       <h3
@@ -262,7 +262,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                             removeCategory(cat.id);
                           }}
                           title="Delete group (cards return to unsorted)"
-                          className="w-6 h-6 rounded flex items-center justify-center text-[#8a8a8a] hover:bg-[#e8e8e8] hover:text-black transition-all"
+                          className="w-6 h-6 rounded flex items-center justify-center text-[#8a8a8a] hover:bg-[#e8e8e8] hover:text-[#7161EF] transition-all"
                         >
                           <span className="material-symbols-outlined text-base">close</span>
                         </button>
@@ -293,8 +293,8 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                 }}
                 className={`rounded-xl border-2 border-dashed min-h-[10rem] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] transition-all ${
                   dragOverId === '__new__'
-                    ? 'border-black text-black bg-white'
-                    : 'border-[#c6c6c6]/70 hover:border-black hover:text-black'
+                    ? 'border-[#7161EF] text-black bg-white'
+                    : 'border-[#c6c6c6]/70 hover:border-[#7161EF] hover:text-[#7161EF]'
                 }`}
               >
                 <span className="material-symbols-outlined text-3xl">add_circle</span>

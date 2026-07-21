@@ -76,7 +76,7 @@ const StudyResults = ({ studyId, onExit }) => {
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
       <header className="flex items-center justify-between px-8 py-5 border-b border-[#c6c6c6]/40 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center text-white">
+          <div className="w-10 h-10 bg-[#7161EF] rounded-lg flex items-center justify-center text-white">
             <span className="material-symbols-outlined">insights</span>
           </div>
           <div>
@@ -127,7 +127,7 @@ const StudyResults = ({ studyId, onExit }) => {
                 key={t.key}
                 onClick={() => setTab(t.key)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-md text-xs uppercase tracking-widest font-bold transition-all ${
-                  tab === t.key ? 'bg-black text-white' : 'text-[#474747] hover:bg-[#e8e8e8]'
+                  tab === t.key ? 'bg-[#7161EF] text-white' : 'text-[#474747] hover:bg-[#e8e8e8]'
                 }`}
               >
                 <span className="material-symbols-outlined text-base">{t.icon}</span>

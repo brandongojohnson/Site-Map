@@ -19,8 +19,8 @@ const NodeCard = ({ node, isSelected, onSelect, onAddChild }) => {
           <feDropShadow
             dx="0" dy="2"
             stdDeviation={isSelected ? '6' : '3'}
-            floodColor={isSelected ? '#000' : '#c6c6c6'}
-            floodOpacity={isSelected ? '0.18' : '0.25'}
+            floodColor={isSelected ? '#7161EF' : '#c6c6c6'}
+            floodOpacity={isSelected ? '0.25' : '0.25'}
           />
         </filter>
       </defs>
@@ -30,7 +30,7 @@ const NodeCard = ({ node, isSelected, onSelect, onAddChild }) => {
         width={NODE_W} height={NODE_H}
         rx={12} ry={12}
         fill="white"
-        stroke={isSelected ? '#000' : hovered ? '#555' : '#e0e0e0'}
+        stroke={isSelected ? '#7161EF' : hovered ? '#555' : '#e0e0e0'}
         strokeWidth={isSelected ? 2 : 1}
         filter={`url(#shadow-${node.id})`}
         onClick={() => onSelect()}
@@ -60,7 +60,7 @@ const NodeCard = ({ node, isSelected, onSelect, onAddChild }) => {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(true)}
         >
-          <circle cx={NODE_W / 2} cy={NODE_H + 28} r={14} fill="#111" />
+          <circle cx={NODE_W / 2} cy={NODE_H + 28} r={14} fill="#7161EF" />
           <text x={NODE_W / 2} y={NODE_H + 33} textAnchor="middle" fontSize={18} fill="white"
             fontFamily="Material Symbols Outlined, sans-serif" style={{ userSelect: 'none' }}>
             +

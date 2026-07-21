@@ -16,7 +16,7 @@ const StudyCreated = ({ study, link, onViewResults, onDone }) => {
   return (
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex items-center justify-center px-8">
       <div className="w-full max-w-xl text-center">
-        <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center text-white mx-auto mb-6">
+        <div className="w-16 h-16 bg-[#7161EF] rounded-2xl flex items-center justify-center text-white mx-auto mb-6">
           <span className="material-symbols-outlined text-3xl">check</span>
         </div>
         <h1 className="text-2xl font-black mb-2">“{study.studyName}” is ready to send</h1>
@@ -34,7 +34,7 @@ const StudyCreated = ({ study, link, onViewResults, onDone }) => {
           />
           <button
             onClick={copyLink}
-            className="flex-shrink-0 px-4 py-2 bg-black text-white rounded-lg font-bold text-xs uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all"
+            className="flex-shrink-0 px-4 py-2 bg-[#7161EF] text-white rounded-lg font-bold text-xs uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all"
           >
             {copied ? 'Copied' : 'Copy Link'}
           </button>
@@ -54,7 +54,7 @@ const StudyCreated = ({ study, link, onViewResults, onDone }) => {
           </button>
           <button
             onClick={onViewResults}
-            className="px-6 py-3 bg-black text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all"
+            className="px-6 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all"
           >
             View Results
           </button>

@@ -15,7 +15,7 @@ export default function App() {
   }
 
   if (view === "landing") {
-    return <LandingPage onGetStarted={() => setView("editor")} />;
+    return <LandingPage onGetStarted={(target) => setView(target === "cardsort" ? "cardsort" : "editor")} />;
   }
 
   if (view === "cardsort") {

@@ -59,7 +59,7 @@ const StudyRow = ({ study, onViewResults, onDelete }) => {
             onDelete(study.id);
           }}
           title="Delete study"
-          className="w-8 h-8 rounded-lg flex items-center justify-center text-[#8a8a8a] hover:bg-[#f3f3f4] hover:text-black transition-all"
+          className="w-8 h-8 rounded-lg flex items-center justify-center text-[#8a8a8a] hover:bg-[#f3f3f4] hover:text-[#7161EF] transition-all"
         >
           <span className="material-symbols-outlined text-base">delete</span>
         </button>
@@ -79,7 +79,7 @@ const AuthControl = ({ user }) => {
     return (
       <button
         onClick={() => signInWithGoogle().catch((err) => console.error('Sign-in failed:', err))}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs uppercase tracking-widest bg-black text-white hover:opacity-90 transition-all"
+        className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs uppercase tracking-widest bg-[#7161EF] text-white hover:opacity-90 transition-all"
       >
         <span className="material-symbols-outlined text-base">login</span>
         Sign In with Google
@@ -92,7 +92,7 @@ const AuthControl = ({ user }) => {
       {user.photoURL ? (
         <img src={user.photoURL} alt="" className="w-7 h-7 rounded-full" referrerPolicy="no-referrer" />
       ) : (
-        <div className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold">
+        <div className="w-7 h-7 rounded-full bg-[#7161EF] text-white flex items-center justify-center text-xs font-bold">
           {(user.displayName || user.email || '?')[0].toUpperCase()}
         </div>
       )}
@@ -101,7 +101,7 @@ const AuthControl = ({ user }) => {
       </span>
       <button
         onClick={() => signOutUser().catch((err) => console.error('Sign-out failed:', err))}
-        className="text-[10px] uppercase tracking-widest text-[#8a8a8a] hover:text-black transition-all"
+        className="text-[10px] uppercase tracking-widest text-[#8a8a8a] hover:text-[#7161EF] transition-all"
       >
         Sign Out
       </button>
@@ -235,7 +235,7 @@ const CardSortHub = ({ onExit }) => {
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
       <header className="flex items-center justify-between px-8 py-5 border-b border-[#c6c6c6]/40 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center text-white">
+          <div className="w-10 h-10 bg-[#7161EF] rounded-lg flex items-center justify-center text-white">
             <span className="material-symbols-outlined">style</span>
           </div>
           <div>
@@ -263,7 +263,7 @@ const CardSortHub = ({ onExit }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
           <button
             onClick={startCreateFlow}
-            className="text-left rounded-xl p-6 bg-black text-white hover:opacity-90 transition-all"
+            className="text-left rounded-xl p-6 bg-[#7161EF] text-white hover:opacity-90 transition-all"
           >
             <span className="material-symbols-outlined text-2xl mb-3 block">
               {user ? 'send' : 'login'}

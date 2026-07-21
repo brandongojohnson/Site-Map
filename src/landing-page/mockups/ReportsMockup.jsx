@@ -12,7 +12,7 @@ const matrix = [
   [0.08, 0.11, 0.2, 0.17, 0.64, 1],
 ];
 
-const shade = (v) => `rgba(181, 101, 47, ${0.08 + v * 0.85})`;
+const shade = (v) => `rgba(113, 97, 239, ${0.08 + v * 0.85})`;
 
 const bars = [
   { label: 'Getting Started', value: 92 },
@@ -26,15 +26,15 @@ const ReportsMockup = ({ className = '' }) => (
     label="Reports · Onboarding Flow"
     className={className}
     right={
-      <div className="flex items-center gap-1.5 text-[10px] text-[#B0AA9C]">
+      <div className="flex items-center gap-1.5 text-[10px] text-[#9C9CA3]">
         <span className="material-symbols-outlined text-[13px]">groups</span>
         24 responses
       </div>
     }
   >
-    <div className="p-5 bg-[#FFFDF9] grid grid-cols-2 gap-6">
+    <div className="p-5 bg-white/40 backdrop-blur-sm grid grid-cols-2 gap-6">
       <div>
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#8C8577] mb-2.5">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#86868C] mb-2.5">
           Similarity Matrix
         </p>
         <div className="inline-grid gap-[3px]" style={{ gridTemplateColumns: 'repeat(6, 1fr)' }}>
@@ -43,26 +43,26 @@ const ReportsMockup = ({ className = '' }) => (
               <div
                 key={`${i}-${j}`}
                 className="w-4 h-4 rounded-[3px]"
-                style={{ background: i === j ? '#ECE6D9' : shade(v) }}
+                style={{ background: i === j ? '#E4E4E7' : shade(v) }}
               />
             ))
           )}
         </div>
       </div>
       <div>
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#8C8577] mb-2.5">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#86868C] mb-2.5">
           Category Frequency
         </p>
         <div className="space-y-2.5">
           {bars.map((b) => (
             <div key={b.label}>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[10px] font-medium text-[#171512]">{b.label}</span>
-                <span className="text-[9px] text-[#B0AA9C]">{b.value}%</span>
+                <span className="text-[10px] font-medium text-[#18181B]">{b.label}</span>
+                <span className="text-[9px] text-[#9C9CA3]">{b.value}%</span>
               </div>
-              <div className="h-1.5 rounded-full bg-[#ECE6D9] overflow-hidden">
+              <div className="h-1.5 rounded-full bg-[#E4E4E7] overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-[#B5652F]"
+                  className="h-full rounded-full bg-[#7161EF]"
                   style={{ width: `${b.value}%` }}
                 />
               </div>

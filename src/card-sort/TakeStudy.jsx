@@ -4,7 +4,7 @@ import { buildResults } from './sortUtils';
 import SortBoard from './SortBoard';
 
 const inputCls =
-  'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-black focus:ring-0';
+  'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-[#7161EF] focus:ring-0';
 
 // Full-screen participant flow opened via a shared link (?cardsort=<studyId>).
 // Intentionally has no path back into the researcher's editor or study list.
@@ -85,7 +85,7 @@ const TakeStudy = ({ studyId }) => {
     return (
       <div className="min-h-screen bg-[#f3f3f4] flex items-center justify-center font-body px-8">
         <div className="text-center max-w-md">
-          <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center text-white mx-auto mb-6">
+          <div className="w-16 h-16 bg-[#7161EF] rounded-2xl flex items-center justify-center text-white mx-auto mb-6">
             <span className="material-symbols-outlined text-3xl">favorite</span>
           </div>
           <h1 className="text-xl font-black mb-2">Thanks for taking part</h1>
@@ -135,7 +135,7 @@ const TakeStudy = ({ studyId }) => {
 
         <button
           onClick={() => setPhase('sort')}
-          className="w-full py-3 bg-black text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all"
+          className="w-full py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all"
         >
           Begin Sorting
         </button>

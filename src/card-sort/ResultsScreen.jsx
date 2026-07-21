@@ -19,7 +19,7 @@ const ResultsScreen = ({ session, saveState, onRestart, onNewStudy, onExit }) =>
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
       <header className="flex items-center justify-between px-8 py-5 border-b border-[#c6c6c6]/40 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center text-white">
+          <div className="w-10 h-10 bg-[#7161EF] rounded-lg flex items-center justify-center text-white">
             <span className="material-symbols-outlined">insights</span>
           </div>
           <div>
@@ -107,7 +107,7 @@ const ResultsScreen = ({ session, saveState, onRestart, onNewStudy, onExit }) =>
           </button>
           <button
             onClick={onNewStudy}
-            className="px-6 py-3 bg-black text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all"
+            className="px-6 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all"
           >
             New Study
           </button>

@@ -43,13 +43,16 @@ const SitemapMockup = ({ className = '' }) => (
     label="Sitemap · Homepage Redesign"
     className={className}
     right={
-      <div className="flex items-center gap-1.5 text-[10px] text-[#B0AA9C]">
+      <div className="flex items-center gap-1.5 text-[10px] text-[#9C9CA3]">
         <span className="material-symbols-outlined text-[13px]">layers</span>
         7 pages
       </div>
     }
   >
-    <div className="relative w-full" style={{ aspectRatio: `${W} / ${H}`, background: '#FFFDF9' }}>
+    <div
+      className="relative w-full bg-white/40 backdrop-blur-sm"
+      style={{ aspectRatio: `${W} / ${H}` }}
+    >
       <svg
         viewBox={`0 0 ${W} ${H}`}
         className="absolute inset-0 w-full h-full"
@@ -60,7 +63,7 @@ const SitemapMockup = ({ className = '' }) => (
             key={`${from}-${to}`}
             d={pathFor(from, to)}
             fill="none"
-            stroke="#E7E2D6"
+            stroke="#E4E4E7"
             strokeWidth={2}
           />
         ))}

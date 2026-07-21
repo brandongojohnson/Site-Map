@@ -7,7 +7,7 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
     <aside className="fixed right-0 top-0 h-full w-80 bg-white border-l border-[#c6c6c6]/15 z-40 p-8 overflow-auto">
       <div className="flex justify-between items-center mb-10">
         <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-black">Page Properties</h2>
-        <button onClick={onClose} className="material-symbols-outlined text-on-surface-variant hover:text-black transition-colors">close</button>
+        <button onClick={onClose} className="material-symbols-outlined text-on-surface-variant hover:text-[#7161EF] transition-colors">close</button>
       </div>
 
       <div className="space-y-8">
@@ -17,7 +17,7 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
             type="text"
             value={node.title}
             onChange={e => onUpdate({ title: e.target.value })}
-            className="w-full bg-[#f3f3f4] border-none rounded-lg p-4 font-bold text-black focus:ring-1 focus:ring-black focus:bg-white transition-all"
+            className="w-full bg-[#f3f3f4] border-none rounded-lg p-4 font-bold text-black focus:ring-1 focus:ring-[#7161EF] focus:bg-white transition-all"
           />
         </div>
 
@@ -40,7 +40,7 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
             rows={4}
             value={node.description}
             onChange={e => onUpdate({ description: e.target.value })}
-            className="w-full bg-[#f3f3f4] border-none rounded-lg p-4 text-sm text-on-surface-variant focus:ring-1 focus:ring-black focus:bg-white transition-all resize-none"
+            className="w-full bg-[#f3f3f4] border-none rounded-lg p-4 text-sm text-on-surface-variant focus:ring-1 focus:ring-[#7161EF] focus:bg-white transition-all resize-none"
             placeholder="Enter meta description for SEO..."
           />
         </div>
@@ -50,11 +50,11 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
           <div className="flex gap-2">
             <button
               onClick={() => onUpdate({ status: 'public' })}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors ${node.status === 'public' ? 'bg-black text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
+              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors ${node.status === 'public' ? 'bg-[#7161EF] text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
             >Public</button>
             <button
               onClick={() => onUpdate({ status: 'draft' })}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors ${node.status === 'draft' ? 'bg-black text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
+              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors ${node.status === 'draft' ? 'bg-[#7161EF] text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
             >Draft</button>
           </div>
         </div>

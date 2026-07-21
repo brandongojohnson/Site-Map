@@ -3,17 +3,18 @@ import { PILL_PRIMARY_INVERSE, PILL_OUTLINE_INVERSE } from './buttonStyles';
 
 const FinalCTA = ({ onGetStarted }) => (
   <section className="py-20 md:py-28 px-4 sm:px-6">
-    <div className="relative max-w-6xl mx-auto rounded-[28px] overflow-hidden bg-[#171512] px-8 py-20 md:py-28 text-center">
+    <div className="relative max-w-6xl mx-auto rounded-[28px] overflow-hidden bg-[#18181B] px-8 py-24 md:py-32 text-center">
       {/* Abstract organic texture, dark variant */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[#B5652F]/25 blur-[110px]" />
-        <div className="absolute -bottom-32 right-[6%] w-[440px] h-[440px] rounded-full bg-[#8C8577]/25 blur-[110px]" />
-        <div className="absolute top-10 right-[20%] w-[260px] h-[260px] rounded-full bg-[#E8C9A8]/15 blur-[90px]" />
+        <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[#7161EF]/25 blur-[110px]" />
+        <div className="absolute -bottom-32 right-[6%] w-[440px] h-[440px] rounded-full bg-[#86868C]/25 blur-[110px]" />
+        <div className="absolute top-10 right-[20%] w-[260px] h-[260px] rounded-full bg-[#9C9CA3]/15 blur-[90px]" />
       </div>
 
       <div className="relative">
-        <h2 className="text-[32px] md:text-[48px] font-extrabold tracking-tight text-white leading-tight max-w-2xl mx-auto mb-6">
-          Turn user research into clear structure.
+        <h2 className="text-[32px] md:text-[48px] tracking-tight text-white leading-tight max-w-2xl mx-auto mb-6">
+          <span className="font-normal">Turn user research into</span>{' '}
+          <span className="font-black">clear structure.</span>
         </h2>
         <p className="text-[16px] md:text-[18px] text-white/70 max-w-lg mx-auto mb-10">
           Free to start. No credit card, no IT ticket — just a link and a deck of cards.

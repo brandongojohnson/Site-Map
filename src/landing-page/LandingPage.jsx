@@ -1,26 +1,23 @@
 import React from 'react';
 import Nav from './Nav';
 import Hero from './Hero';
-import TrustBar from './TrustBar';
-import Features from './Features';
-import ProductDeepDive from './ProductDeepDive';
-import Integrations from './Integrations';
-import Testimonials from './Testimonials';
+import Reveal from './Reveal';
+import ProductSections from './ProductSections';
 import Pricing from './Pricing';
 import FinalCTA from './FinalCTA';
 import Footer from './Footer';
 
 const LandingPage = ({ onGetStarted }) => (
-  <div className="font-sans bg-[#FAF9F6] text-[#171512] antialiased">
+  <div className="font-sans bg-[#F5F5F6] dark:bg-[#121016] text-[#18181B] dark:text-[#F5F3F0] antialiased">
     <Nav onGetStarted={onGetStarted} />
     <Hero onGetStarted={onGetStarted} />
-    <TrustBar />
-    <Features />
-    <ProductDeepDive />
-    <Integrations />
-    <Testimonials />
-    <Pricing onGetStarted={onGetStarted} />
-    <FinalCTA onGetStarted={onGetStarted} />
+    <ProductSections />
+    <Reveal>
+      <Pricing onGetStarted={onGetStarted} />
+    </Reveal>
+    <Reveal>
+      <FinalCTA onGetStarted={onGetStarted} />
+    </Reveal>
     <Footer />
   </div>
 );
