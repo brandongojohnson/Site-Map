@@ -8,7 +8,7 @@ import React from 'react';
 // shade — used for the hero screenshot so it reads as on-brand.
 export const WindowChrome = ({ label, right, children, className = '', accent = false }) => (
   <div
-    className={`rounded-2xl bg-white/55 backdrop-blur-xl border overflow-hidden shadow-[0_8px_32px_-12px_rgba(23,21,18,0.18)] ${
+    className={`rounded-2xl bg-white/60 backdrop-blur-xl border overflow-hidden shadow-[0_8px_32px_-12px_rgba(23,21,18,0.18)] ${
       accent ? 'border-[#7161EF]/30' : 'border-white/60'
     } ${className}`}
   >

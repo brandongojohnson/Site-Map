@@ -105,6 +105,14 @@ const Hero = ({ onGetStarted }) => {
           <HeroMockup className="shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]" />
         </div>
       </div>
+
+      {/* Fades the hero's own background (aurora, preset, or custom photo)
+         into the flat Capabilities background below, instead of cutting
+         hard at the section boundary. 64px is exactly the gap between the
+         mockup's own bottom edge and the section's (pb-40/-mb-24 and
+         pb-56/-mb-40 both net to 64px) — any taller and this would paint
+         over the screenshot itself, which stays untouched. */}
+      <div className="absolute inset-x-0 bottom-0 h-16 z-0 pointer-events-none bg-gradient-to-b from-transparent to-[#131313]" />
     </section>
   );
 };
