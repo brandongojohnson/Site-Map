@@ -1,3 +1,21 @@
+// Firebase strips empty arrays/strings-adjacent structure on write, so a
+// tree read back from the database can be missing `children` (and
+// occasionally `description`) on leaf nodes. Normalize on every read so the
+// rest of the code can assume both always exist.
+export function normalizeTree(node) {
+  if (!node || typeof node !== 'object') return node;
+  return {
+    ...node,
+    description: node.description ?? '',
+    children: (node.children || []).map(normalizeTree),
+  };
+}
+
+export function countNodes(node) {
+  if (!node) return 0;
+  return 1 + (node.children || []).reduce((acc, c) => acc + countNodes(c), 0);
+}
+
 export function addChild(tree, parentId, newNode) {
   if (tree.id === parentId) {
     return { ...tree, children: [...tree.children, newNode] };

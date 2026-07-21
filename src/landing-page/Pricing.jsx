@@ -47,7 +47,7 @@ const Pricing = ({ onGetStarted }) => {
   const [yearly, setYearly] = useState(true);
 
   return (
-    <section id="pricing" className="relative py-24 md:py-32">
+    <section id="pricing" className="relative py-24 md:py-32 border-t border-[#E4E4E7] dark:border-white/10">
       <ScatteredIcon icon="payments" className="text-[20px] opacity-[0.08]" style={{ top: '10%', left: '10%', transform: 'rotate(-10deg)' }} />
       <ScatteredIcon icon="workspace_premium" className="text-[18px] opacity-[0.1]" style={{ top: '6%', right: '14%', transform: 'rotate(12deg)' }} />
       <div className="max-w-6xl mx-auto px-6">
@@ -55,17 +55,16 @@ const Pricing = ({ onGetStarted }) => {
           <p className="text-[12px] font-semibold uppercase tracking-widest text-[#7161EF] mb-3">
             Pricing
           </p>
-          <h2 className="text-[32px] md:text-[40px] tracking-tight text-[#18181B] dark:text-[#F5F3F0] mb-4">
-            <span className="font-normal">Simple pricing,</span>{' '}
-            <span className="font-black">room to grow.</span>
+          <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight text-[#18181B] dark:text-[#F5F3F0] mb-4">
+            Simple pricing, room to grow.
           </h2>
-          <p className="text-[16px] text-[#47474D] dark:text-[#B8B2C4]">
+          <p className="text-[16px] font-normal text-[#47474D] dark:text-[#B8B2C4]">
             Start free. Upgrade when your research program needs more than one study at a time.
           </p>
         </div>
 
         <div className="flex items-center justify-center gap-3 mb-14">
-          <span className={`text-[14px] font-medium ${!yearly ? 'text-[#18181B] dark:text-[#F5F3F0]' : 'text-[#9C9CA3] dark:text-[#6B6578]'}`}>
+          <span className={`text-[14px] font-normal ${!yearly ? 'text-[#18181B] dark:text-[#F5F3F0]' : 'text-[#9C9CA3] dark:text-[#6B6578]'}`}>
             Monthly
           </span>
           <button
@@ -79,7 +78,7 @@ const Pricing = ({ onGetStarted }) => {
               }`}
             />
           </button>
-          <span className={`text-[14px] font-medium ${yearly ? 'text-[#18181B] dark:text-[#F5F3F0]' : 'text-[#9C9CA3] dark:text-[#6B6578]'}`}>
+          <span className={`text-[14px] font-normal ${yearly ? 'text-[#18181B] dark:text-[#F5F3F0]' : 'text-[#9C9CA3] dark:text-[#6B6578]'}`}>
             Yearly
           </span>
           <span className="text-[11px] font-semibold text-[#7161EF] bg-[#EEECFD] dark:bg-[#241F3D] rounded-full px-2.5 py-1">
@@ -105,14 +104,14 @@ const Pricing = ({ onGetStarted }) => {
                   </span>
                 )}
 
-                <h3 className="text-[18px] font-bold text-[#18181B] dark:text-[#F5F3F0] mb-1.5">{t.name}</h3>
-                <p className="text-[13px] text-[#86868C] dark:text-[#9891A8] mb-6 leading-relaxed">{t.tagline}</p>
+                <h3 className="text-[18px] font-semibold text-[#18181B] dark:text-[#F5F3F0] mb-1.5">{t.name}</h3>
+                <p className="text-[13px] font-normal text-[#86868C] dark:text-[#9891A8] mb-6 leading-relaxed">{t.tagline}</p>
 
                 <div className="flex items-baseline gap-1 mb-7">
-                  <span className="text-[40px] font-extrabold tracking-tight text-[#18181B] dark:text-[#F5F3F0]">
+                  <span className="text-[40px] font-bold tracking-tight text-[#18181B] dark:text-[#F5F3F0]">
                     ${price}
                   </span>
-                  <span className="text-[13px] text-[#9C9CA3] dark:text-[#6B6578]">/ month{yearly && price > 0 ? ', billed yearly' : ''}</span>
+                  <span className="text-[13px] font-normal text-[#9C9CA3] dark:text-[#6B6578]">/ month{yearly && price > 0 ? ', billed yearly' : ''}</span>
                 </div>
 
                 <button
@@ -128,7 +127,7 @@ const Pricing = ({ onGetStarted }) => {
                       <span className="material-symbols-outlined text-[16px] text-[#7161EF] mt-0.5">
                         check
                       </span>
-                      <span className="text-[13.5px] text-[#47474D] dark:text-[#B8B2C4] leading-relaxed">{f}</span>
+                      <span className="text-[13.5px] font-normal text-[#47474D] dark:text-[#B8B2C4] leading-relaxed">{f}</span>
                     </li>
                   ))}
                 </ul>

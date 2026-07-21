@@ -37,7 +37,7 @@ const Nav = ({ onGetStarted }) => {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
-        <a href="#top" className="text-[17px] font-extrabold tracking-tight text-[#18181B] dark:text-[#F5F3F0]">
+        <a href="#top" className="text-[17px] font-bold tracking-tight text-[#18181B] dark:text-[#F5F3F0]">
           Sortly
         </a>
 
@@ -65,7 +65,7 @@ const Nav = ({ onGetStarted }) => {
           </button>
           <button
             onClick={onGetStarted}
-            className="hidden sm:inline text-[14px] font-medium text-[#47474D] dark:text-[#B8B2C4] hover:text-[#18181B] dark:hover:text-[#F5F3F0] transition-colors"
+            className="hidden sm:inline text-[14px] font-normal text-[#47474D] dark:text-[#B8B2C4] hover:text-[#18181B] dark:hover:text-[#F5F3F0] transition-colors"
           >
             Log in
           </button>
@@ -107,7 +107,7 @@ const Nav = ({ onGetStarted }) => {
                         <span className="block text-[13px] font-semibold text-[#18181B] dark:text-[#F5F3F0]">
                           {opt.label}
                         </span>
-                        <span className="block text-[11px] text-[#86868C] dark:text-[#9891A8]">{opt.desc}</span>
+                        <span className="block text-[11px] font-normal text-[#86868C] dark:text-[#9891A8]">{opt.desc}</span>
                       </span>
                     </button>
                   ))}

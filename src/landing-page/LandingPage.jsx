@@ -3,6 +3,7 @@ import Nav from './Nav';
 import Hero from './Hero';
 import Reveal from './Reveal';
 import ProductSections from './ProductSections';
+import UseCases from './UseCases';
 import Pricing from './Pricing';
 import FinalCTA from './FinalCTA';
 import Footer from './Footer';
@@ -12,6 +13,9 @@ const LandingPage = ({ onGetStarted }) => (
     <Nav onGetStarted={onGetStarted} />
     <Hero onGetStarted={onGetStarted} />
     <ProductSections />
+    <Reveal>
+      <UseCases />
+    </Reveal>
     <Reveal>
       <Pricing onGetStarted={onGetStarted} />
     </Reveal>

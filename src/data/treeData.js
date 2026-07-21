@@ -1,5 +1,8 @@
-let idCounter = 100;
-export const uid = () => `node-${++idCounter}`;
+// Timestamp-based so ids never collide with nodes already persisted in
+// Firebase from earlier sessions (a plain counter restarts on every page
+// load and reuses ids the saved tree already contains).
+let idCounter = 0;
+export const uid = () => `node-${Date.now().toString(36)}-${(++idCounter).toString(36)}`;
 
 export const defaultTree = {
   id: 'root',

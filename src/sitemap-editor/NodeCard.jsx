@@ -54,15 +54,26 @@ const NodeCard = ({ node, isSelected, onSelect, onAddChild }) => {
       <circle cx={NODE_W - 14} cy={14} r={4}
         fill={node.status === 'public' ? '#22c55e' : '#f59e0b'} />
 
+      {/* Invisible bridge between the card's bottom edge and the + button.
+         Hover on an SVG group only counts painted pixels, so without this the
+         pointer crosses a dead gap on the way down and the button vanishes
+         before it can be clicked. */}
       {hovered && (
-        <g
-          onClick={(e) => { e.stopPropagation(); onAddChild(node.id); }}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(true)}
-        >
-          <circle cx={NODE_W / 2} cy={NODE_H + 28} r={14} fill="#7161EF" />
+        <rect
+          x={NODE_W / 2 - 30}
+          y={NODE_H}
+          width={60}
+          height={46}
+          fill="transparent"
+          pointerEvents="all"
+        />
+      )}
+
+      {hovered && (
+        <g onClick={(e) => { e.stopPropagation(); onAddChild(node.id); }}>
+          <circle cx={NODE_W / 2} cy={NODE_H + 28} r={14} fill="#7161EF" stroke="white" strokeWidth={2} />
           <text x={NODE_W / 2} y={NODE_H + 33} textAnchor="middle" fontSize={18} fill="white"
-            fontFamily="Material Symbols Outlined, sans-serif" style={{ userSelect: 'none' }}>
+            style={{ userSelect: 'none', fontWeight: 600 }}>
             +
           </text>
         </g>

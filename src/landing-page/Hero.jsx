@@ -66,20 +66,19 @@ const Hero = ({ onGetStarted }) => {
           }`}
         >
           <div
-            className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[12px] font-medium text-[#86868C] dark:text-[#9891A8] mb-8 shadow-[0_2px_10px_-4px_rgba(23,21,18,0.08)] ${GLASS_PILL}`}
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[12px] font-normal text-[#86868C] dark:text-[#9891A8] mb-8 shadow-[0_2px_10px_-4px_rgba(23,21,18,0.08)] ${GLASS_PILL}`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#7161EF]" />
             New: Auto-generated sitemaps from any card sort
           </div>
 
-          <h1 className="font-sans tracking-tight text-[#18181B] dark:text-[#F5F3F0] text-[44px] leading-[1.05] sm:text-[56px] md:text-[68px] mb-6">
-            <span className="font-normal">Design information</span>
+          <h1 className="font-sans font-bold tracking-tight text-[#18181B] dark:text-[#F5F3F0] text-[44px] leading-[1.05] sm:text-[56px] md:text-[68px] mb-6">
+            Design information
             <br />
-            <span className="font-semibold">architecture, </span>
-            <span className="font-black">together.</span>
+            architecture, together.
           </h1>
 
-          <p className="max-w-2xl mx-auto text-[18px] md:text-[20px] leading-relaxed text-[#47474D] dark:text-[#B8B2C4] mb-10">
+          <p className="max-w-2xl mx-auto text-[18px] md:text-[20px] font-normal leading-relaxed text-[#47474D] dark:text-[#B8B2C4] mb-10">
             Turn card sorts and stakeholder input into a clear, shareable sitemap — without
             switching between five different tools to get there.
           </p>
@@ -103,17 +102,16 @@ const Hero = ({ onGetStarted }) => {
           mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        {/* Mask lives on this wrapper (not the mockup itself) so it fades
-           the shadow along with the image, rather than leaving a
-           disconnected shadow hanging below a faded-out screenshot. */}
-        <div
-          className="-mb-24 md:-mb-40"
-          style={{
-            WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 78%, transparent 100%)',
-            maskImage: 'linear-gradient(to bottom, black 0%, black 78%, transparent 100%)',
-          }}
-        >
-          <HeroMockup className="shadow-[0_50px_100px_-30px_rgba(23,21,18,0.35)] dark:shadow-[0_50px_100px_-30px_rgba(0,0,0,0.6)]" />
+        <div className="relative -mb-24 md:-mb-40">
+          <HeroMockup className="shadow-[0_30px_60px_-25px_rgba(23,21,18,0.3)] dark:shadow-[0_30px_60px_-25px_rgba(0,0,0,0.55)]" />
+          {/* Solid scrim painted over the mockup's own bottom, fading to the
+             page's flat background — CSS mask-image doesn't reliably fade a
+             box-shadow this large along with it, leaving a crisp rounded
+             edge visible even inside the "faded" zone. Painting a matching
+             gradient on top sidesteps that entirely. */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-1/2 rounded-b-2xl pointer-events-none bg-gradient-to-b from-transparent to-[#F5F5F6] dark:to-[#121016]"
+          />
         </div>
       </div>
     </section>

@@ -109,7 +109,7 @@ const HeroBackgroundPicker = ({ bg, setBg }) => {
               setOpen(false);
             }}
             disabled={!bg}
-            className="w-full text-[11px] font-medium text-[#86868C] dark:text-[#9891A8] hover:text-[#18181B] dark:hover:text-[#F5F3F0] disabled:opacity-40 transition-colors"
+            className="w-full text-[11px] font-normal text-[#86868C] dark:text-[#9891A8] hover:text-[#18181B] dark:hover:text-[#F5F3F0] disabled:opacity-40 transition-colors"
           >
             Reset to default
           </button>

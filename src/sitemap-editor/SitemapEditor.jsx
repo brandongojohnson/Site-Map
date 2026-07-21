@@ -1,13 +1,13 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { ref, onValue, set } from 'firebase/database';
-import { db } from '../config/firebase';
 
 import LeftSidebar from '../dashboard/LeftSidebar';
 import SitemapCanvas from './SitemapCanvas';
 import RightSidebar from '../dashboard/RightSidebar';
 
-import { defaultTree, uid } from '../data/treeData';
+import { uid } from '../data/treeData';
+import { subscribeBoard, saveBoardTree } from './boardStore';
 import {
+  normalizeTree,
   addChild,
   updateNode,
   deleteNode,
@@ -22,8 +22,9 @@ const NODE_H = 96;
 const H_GAP = 48;
 const V_GAP = 80;
 
-const VellumSitemap = ({ onOpenCardSort }) => {
+const SitemapEditor = ({ boardId, onNavigate }) => {
   const [tree, setTree] = useState(null);
+  const [boardName, setBoardName] = useState('');
   const [selectedId, setSelectedId] = useState(null);
   const [zoom, setZoom] = useState(0.85);
   const [pan, setPan] = useState({ x: 80, y: 40 });
@@ -34,35 +35,30 @@ const VellumSitemap = ({ onOpenCardSort }) => {
   const panStart = useRef(null);
   const svgRef = useRef(null);
   const isSavingRef = useRef(false);
-  const isAddingRef = useRef(false);
+  const saveTimerRef = useRef(null);
+  const pendingTreeRef = useRef(null);
 
-  const sitemapRef = ref(db, 'vellumSitemap');
-
-  // ====================== Firebase Listener ======================
+  // ====================== Load board (live) ======================
   useEffect(() => {
-    const unsubscribe = onValue(
-      sitemapRef,
-      (snapshot) => {
-        let data = snapshot.val();
+    setLoading(true);
+    setError(null);
+    setTree(null);
+    setSelectedId(null);
 
-        if (data) {
-          // Normalize: ensure every node has children array
-          data = normalizeTree(data);
-          setTree(data);
-          if (!selectedId && data.children?.length > 0) {
-            setSelectedId(data.children[0].id);
-          }
-        } else {
-          // Seed default (already normalized)
-          isSavingRef.current = true;
-          set(sitemapRef, defaultTree)
-            .then(() => {
-              setTree(defaultTree);
-              setSelectedId('products');
-            })
-            .catch(() => setError('Failed to initialize sitemap.'))
-            .finally(() => { isSavingRef.current = false; });
+    const unsubscribe = subscribeBoard(
+      boardId,
+      (board) => {
+        // Firebase fires onValue locally for our own writes too; skipping
+        // those keeps typing in the properties panel from being re-ingested
+        // (and previously, from re-selecting a node after every save).
+        if (isSavingRef.current) return;
+        if (!board) {
+          setError('This board no longer exists.');
+          setLoading(false);
+          return;
         }
+        setBoardName(board.name || 'Untitled Board');
+        setTree(normalizeTree(board.tree));
         setLoading(false);
       },
       (err) => {
@@ -73,20 +69,38 @@ const VellumSitemap = ({ onOpenCardSort }) => {
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [boardId]);
 
-  // ====================== Normalize Tree (Fix undefined children) ======================
-  const normalizeTree = (node) => {
-    if (!node || typeof node !== 'object') return node;
+  // ====================== Debounced save ======================
+  const flushSave = useCallback(() => {
+    const pending = pendingTreeRef.current;
+    if (!pending) return;
+    pendingTreeRef.current = null;
+    isSavingRef.current = true;
+    saveBoardTree(boardId, pending)
+      .catch((err) => console.error('Firebase save failed:', err))
+      .finally(() => {
+        isSavingRef.current = false;
+      });
+  }, [boardId]);
 
-    const normalized = { ...node, children: node.children || [] };
+  const queueSave = useCallback(
+    (newTree) => {
+      pendingTreeRef.current = newTree;
+      clearTimeout(saveTimerRef.current);
+      saveTimerRef.current = setTimeout(flushSave, 400);
+    },
+    [flushSave]
+  );
 
-    if (Array.isArray(normalized.children)) {
-      normalized.children = normalized.children.map(normalizeTree);
-    }
-
-    return normalized;
-  };
+  // Flush any pending edit when leaving the editor.
+  useEffect(
+    () => () => {
+      clearTimeout(saveTimerRef.current);
+      flushSave();
+    },
+    [flushSave]
+  );
 
   // Safe derived data
   const laidOutTree = tree ? layoutTree(tree, 0, NODE_W, NODE_H, H_GAP, V_GAP) : null;
@@ -96,23 +110,11 @@ const VellumSitemap = ({ onOpenCardSort }) => {
   const selectedNode = selectedId && laidOutTree ? findNode(laidOutTree, selectedId) : null;
 
   const minX = nodes.length ? Math.min(...nodes.map(n => n._x || 0)) - 60 : 0;
-  const maxX = nodes.length ? Math.max(...nodes.map(n => n._x || 0)) + NODE_W + 60 : 1200;
-  const maxY = nodes.length ? Math.max(...nodes.map(n => n._y || 0)) + NODE_H + 100 : 800;
-
-  // ====================== Save Helper ======================
-  const saveToFirebase = useCallback((newTree) => {
-    if (isSavingRef.current || !newTree) return;
-    isSavingRef.current = true;
-    set(sitemapRef, newTree)
-      .catch(err => console.error('Firebase save failed:', err))
-      .finally(() => { isSavingRef.current = false; });
-  }, []);
 
   // ====================== Handlers ======================
   const handleAddChild = useCallback((parentId) => {
-    if (!tree || isAddingRef.current) return;
+    if (!tree) return;
 
-    isAddingRef.current = true;
     const newNode = {
       id: uid(),
       title: 'New Page',
@@ -124,34 +126,28 @@ const VellumSitemap = ({ onOpenCardSort }) => {
       children: [],
     };
 
-    const newTree = addChild(tree, parentId || 'root', newNode);
-    const normalizedTree = normalizeTree(newTree);
-
-    setTree(normalizedTree);
-    saveToFirebase(normalizedTree);
+    const newTree = normalizeTree(addChild(tree, parentId || 'root', newNode));
+    setTree(newTree);
+    queueSave(newTree);
     setSelectedId(newNode.id);
-
-    setTimeout(() => { isAddingRef.current = false; }, 300);
-  }, [tree, saveToFirebase]);
+  }, [tree, queueSave]);
 
   const handleUpdate = useCallback((patch) => {
     if (!tree || !selectedId) return;
-    let newTree = updateNode(tree, selectedId, patch);
-    newTree = normalizeTree(newTree);
+    const newTree = normalizeTree(updateNode(tree, selectedId, patch));
     setTree(newTree);
-    saveToFirebase(newTree);
-  }, [tree, selectedId, saveToFirebase]);
+    queueSave(newTree);
+  }, [tree, selectedId, queueSave]);
 
   const handleDelete = useCallback(() => {
     if (!tree || !selectedId || selectedId === 'root') return;
-    let newTree = deleteNode(tree, selectedId);
-    newTree = normalizeTree(newTree);
+    const newTree = normalizeTree(deleteNode(tree, selectedId));
     setTree(newTree);
-    saveToFirebase(newTree);
+    queueSave(newTree);
     setSelectedId(null);
-  }, [tree, selectedId, saveToFirebase]);
+  }, [tree, selectedId, queueSave]);
 
-  // Mouse handlers remain the same...
+  // ====================== Pan & zoom ======================
   const onMouseDown = (e) => {
     if (e.target.closest('g[data-node]')) return;
     setIsPanning(true);
@@ -179,18 +175,32 @@ const VellumSitemap = ({ onOpenCardSort }) => {
 
   // ====================== Render ======================
   if (loading) {
-    return <div className="flex items-center justify-center min-h-screen text-xl">Loading sitemap from Firebase...</div>;
+    return <div className="flex items-center justify-center min-h-screen text-xl">Loading board…</div>;
   }
 
   if (error) {
-    return <div className="flex items-center justify-center min-h-screen text-red-600 p-8 text-center">{error}</div>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-8 text-center">
+        <p className="text-red-600">{error}</p>
+        <button
+          onClick={() => onNavigate('dashboard')}
+          className="px-6 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 transition-all"
+        >
+          Back to Dashboard
+        </button>
+      </div>
+    );
   }
 
   return (
     <div className="light font-body text-on-surface bg-background min-h-screen overflow-hidden">
       <LeftSidebar
-        onNewPage={() => handleAddChild(selectedId || 'root')}
-        onOpenCardSort={onOpenCardSort}
+        title={boardName}
+        subtitle="Sitemap Editor"
+        activeView="editor"
+        onNavigate={onNavigate}
+        primaryLabel="New Page"
+        onPrimary={() => handleAddChild(selectedId || 'root')}
       />
 
       <SitemapCanvas
@@ -223,4 +233,4 @@ const VellumSitemap = ({ onOpenCardSort }) => {
   );
 };
 
-export default VellumSitemap;
+export default SitemapEditor;

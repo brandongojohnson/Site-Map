@@ -2,7 +2,7 @@ import React from 'react';
 import { PILL_PRIMARY_INVERSE, PILL_OUTLINE_INVERSE } from './buttonStyles';
 
 const FinalCTA = ({ onGetStarted }) => (
-  <section className="py-20 md:py-28 px-4 sm:px-6">
+  <section className="py-20 md:py-28 px-4 sm:px-6 border-t border-[#E4E4E7] dark:border-white/10">
     <div className="relative max-w-6xl mx-auto rounded-[28px] overflow-hidden bg-[#18181B] px-8 py-24 md:py-32 text-center">
       {/* Abstract organic texture, dark variant */}
       <div className="pointer-events-none absolute inset-0">
@@ -12,11 +12,10 @@ const FinalCTA = ({ onGetStarted }) => (
       </div>
 
       <div className="relative">
-        <h2 className="text-[32px] md:text-[48px] tracking-tight text-white leading-tight max-w-2xl mx-auto mb-6">
-          <span className="font-normal">Turn user research into</span>{' '}
-          <span className="font-black">clear structure.</span>
+        <h2 className="text-[32px] md:text-[48px] font-bold tracking-tight text-white leading-tight max-w-2xl mx-auto mb-6">
+          Turn user research into clear structure.
         </h2>
-        <p className="text-[16px] md:text-[18px] text-white/70 max-w-lg mx-auto mb-10">
+        <p className="text-[16px] md:text-[18px] font-normal text-white/70 max-w-lg mx-auto mb-10">
           Free to start. No credit card, no IT ticket — just a link and a deck of cards.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

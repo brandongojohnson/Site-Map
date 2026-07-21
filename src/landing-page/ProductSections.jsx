@@ -9,8 +9,7 @@ const SECTIONS = [
   {
     id: 'product',
     eyebrow: 'Research',
-    titleLight: 'Run open, closed, or hybrid',
-    titleBold: 'card sorts.',
+    title: 'Run open, closed, or hybrid card sorts.',
     desc: 'Set up a study in minutes, send participants a link, and watch responses roll in — no spreadsheets required.',
     bullets: [
       'Real-time collaboration with teammates or remote participants',
@@ -20,6 +19,7 @@ const SECTIONS = [
     Mockup: CardSortMockup,
     bg: 'bg-white dark:bg-[#18181D]',
     reverse: false,
+    topFade: true,
     icons: [
       { icon: 'groups', className: 'text-[20px] opacity-[0.08]', style: { top: '8%', right: '10%', transform: 'rotate(-10deg)' } },
       { icon: 'drag_indicator', className: 'text-[16px] opacity-[0.1]', style: { bottom: '12%', left: '6%', transform: 'rotate(12deg)' } },
@@ -28,8 +28,7 @@ const SECTIONS = [
   {
     id: 'sitemap-feature',
     eyebrow: 'Structure',
-    titleLight: 'From sorted cards to a',
-    titleBold: 'living sitemap.',
+    title: 'From sorted cards to a living sitemap.',
     desc: 'Sorted categories become draggable page nodes on a canvas your whole team can edit together.',
     bullets: [
       'Every group becomes a page node, instantly',
@@ -47,8 +46,7 @@ const SECTIONS = [
   {
     id: 'reports-feature',
     eyebrow: 'Analysis',
-    titleLight: 'See where people agree —',
-    titleBold: "and where they don't.",
+    title: "See where people agree — and where they don't.",
     desc: 'Sortly runs the statistics for you, so you can spend your time interpreting results, not calculating them.',
     bullets: [
       'Similarity matrices show which cards belong together',
@@ -65,8 +63,14 @@ const SECTIONS = [
   },
 ];
 
-const DeepDiveSection = ({ id, eyebrow, titleLight, titleBold, desc, bullets, Mockup, bg, reverse, icons }) => (
-  <section id={id} className={`relative py-24 md:py-32 ${bg}`}>
+const DeepDiveSection = ({ id, eyebrow, title, desc, bullets, Mockup, bg, reverse, icons, topFade }) => (
+  <section id={id} className={`relative py-24 md:py-32 border-t border-[#E4E4E7] dark:border-white/10 ${bg}`}>
+    {topFade && (
+      // Blends the hero's grey page-base into this section's white, so the
+      // boundary dissolves rather than cutting hard — paired with the hero
+      // mockup's own bottom fade for one continuous transition.
+      <div className="absolute top-0 inset-x-0 h-40 md:h-56 pointer-events-none bg-gradient-to-b from-[#F5F5F6] dark:from-[#121016] to-transparent" />
+    )}
     {icons.map((ic, i) => (
       <ScatteredIcon key={i} {...ic} />
     ))}
@@ -74,17 +78,17 @@ const DeepDiveSection = ({ id, eyebrow, titleLight, titleBold, desc, bullets, Mo
       <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
         <div className={reverse ? 'md:order-2' : ''}>
           <p className="text-[12px] font-semibold uppercase tracking-widest text-[#7161EF] mb-3">{eyebrow}</p>
-          <h2 className="text-[30px] md:text-[38px] tracking-tight text-[#18181B] dark:text-[#F5F3F0] leading-tight mb-5">
-            <span className="font-normal">{titleLight}</span> <span className="font-black">{titleBold}</span>
+          <h2 className="text-[30px] md:text-[38px] font-bold tracking-tight text-[#18181B] dark:text-[#F5F3F0] leading-tight mb-5">
+            {title}
           </h2>
-          <p className="text-[16px] text-[#47474D] dark:text-[#B8B2C4] leading-relaxed mb-7">{desc}</p>
+          <p className="text-[16px] font-normal text-[#47474D] dark:text-[#B8B2C4] leading-relaxed mb-7">{desc}</p>
           <ul className="space-y-3.5">
             {bullets.map((b) => (
               <li key={b} className="flex items-start gap-3">
                 <span className="mt-0.5 w-5 h-5 rounded-full bg-[#EEECFD] dark:bg-[#241F3D] flex items-center justify-center flex-shrink-0">
                   <span className="material-symbols-outlined text-[13px] text-[#7161EF]">check</span>
                 </span>
-                <span className="text-[14px] text-[#47474D] dark:text-[#B8B2C4] leading-relaxed">{b}</span>
+                <span className="text-[14px] font-normal text-[#47474D] dark:text-[#B8B2C4] leading-relaxed">{b}</span>
               </li>
             ))}
           </ul>

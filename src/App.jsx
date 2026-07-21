@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SitemapEditor from "./sitemap-editor/SitemapEditor";
+import SitemapApp from "./sitemap-editor/SitemapApp";
 import CardSortHub from "./card-sort/CardSortHub";
 import TakeStudy from "./card-sort/TakeStudy";
 import LandingPage from "./landing-page/LandingPage";
@@ -15,12 +15,12 @@ export default function App() {
   }
 
   if (view === "landing") {
-    return <LandingPage onGetStarted={(target) => setView(target === "cardsort" ? "cardsort" : "editor")} />;
+    return <LandingPage onGetStarted={(target) => setView(target === "cardsort" ? "cardsort" : "studio")} />;
   }
 
   if (view === "cardsort") {
-    return <CardSortHub onExit={() => setView("editor")} />;
+    return <CardSortHub onExit={() => setView("studio")} />;
   }
 
-  return <SitemapEditor onOpenCardSort={() => setView("cardsort")} />;
+  return <SitemapApp onOpenCardSort={() => setView("cardsort")} />;
 }

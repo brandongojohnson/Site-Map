@@ -90,7 +90,7 @@ export default {
         'body-md':            ['"Source Serif 4"', 'Georgia', 'serif'],
         'mono-code':          ['"JetBrains Mono"', 'monospace'],
         'serif': ['"Source Serif 4"', 'Georgia', 'serif'],
-        'sans':  ['Inter', 'system-ui', 'sans-serif'],
+        'sans':  ['Geist', 'system-ui', 'sans-serif'],
         'mono':  ['"JetBrains Mono"', 'monospace'],
       },
 

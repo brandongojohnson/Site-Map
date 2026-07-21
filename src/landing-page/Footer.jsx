@@ -27,10 +27,10 @@ const Footer = () => (
     <div className="max-w-6xl mx-auto px-6">
       <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(3,1fr)] gap-12 mb-14">
         <div>
-          <a href="#top" className="inline-block text-[17px] font-extrabold tracking-tight text-[#18181B] dark:text-[#F5F3F0] mb-4">
+          <a href="#top" className="inline-block text-[17px] font-bold tracking-tight text-[#18181B] dark:text-[#F5F3F0] mb-4">
             Sortly
           </a>
-          <p className="text-[14px] text-[#86868C] dark:text-[#9891A8] leading-relaxed max-w-xs">
+          <p className="text-[14px] font-normal text-[#86868C] dark:text-[#9891A8] leading-relaxed max-w-xs">
             Card sorting and sitemap design for teams who'd rather agree on structure once, in
             one place.
           </p>
@@ -38,13 +38,13 @@ const Footer = () => (
 
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <h4 className="text-[12px] font-bold uppercase tracking-widest text-[#18181B] dark:text-[#F5F3F0] mb-4">
+            <h4 className="text-[12px] font-semibold uppercase tracking-widest text-[#18181B] dark:text-[#F5F3F0] mb-4">
               {col.title}
             </h4>
             <ul className="space-y-3">
               {col.links.map((link) => (
                 <li key={link}>
-                  <a href="#top" className="text-[14px] text-[#86868C] dark:text-[#9891A8] hover:text-[#18181B] dark:hover:text-[#F5F3F0] transition-colors">
+                  <a href="#top" className="text-[14px] font-normal text-[#86868C] dark:text-[#9891A8] hover:text-[#18181B] dark:hover:text-[#F5F3F0] transition-colors">
                     {link}
                   </a>
                 </li>
@@ -55,7 +55,7 @@ const Footer = () => (
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#E4E4E7] dark:border-white/10">
-        <p className="text-[13px] text-[#9C9CA3] dark:text-[#6B6578]">© {new Date().getFullYear()} Sortly, Inc. All rights reserved.</p>
+        <p className="text-[13px] font-normal text-[#9C9CA3] dark:text-[#6B6578]">© {new Date().getFullYear()} Sortly, Inc. All rights reserved.</p>
         <div className="flex items-center gap-2">
           {SOCIALS.map((s) => (
             <a
