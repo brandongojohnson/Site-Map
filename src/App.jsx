@@ -1,18 +1,26 @@
 import { useState } from "react";
-import Dashboard from "./dashboard";
-import VellumSitemap from "./VellumSitemap2";
-import LandingPage from "./LandingPage";
+import SitemapEditor from "./sitemap-editor/SitemapEditor";
+import CardSortHub from "./card-sort/CardSortHub";
+import TakeStudy from "./card-sort/TakeStudy";
+import LandingPage from "./landing-page/LandingPage";
 
 export default function App() {
-  const [showLanding, setShowLanding] = useState(true);
+  const [view, setView] = useState("landing");
 
-  if (showLanding) {
-    return <LandingPage onGetStarted={() => setShowLanding(false)} />;
+  // A shared study link (?cardsort=<studyId>) always takes over the whole
+  // screen for the participant, regardless of app state.
+  const sharedStudyId = new URLSearchParams(window.location.search).get("cardsort");
+  if (sharedStudyId) {
+    return <TakeStudy studyId={sharedStudyId} />;
   }
 
-  return (
-    <>
-      <VellumSitemap />
-    </>
-  );
+  if (view === "landing") {
+    return <LandingPage onGetStarted={() => setView("editor")} />;
+  }
+
+  if (view === "cardsort") {
+    return <CardSortHub onExit={() => setView("editor")} />;
+  }
+
+  return <SitemapEditor onOpenCardSort={() => setView("cardsort")} />;
 }

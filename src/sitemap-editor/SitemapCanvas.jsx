@@ -12,7 +12,7 @@ const SitemapCanvas = ({
 
   return (
     <main
-      className="ml-64 pt-16 min-h-screen relative overflow-hidden"
+      className="ml-64 min-h-screen relative overflow-hidden"
       style={{
         background: '#fafafa',
         backgroundImage: 'radial-gradient(circle, #d0d0d0 1px, transparent 1px)',
@@ -29,7 +29,7 @@ const SitemapCanvas = ({
         ref={svgRef}
         width="100%"
         height="100%"
-        style={{ minHeight: 'calc(100vh - 64px)' }}
+        style={{ minHeight: '100vh' }}
       >
         <g transform={`translate(${pan.x}, ${pan.y}) scale(${zoom})`}>
           <g transform={`translate(${-minX}, 32)`}>

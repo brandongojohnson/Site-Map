@@ -1,7 +1,7 @@
 import React from 'react';
 
-const LeftSidebar = ({ onNewPage }) => (
-  <aside className="h-screen w-64 fixed left-0 top-0 bg-[#f3f3f4] flex flex-col p-6 space-y-8 z-40 pt-16">
+const LeftSidebar = ({ onNewPage, onOpenCardSort }) => (
+  <aside className="h-screen w-64 fixed left-0 top-0 bg-[#f3f3f4] flex flex-col p-6 space-y-8 z-40">
     <div className="flex items-center gap-3 mb-6">
       <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center text-white">
         <span className="material-symbols-outlined">layers</span>
@@ -23,13 +23,20 @@ const LeftSidebar = ({ onNewPage }) => (
       {[
         { icon: 'dashboard', label: 'Dashboard' },
         { icon: 'layers', label: 'Pages', active: true },
+        { icon: 'style', label: 'Card Sort', onClick: onOpenCardSort },
         { icon: 'folder_open', label: 'Assets' },
         { icon: 'history', label: 'History' },
         { icon: 'ios_share', label: 'Export' },
-      ].map(({ icon, label, active }) => (
+      ].map(({ icon, label, active, onClick }) => (
         <a
           key={label}
           href="#"
+          onClick={(e) => {
+            if (onClick) {
+              e.preventDefault();
+              onClick();
+            }
+          }}
           className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm uppercase tracking-widest transition-all ${
             active ? 'bg-white text-black font-bold shadow-sm' : 'text-[#474747] hover:bg-[#e8e8e8] hover:translate-x-1'
           }`}

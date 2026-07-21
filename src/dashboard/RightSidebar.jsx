@@ -4,7 +4,7 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
   if (!node) return null;
 
   return (
-    <aside className="fixed right-0 top-0 h-full w-80 bg-white border-l border-[#c6c6c6]/15 z-40 p-8 pt-24 overflow-auto">
+    <aside className="fixed right-0 top-0 h-full w-80 bg-white border-l border-[#c6c6c6]/15 z-40 p-8 overflow-auto">
       <div className="flex justify-between items-center mb-10">
         <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-black">Page Properties</h2>
         <button onClick={onClose} className="material-symbols-outlined text-on-surface-variant hover:text-black transition-colors">close</button>

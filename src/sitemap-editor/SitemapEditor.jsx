@@ -1,13 +1,12 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { ref, onValue, set } from 'firebase/database';
-import { db } from './firebase';
+import { db } from '../config/firebase';
 
-import TopNav from './components/TopNav';
-import LeftSidebar from './components/LeftSidebar';
-import SitemapCanvas from './components/SitemapCanvas';
-import RightSidebar from './components/RightSidebar';
+import LeftSidebar from '../dashboard/LeftSidebar';
+import SitemapCanvas from './SitemapCanvas';
+import RightSidebar from '../dashboard/RightSidebar';
 
-import { defaultTree, uid } from './data/treeData';
+import { defaultTree, uid } from '../data/treeData';
 import {
   addChild,
   updateNode,
@@ -16,14 +15,14 @@ import {
   layoutTree,
   collectNodes,
   collectEdges,
-} from './utils/treeUtils';
+} from '../utils/treeUtils';
 
 const NODE_W = 192;
 const NODE_H = 96;
 const H_GAP = 48;
 const V_GAP = 80;
 
-const VellumSitemap = () => {
+const VellumSitemap = ({ onOpenCardSort }) => {
   const [tree, setTree] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [zoom, setZoom] = useState(0.85);
@@ -189,8 +188,10 @@ const VellumSitemap = () => {
 
   return (
     <div className="light font-body text-on-surface bg-background min-h-screen overflow-hidden">
-      <TopNav />
-      <LeftSidebar onNewPage={() => handleAddChild(selectedId || 'root')} />
+      <LeftSidebar
+        onNewPage={() => handleAddChild(selectedId || 'root')}
+        onOpenCardSort={onOpenCardSort}
+      />
 
       <SitemapCanvas
         svgRef={svgRef}
