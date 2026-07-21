@@ -39,6 +39,18 @@ const edges = [
 
 const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
 
+// Every branch from home runs fully accented out to its third-column leaf,
+// not just the first hop out of the highlighted node.
+const ACCENT_EDGES = new Set([
+  'home-products',
+  'home-solutions',
+  'home-about',
+  'products-pricing',
+  'products-enterprise',
+  'solutions-cases',
+  'about-contact',
+]);
+
 const pathFor = (fromId, toId) => {
   const a = byId[fromId];
   const b = byId[toId];
@@ -108,16 +120,19 @@ const HeroMockup = ({ className = '' }) => (
           className="absolute inset-0 w-full h-full"
           preserveAspectRatio="none"
         >
-          {edges.map(([from, to]) => (
-            <path
-              key={`${from}-${to}`}
-              d={pathFor(from, to)}
-              fill="none"
-              stroke={from === 'home' ? '#7161EF' : '#E4E4E7'}
-              strokeOpacity={from === 'home' ? 0.4 : 1}
-              strokeWidth={2}
-            />
-          ))}
+          {edges.map(([from, to]) => {
+            const accented = ACCENT_EDGES.has(`${from}-${to}`);
+            return (
+              <path
+                key={`${from}-${to}`}
+                d={pathFor(from, to)}
+                fill="none"
+                stroke={accented ? '#7161EF' : '#E4E4E7'}
+                strokeOpacity={accented ? 0.4 : 1}
+                strokeWidth={2}
+              />
+            );
+          })}
         </svg>
         {nodes.map((n) => (
           <NodeChip
