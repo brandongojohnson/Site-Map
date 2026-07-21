@@ -58,32 +58,32 @@ const SitemapMockup = ({ className = '' }) => (
     label="Sitemap · Homepage Redesign"
     className={className}
     right={
-      <div className="flex items-center gap-1.5 text-[10px] text-[#9C9CA3]">
+      <div className="flex items-center gap-1.5 text-[10px] text-white/35">
         <span className="material-symbols-outlined text-[13px]">layers</span>
         8 pages
       </div>
     }
   >
     <div
-      className="relative w-full bg-white/40 backdrop-blur-sm"
+      className="relative w-full bg-white/[0.03] backdrop-blur-sm"
       style={{ aspectRatio: `${W} / ${H}` }}
     >
-      <div className="absolute top-3 left-3 z-10 flex items-center gap-0.5 rounded-full bg-white/80 backdrop-blur-md border border-white/60 px-1.5 py-1 shadow-[0_4px_14px_-6px_rgba(23,21,18,0.2)]">
+      <div className="absolute top-3 left-3 z-10 flex items-center gap-0.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 px-1.5 py-1 shadow-[0_4px_14px_-6px_rgba(0,0,0,0.3)]">
         {['undo', 'redo'].map((icon) => (
-          <span key={icon} className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
+          <span key={icon} className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-white/60">
             {icon}
           </span>
         ))}
-        <span className="w-px h-4 bg-[#E4E4E7] mx-0.5" />
-        <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
+        <span className="w-px h-4 bg-white/15 mx-0.5" />
+        <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-white/60">
           remove
         </span>
-        <span className="text-[9px] font-semibold text-[#47474D] px-0.5">100%</span>
-        <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
+        <span className="text-[9px] font-semibold text-white/60 px-0.5">100%</span>
+        <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-white/60">
           add
         </span>
-        <span className="w-px h-4 bg-[#E4E4E7] mx-0.5" />
-        <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
+        <span className="w-px h-4 bg-white/15 mx-0.5" />
+        <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-white/60">
           add_box
         </span>
       </div>
@@ -100,8 +100,8 @@ const SitemapMockup = ({ className = '' }) => (
               key={`${from}-${to}`}
               d={pathFor(from, to)}
               fill="none"
-              stroke={accented ? '#7161EF' : '#E4E4E7'}
-              strokeOpacity={accented ? 0.4 : 1}
+              stroke={accented ? '#7161EF' : 'rgba(255,255,255,0.18)'}
+              strokeOpacity={accented ? 0.5 : 1}
               strokeWidth={2}
             />
           );
