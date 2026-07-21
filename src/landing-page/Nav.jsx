@@ -30,16 +30,16 @@ const Nav = ({ onGetStarted }) => {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled ? GLASS_NAV_SCROLLED : GLASS_NAV_TOP
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
-        <a href="#top" className="text-[17px] font-bold tracking-tight text-[#F5F3F0]">
+      <nav className="max-w-7xl mx-auto px-6 lg:px-10 py-4 grid grid-cols-[1fr_auto_1fr] items-center">
+        <a href="#top" className="justify-self-start text-[17px] font-bold tracking-tight text-[#F5F3F0]">
           Sortly
         </a>
 
-        <div className="hidden md:flex items-center gap-9">
+        <div className="hidden md:flex items-center gap-9 justify-self-center">
           {LINKS.map((l) => (
             <button
               key={l.label}
@@ -51,7 +51,7 @@ const Nav = ({ onGetStarted }) => {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 justify-self-end">
           <button
             onClick={onGetStarted}
             className="hidden sm:inline text-[14px] font-normal text-white/60 hover:text-[#F5F3F0] transition-colors"
