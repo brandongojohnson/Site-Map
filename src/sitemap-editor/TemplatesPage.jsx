@@ -5,7 +5,7 @@ import { TEMPLATES } from '../data/templates';
 import { createBoard, blankTree } from './boardStore';
 import { countNodes } from '../utils/treeUtils';
 
-const TemplatesPage = ({ onNavigate, onOpenBoard }) => {
+const TemplatesPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
   const [creatingId, setCreatingId] = useState(null);
   const [error, setError] = useState(null);
 
@@ -33,6 +33,7 @@ const TemplatesPage = ({ onNavigate, onOpenBoard }) => {
         onNavigate={onNavigate}
         primaryLabel="New Board"
         onPrimary={() => useTemplate(null)}
+        hideDashboard={hideDashboard}
       />
 
       <main className="ml-64 min-h-screen p-10">

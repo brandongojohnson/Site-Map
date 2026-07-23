@@ -5,9 +5,7 @@ const NAV_ITEMS = [
   { icon: 'layers', label: 'Pages', view: 'editor' },
   { icon: 'grid_view', label: 'Templates', view: 'templates' },
   { icon: 'style', label: 'Card Sort', view: 'cardsort' },
-  { icon: 'folder_open', label: 'Assets' },
-  { icon: 'history', label: 'History' },
-  { icon: 'ios_share', label: 'Export' },
+  { icon: 'ios_share', label: 'Export', action: 'export' },
 ];
 
 const LeftSidebar = ({
@@ -17,10 +15,12 @@ const LeftSidebar = ({
   onNavigate = () => {},
   primaryLabel,
   onPrimary,
+  hideDashboard = false,
+  onExport,
 }) => (
   <aside className="h-screen w-64 fixed left-0 top-0 bg-[#f3f3f4] flex flex-col p-6 space-y-8 z-40">
-    <div className="flex items-center gap-3 mb-6">
-      <div className="w-10 h-10 bg-[#7161EF] rounded-lg flex items-center justify-center text-white flex-shrink-0">
+    <div className="flex items-center gap-1.5 mb-6">
+      <div className="w-7 h-7 rounded-lg flex items-center justify-center text-black flex-shrink-0">
         <span className="material-symbols-outlined">layers</span>
       </div>
       <div className="min-w-0">
@@ -39,16 +39,17 @@ const LeftSidebar = ({
     )}
 
     <nav className="flex-grow space-y-2">
-      {NAV_ITEMS.map(({ icon, label, view }) => {
+      {NAV_ITEMS.filter((item) => !(hideDashboard && item.view === 'dashboard')).map(({ icon, label, view, action }) => {
         const active = view && view === activeView;
-        const clickable = !!view;
+        const clickable = !!view || (action === 'export' && !!onExport);
         return (
           <a
             key={label}
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              if (clickable) onNavigate(view);
+              if (action === 'export') onExport?.();
+              else if (view) onNavigate(view);
             }}
             className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all ${
               active

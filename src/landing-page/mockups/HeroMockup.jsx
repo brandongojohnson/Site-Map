@@ -64,26 +64,29 @@ const pathFor = (fromId, toId) => {
 
 // The single "floating dashboard" screenshot for the hero: a sitemap canvas
 // with a card-sort board as a side panel, inside one window frame, tinted
-// with the brand accent so it reads as on-brand at a glance.
+// with the brand accent so it reads as on-brand at a glance. Shown in light
+// mode deliberately — a bright focal point against the dark hero, while the
+// deep-dive screenshots further down stay dark to match the page.
 const HeroMockup = ({ className = '' }) => (
   <WindowChrome
     label="Sortly · Homepage Redesign"
     accent
+    light
     className={className}
     right={
-      <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-white/35">
+      <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-[#9C9CA3]">
         <span className="material-symbols-outlined text-[15px]">groups</span>
         4 collaborators
       </div>
     }
   >
     <div className="flex flex-col md:flex-row">
-      <div className="hidden md:flex flex-col items-center gap-1.5 w-14 flex-shrink-0 border-r border-white/10 bg-white/[0.03] backdrop-blur-sm py-4">
+      <div className="hidden md:flex flex-col items-center gap-1.5 w-14 flex-shrink-0 border-r border-white/40 bg-white/30 backdrop-blur-sm py-4">
         {MENU_ITEMS.map((item, i) => (
           <span
             key={i}
             className={`material-symbols-outlined w-9 h-9 rounded-lg flex items-center justify-center text-[18px] ${
-              item.active ? 'bg-[#F5F3F0] text-[#131313]' : 'text-white/40'
+              item.active ? 'bg-[#18181B] text-white' : 'text-[#86868C]'
             }`}
           >
             {item.icon}
@@ -92,25 +95,25 @@ const HeroMockup = ({ className = '' }) => (
       </div>
 
       <div
-        className="relative flex-1 min-w-0 bg-white/[0.03] backdrop-blur-sm"
+        className="relative flex-1 min-w-0 bg-white/40 backdrop-blur-sm"
         style={{ aspectRatio: `${W} / ${H}` }}
       >
-        <div className="absolute top-3 left-3 z-10 flex items-center gap-0.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 px-1.5 py-1 shadow-[0_4px_14px_-6px_rgba(0,0,0,0.3)]">
+        <div className="absolute top-3 left-3 z-10 flex items-center gap-0.5 rounded-full bg-white/80 backdrop-blur-md border border-white/60 px-1.5 py-1 shadow-[0_4px_14px_-6px_rgba(23,21,18,0.2)]">
           {['undo', 'redo'].map((icon) => (
-            <span key={icon} className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-white/60">
+            <span key={icon} className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
               {icon}
             </span>
           ))}
-          <span className="w-px h-4 bg-white/15 mx-0.5" />
-          <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-white/60">
+          <span className="w-px h-4 bg-[#E4E4E7] mx-0.5" />
+          <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
             remove
           </span>
-          <span className="text-[9px] font-semibold text-white/60 px-0.5">100%</span>
-          <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-white/60">
+          <span className="text-[9px] font-semibold text-[#47474D] px-0.5">100%</span>
+          <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
             add
           </span>
-          <span className="w-px h-4 bg-white/15 mx-0.5" />
-          <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-white/60">
+          <span className="w-px h-4 bg-[#E4E4E7] mx-0.5" />
+          <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
             add_box
           </span>
         </div>
@@ -127,8 +130,8 @@ const HeroMockup = ({ className = '' }) => (
                 key={`${from}-${to}`}
                 d={pathFor(from, to)}
                 fill="none"
-                stroke={accented ? '#7161EF' : 'rgba(255,255,255,0.18)'}
-                strokeOpacity={accented ? 0.5 : 1}
+                stroke={accented ? '#7161EF' : '#E4E4E7'}
+                strokeOpacity={accented ? 0.4 : 1}
                 strokeWidth={2}
               />
             );
@@ -141,32 +144,33 @@ const HeroMockup = ({ className = '' }) => (
             title={n.title}
             sub={n.sub}
             accent={n.accent}
+            light
             style={{ left: `${(n.x / W) * 100}%`, top: `${(n.y / H) * 100}%` }}
           />
         ))}
       </div>
 
-      <div className="w-full md:w-[240px] flex-shrink-0 border-t md:border-t-0 md:border-l border-white/10 bg-white/[0.03] backdrop-blur-sm p-4">
+      <div className="w-full md:w-[240px] flex-shrink-0 border-t md:border-t-0 md:border-l border-white/40 bg-white/40 backdrop-blur-sm p-4">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#86868C]">
             Card Sort
           </span>
           <div className="flex items-center gap-2">
-            <div className="w-10 h-1.5 rounded-full bg-white/10 overflow-hidden">
+            <div className="w-10 h-1.5 rounded-full bg-[#E4E4E7] overflow-hidden">
               <div className="h-full w-4/5 bg-[#7161EF]" />
             </div>
-            <span className="text-[9px] font-semibold text-white/35">7/9</span>
+            <span className="text-[9px] font-semibold text-[#9C9CA3]">7/9</span>
           </div>
         </div>
         <div className="space-y-2.5">
-          <GroupColumn title="Navigation" count={3}>
-            <CardChip label="Products" />
-            <CardChip label="Solutions" />
-            <CardChip label="Pricing" />
+          <GroupColumn title="Navigation" count={3} light>
+            <CardChip label="Products" light />
+            <CardChip label="Solutions" light />
+            <CardChip label="Pricing" light />
           </GroupColumn>
-          <GroupColumn title="Footer" count={2}>
-            <CardChip label="About" />
-            <CardChip label="Contact" />
+          <GroupColumn title="Footer" count={2} light>
+            <CardChip label="About" light />
+            <CardChip label="Contact" light />
           </GroupColumn>
         </div>
       </div>

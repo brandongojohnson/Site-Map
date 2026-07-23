@@ -22,7 +22,7 @@ const NODE_H = 96;
 const H_GAP = 48;
 const V_GAP = 80;
 
-const SitemapEditor = ({ boardId, onNavigate }) => {
+const SitemapEditor = ({ boardId, onNavigate, hideDashboard = false }) => {
   const [tree, setTree] = useState(null);
   const [boardName, setBoardName] = useState('');
   const [selectedId, setSelectedId] = useState(null);
@@ -147,6 +147,20 @@ const SitemapEditor = ({ boardId, onNavigate }) => {
     setSelectedId(null);
   }, [tree, selectedId, queueSave]);
 
+  const handleExportJSON = useCallback(() => {
+    if (!tree) return;
+    const blob = new Blob([JSON.stringify(tree, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const filename = `${(boardName || 'sitemap').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')}.json`;
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, [tree, boardName]);
+
   // ====================== Pan & zoom ======================
   const onMouseDown = (e) => {
     if (e.target.closest('g[data-node]')) return;
@@ -183,10 +197,10 @@ const SitemapEditor = ({ boardId, onNavigate }) => {
       <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-8 text-center">
         <p className="text-red-600">{error}</p>
         <button
-          onClick={() => onNavigate('dashboard')}
+          onClick={() => onNavigate(hideDashboard ? 'templates' : 'dashboard')}
           className="px-6 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 transition-all"
         >
-          Back to Dashboard
+          {hideDashboard ? 'Back to Templates' : 'Back to Dashboard'}
         </button>
       </div>
     );
@@ -201,6 +215,8 @@ const SitemapEditor = ({ boardId, onNavigate }) => {
         onNavigate={onNavigate}
         primaryLabel="New Page"
         onPrimary={() => handleAddChild(selectedId || 'root')}
+        hideDashboard={hideDashboard}
+        onExport={handleExportJSON}
       />
 
       <SitemapCanvas

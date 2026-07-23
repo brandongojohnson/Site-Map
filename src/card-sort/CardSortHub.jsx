@@ -68,8 +68,9 @@ const StudyRow = ({ study, onViewResults, onDelete }) => {
   );
 };
 
-// Sign-in is a full-page redirect (see useAuth.js), so clicking this just
-// navigates away — there's no "pending" state to show before that happens.
+// Sign-in opens a Google popup (see useAuth.js) rather than redirecting —
+// the page itself never navigates away, so there's no "pending" state to
+// show while it's open.
 const AuthControl = ({ user }) => {
   if (user === undefined) {
     return <span className="text-xs text-[#8a8a8a]">…</span>;

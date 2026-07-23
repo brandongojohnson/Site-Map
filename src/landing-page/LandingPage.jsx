@@ -10,6 +10,7 @@ import Testimonial from './Testimonial';
 import Pricing from './Pricing';
 import FAQ from './FAQ';
 import FinalCTA from './FinalCTA';
+import Contact from './Contact';
 import Footer from './Footer';
 
 const LandingPage = ({ onGetStarted }) => (
@@ -33,6 +34,9 @@ const LandingPage = ({ onGetStarted }) => (
     </Reveal>
     <Reveal>
       <FinalCTA onGetStarted={onGetStarted} />
+    </Reveal>
+    <Reveal>
+      <Contact />
     </Reveal>
     <Footer />
   </div>

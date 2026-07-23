@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { signInWithGoogle } from '../card-sort/useAuth';
+import React, { useState, useEffect } from 'react';
+import { useAuth, signInWithGoogle } from '../card-sort/useAuth';
 
 const GoogleIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
@@ -15,6 +15,28 @@ const GoogleIcon = () => (
 // visitor's intent, not two different auth flows.
 const AuthModal = ({ onClose }) => {
   const [mode, setMode] = useState('login');
+  const [signing, setSigning] = useState(false);
+  const [error, setError] = useState(null);
+  const { user } = useAuth();
+
+  // Popup sign-in doesn't navigate the page away, so nothing else closes
+  // this modal automatically once the user is actually signed in.
+  useEffect(() => {
+    if (user) onClose();
+  }, [user, onClose]);
+
+  const handleGoogleSignIn = async () => {
+    setSigning(true);
+    setError(null);
+    try {
+      await signInWithGoogle();
+    } catch (err) {
+      console.error('Google sign-in failed:', err);
+      setError('Sign-in failed. Please try again.');
+    } finally {
+      setSigning(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
@@ -60,12 +82,19 @@ const AuthModal = ({ onClose }) => {
             : 'Start free — no credit card required.'}
         </p>
 
+        {error && (
+          <p className="text-[12px] font-normal text-[#F58787] bg-[#F58787]/10 rounded-lg px-3 py-2.5 mb-4">
+            {error}
+          </p>
+        )}
+
         <button
-          onClick={signInWithGoogle}
-          className="w-full flex items-center justify-center gap-2.5 rounded-full bg-white text-[#131313] py-3 text-[14px] font-semibold hover:opacity-90 active:scale-95 transition-all"
+          onClick={handleGoogleSignIn}
+          disabled={signing}
+          className="w-full flex items-center justify-center gap-2.5 rounded-full bg-white text-[#131313] py-3 text-[14px] font-semibold hover:opacity-90 active:scale-95 transition-all disabled:opacity-60"
         >
           <GoogleIcon />
-          Continue with Google
+          {signing ? 'Signing in…' : 'Continue with Google'}
         </button>
 
         <p className="text-[11px] font-normal text-white/35 text-center mt-6 leading-relaxed">

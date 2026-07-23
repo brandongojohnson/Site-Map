@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardPage from './DashboardPage';
 import TemplatesPage from './TemplatesPage';
 import SitemapEditor from './SitemapEditor';
+import { useAuth } from '../card-sort/useAuth';
 
 // Shell for the sitemap side of the app: Dashboard (boards in progress),
 // Templates, and the editor itself. Card Sort lives outside this shell, so
 // navigating there is delegated up to App.
+//
+// Dashboard lists every board in the shared workspace (there's no per-board
+// ownership yet), so it's reserved for signed-in visitors. Signed-out
+// visitors can still build and edit a sitemap freely — they just land on
+// Templates instead of the boards-in-progress list, and can't navigate back
+// to it either.
 const SitemapApp = ({ onOpenCardSort }) => {
-  const [view, setView] = useState('dashboard'); // dashboard | templates | editor
+  const { user } = useAuth();
+  const [view, setView] = useState(null); // null while auth state resolves
   const [boardId, setBoardId] = useState(null);
+
+  useEffect(() => {
+    if (user === undefined || view !== null) return;
+    setView(user ? 'dashboard' : 'templates');
+  }, [user, view]);
 
   const navigate = (target) => {
     if (target === 'cardsort') {
       onOpenCardSort();
       return;
     }
-    // "Pages" only makes sense with a board open; fall back to the dashboard.
+    if (target === 'dashboard' && !user) {
+      setView('templates');
+      return;
+    }
+    // "Pages" only makes sense with a board open; fall back to a safe default.
     if (target === 'editor' && !boardId) {
-      setView('dashboard');
+      setView(user ? 'dashboard' : 'templates');
       return;
     }
     setView(target);
@@ -28,15 +45,21 @@ const SitemapApp = ({ onOpenCardSort }) => {
     setView('editor');
   };
 
+  if (view === null) return null;
+
   if (view === 'templates') {
-    return <TemplatesPage onNavigate={navigate} onOpenBoard={openBoard} />;
+    return <TemplatesPage onNavigate={navigate} onOpenBoard={openBoard} hideDashboard={!user} />;
   }
 
   if (view === 'editor' && boardId) {
-    return <SitemapEditor boardId={boardId} onNavigate={navigate} />;
+    return <SitemapEditor boardId={boardId} onNavigate={navigate} hideDashboard={!user} />;
   }
 
-  return <DashboardPage onNavigate={navigate} onOpenBoard={openBoard} />;
+  if (view === 'dashboard' && user) {
+    return <DashboardPage onNavigate={navigate} onOpenBoard={openBoard} />;
+  }
+
+  return <TemplatesPage onNavigate={navigate} onOpenBoard={openBoard} hideDashboard={!user} />;
 };
 
 export default SitemapApp;
