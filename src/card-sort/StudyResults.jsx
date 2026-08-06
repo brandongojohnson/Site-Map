@@ -126,7 +126,7 @@ const StudyResults = ({ studyId, onExit }) => {
               <button
                 key={t.key}
                 onClick={() => setTab(t.key)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-md text-xs uppercase tracking-widest font-bold transition-all ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-xs tracking-widest font-bold transition-all ${
                   tab === t.key ? 'bg-[#7161EF] text-white' : 'text-[#474747] hover:bg-[#e8e8e8]'
                 }`}
               >

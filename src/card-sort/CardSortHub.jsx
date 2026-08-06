@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ref, get } from 'firebase/database';
 import { db } from '../config/firebase';
-import { useAuth, signInWithGoogle, signOutUser } from './useAuth';
+import { useAuth, signInWithGoogle } from './useAuth';
 import { createStudy, deleteStudy, listMyStudies, buildStudyLink } from './studyStore';
 import { makeCards, makeCategories, SORT_TYPES } from './sortUtils';
 import CardSortStudy from './CardSortStudy';
 import CreateStudyForm from './CreateStudyForm';
 import StudyCreated from './StudyCreated';
 import StudyResults from './StudyResults';
+import AccountBadge from '../shared/components/AccountBadge';
+import GetStartedMenu from '../shared/components/GetStartedMenu';
 
 const StudyRow = ({ study, onViewResults, onDelete }) => {
   const [copied, setCopied] = useState(false);
@@ -64,48 +66,6 @@ const StudyRow = ({ study, onViewResults, onDelete }) => {
           <span className="material-symbols-outlined text-base">delete</span>
         </button>
       </div>
-    </div>
-  );
-};
-
-// Sign-in opens a Google popup (see useAuth.js) rather than redirecting —
-// the page itself never navigates away, so there's no "pending" state to
-// show while it's open.
-const AuthControl = ({ user }) => {
-  if (user === undefined) {
-    return <span className="text-xs text-[#8a8a8a]">…</span>;
-  }
-
-  if (!user) {
-    return (
-      <button
-        onClick={() => signInWithGoogle().catch((err) => console.error('Sign-in failed:', err))}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs uppercase tracking-widest bg-[#7161EF] text-white hover:opacity-90 transition-all"
-      >
-        <span className="material-symbols-outlined text-base">login</span>
-        Sign In with Google
-      </button>
-    );
-  }
-
-  return (
-    <div className="flex items-center gap-3">
-      {user.photoURL ? (
-        <img src={user.photoURL} alt="" className="w-7 h-7 rounded-full" referrerPolicy="no-referrer" />
-      ) : (
-        <div className="w-7 h-7 rounded-full bg-[#7161EF] text-white flex items-center justify-center text-xs font-bold">
-          {(user.displayName || user.email || '?')[0].toUpperCase()}
-        </div>
-      )}
-      <span className="text-xs text-[#474747] max-w-[10rem] truncate hidden sm:inline">
-        {user.displayName || user.email}
-      </span>
-      <button
-        onClick={() => signOutUser().catch((err) => console.error('Sign-out failed:', err))}
-        className="text-[10px] uppercase tracking-widest text-[#8a8a8a] hover:text-[#7161EF] transition-all"
-      >
-        Sign Out
-      </button>
     </div>
   );
 };
@@ -234,25 +194,21 @@ const CardSortHub = ({ onExit }) => {
 
   return (
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
-      <header className="flex items-center justify-between px-8 py-5 border-b border-[#c6c6c6]/40 bg-white">
+      <header className="flex items-center justify-between px-8 py-5">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#7161EF] rounded-lg flex items-center justify-center text-white">
-            <span className="material-symbols-outlined">style</span>
-          </div>
+          <span className="flex items-center gap-1.5 text-[17px] font-bold tracking-tight text-black">
+            <span className="material-symbols-outlined text-[20px] text-[#7161EF]">layers</span>
+            Sortly
+          </span>
+          <span className="w-px h-6 bg-[#e6e6e9]" />
           <div>
             <h1 className="text-xl font-black leading-tight">Card Sort</h1>
             <p className="text-[10px] uppercase tracking-widest text-[#474747]">Studies</p>
           </div>
         </div>
-        <div className="flex items-center gap-5">
-          <AuthControl user={user} />
-          <button
-            onClick={onExit}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm uppercase tracking-widest text-[#474747] hover:bg-[#e8e8e8] transition-all"
-          >
-            <span className="material-symbols-outlined text-base">arrow_back</span>
-            Back to Editor
-          </button>
+        <div className="flex items-center gap-3">
+          <GetStartedMenu onNavigate={(target) => target === 'editor' && onExit()} />
+          <AccountBadge />
         </div>
       </header>
 

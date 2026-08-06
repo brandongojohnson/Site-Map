@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 
 import LeftSidebar from '../dashboard/LeftSidebar';
+import TopBar from '../dashboard/TopBar';
 import SitemapCanvas from './SitemapCanvas';
 import RightSidebar from '../dashboard/RightSidebar';
 
@@ -218,6 +219,8 @@ const SitemapEditor = ({ boardId, onNavigate, hideDashboard = false }) => {
         hideDashboard={hideDashboard}
         onExport={handleExportJSON}
       />
+
+      <TopBar onNavigate={onNavigate} style={{ right: selectedNode ? 320 : 0 }} />
 
       <SitemapCanvas
         svgRef={svgRef}

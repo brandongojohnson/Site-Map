@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import LeftSidebar from '../dashboard/LeftSidebar';
+import TopBar from '../dashboard/TopBar';
 import MiniTree from './MiniTree';
 import {
   listBoards,
@@ -62,7 +63,9 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
         onPrimary={handleNewBoard}
       />
 
-      <main className="ml-64 min-h-screen p-10">
+      <TopBar onNavigate={onNavigate} />
+
+      <main className="ml-64 min-h-screen p-10 pt-24">
         <header className="mb-10">
           <p className="text-[10px] uppercase tracking-[0.3em] text-[#8a8a8a] mb-2">Workspace</p>
           <h1 className="text-3xl font-black tracking-tight text-black mb-1">Boards in progress</h1>

@@ -4,7 +4,6 @@ const NAV_ITEMS = [
   { icon: 'dashboard', label: 'Dashboard', view: 'dashboard' },
   { icon: 'layers', label: 'Pages', view: 'editor' },
   { icon: 'grid_view', label: 'Templates', view: 'templates' },
-  { icon: 'style', label: 'Card Sort', view: 'cardsort' },
   { icon: 'ios_share', label: 'Export', action: 'export' },
 ];
 
@@ -65,13 +64,6 @@ const LeftSidebar = ({
         );
       })}
     </nav>
-
-    <div className="mt-auto pt-6 border-t border-[#c6c6c6]/15">
-      <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-2.5 px-3 py-2 text-[#474747] hover:bg-[#e8e8e8] transition-all rounded-lg text-sm">
-        <span className="material-symbols-outlined text-[18px]">account_circle</span>
-        <span>Account</span>
-      </a>
-    </div>
   </aside>
 );
 

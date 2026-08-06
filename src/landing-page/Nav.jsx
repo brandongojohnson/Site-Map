@@ -51,7 +51,7 @@ const Nav = ({ onGetStarted }) => {
             <button
               key={l.label}
               onClick={() => scrollTo(l.href)}
-              className="text-[13px] font-normal uppercase tracking-wide text-white/50 hover:text-white transition-colors"
+              className="text-[13px] font-normal tracking-wide text-white/50 hover:text-white transition-colors"
             >
               {l.label}
             </button>
