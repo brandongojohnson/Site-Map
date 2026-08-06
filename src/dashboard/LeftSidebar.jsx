@@ -1,4 +1,5 @@
 import React from 'react';
+import SortlyLogo from '../shared/components/SortlyLogo';
 
 const NAV_ITEMS = [
   { icon: 'dashboard', label: 'Dashboard', view: 'dashboard' },
@@ -18,14 +19,8 @@ const LeftSidebar = ({
   onExport,
 }) => (
   <aside className="h-screen w-64 fixed left-0 top-0 bg-[#f3f3f4] flex flex-col p-6 space-y-8 z-40">
-    <div className="flex items-center gap-1.5 mb-6">
-      <div className="w-7 h-7 rounded-lg flex items-center justify-center text-black flex-shrink-0">
-        <span className="material-symbols-outlined">layers</span>
-      </div>
-      <div className="min-w-0">
-        <h2 className="text-lg font-black text-black leading-tight truncate">{title}</h2>
-        <p className="text-[10px] uppercase tracking-widest text-on-surface-variant">{subtitle}</p>
-      </div>
+    <div className="mb-6">
+      <SortlyLogo context={title} subtitle={subtitle} iconClassName="text-base text-black" textClassName="text-black" />
     </div>
 
     {primaryLabel && (

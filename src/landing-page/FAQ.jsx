@@ -27,36 +27,36 @@ const QUESTIONS = [
 const FAQItem = ({ q, a }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-white/10 py-5">
+    <div className="border-b border-black/10 dark:border-white/10 py-5">
       <button
         onClick={() => setOpen((o) => !o)}
         className="w-full flex items-center justify-between gap-4 text-left"
       >
-        <span className="text-[15px] font-semibold text-[#F5F3F0]">{q}</span>
-        <span className={`material-symbols-outlined text-[20px] text-white/40 flex-shrink-0 transition-transform ${open ? 'rotate-45' : ''}`}>
+        <span className="text-[15px] font-semibold text-[#131313] dark:text-[#F5F3F0]">{q}</span>
+        <span className={`material-symbols-outlined text-[20px] text-black/40 dark:text-white/40 flex-shrink-0 transition-transform ${open ? 'rotate-45' : ''}`}>
           add
         </span>
       </button>
       {open && (
-        <p className="text-[14px] font-normal text-white/55 leading-relaxed mt-4 max-w-2xl">{a}</p>
+        <p className="text-[14px] font-normal text-black/55 dark:text-white/55 leading-relaxed mt-4 max-w-2xl">{a}</p>
       )}
     </div>
   );
 };
 
 const FAQ = () => (
-  <section className="relative py-24 md:py-32 border-t border-white/10 bg-[#131313]">
+  <section className="relative py-24 md:py-32 border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#131313]">
     <div className="max-w-6xl mx-auto px-6">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12">
         <Reveal>
           <div>
-            <p className="text-[12px] font-semibold uppercase tracking-widest text-[#9B8FF5] mb-3">FAQ</p>
-            <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight text-[#F5F3F0] leading-tight mb-4">
+            <p className="text-[12px] font-semibold uppercase tracking-widest text-[#7161EF] dark:text-[#9B8FF5] mb-3">FAQ</p>
+            <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] leading-tight mb-4">
               Common questions.
             </h2>
-            <p className="text-[14px] font-normal text-white/50">
+            <p className="text-[14px] font-normal text-black/50 dark:text-white/50">
               Still have a question?{' '}
-              <a href="#top" className="text-[#9B8FF5] hover:text-[#F5F3F0] transition-colors">
+              <a href="#top" className="text-[#7161EF] dark:text-[#9B8FF5] hover:text-[#131313] dark:hover:text-[#F5F3F0] transition-colors">
                 Ask us directly →
               </a>
             </p>

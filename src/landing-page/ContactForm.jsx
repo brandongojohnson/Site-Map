@@ -4,7 +4,7 @@ import { db } from '../config/firebase';
 import { PILL_PRIMARY } from './buttonStyles';
 
 const FIELD_CLASS =
-  'w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-[14px] text-[#F5F3F0] placeholder:text-white/35 focus:outline-none focus:border-[#7161EF] transition-colors';
+  'w-full rounded-lg border border-black/10 bg-[#FAFAFA] px-4 py-3 text-[14px] text-[#131313] placeholder:text-black/35 focus:outline-none focus:border-[#7161EF] transition-colors dark:border-white/10 dark:bg-white/[0.03] dark:text-[#F5F3F0] dark:placeholder:text-white/35';
 
 const ContactForm = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -33,16 +33,16 @@ const ContactForm = () => {
 
   if (status === 'sent') {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
-        <span className="material-symbols-outlined text-[28px] text-[#9B8FF5] mb-3 block">check_circle</span>
-        <h3 className="text-[16px] font-semibold text-[#F5F3F0] mb-1.5">Message sent</h3>
-        <p className="text-[13px] font-normal text-white/50">We'll get back to you shortly.</p>
+      <div className="rounded-2xl border border-black/10 bg-[#FAFAFA] dark:border-white/10 dark:bg-white/[0.03] p-8 text-center">
+        <span className="material-symbols-outlined text-[28px] text-[#7161EF] dark:text-[#9B8FF5] mb-3 block">check_circle</span>
+        <h3 className="text-[16px] font-semibold text-[#131313] dark:text-[#F5F3F0] mb-1.5">Message sent</h3>
+        <p className="text-[13px] font-normal text-black/50 dark:text-white/50">We'll get back to you shortly.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 space-y-4">
+    <form onSubmit={onSubmit} className="rounded-2xl border border-black/10 bg-[#FAFAFA] dark:border-white/10 dark:bg-white/[0.03] p-6 sm:p-8 space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <input
           type="text"

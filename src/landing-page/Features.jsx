@@ -46,39 +46,39 @@ const SECTIONS = [
   },
 ];
 
-const FeatureBlock = ({ id, eyebrow, title, desc, bullets, Mockup, reverse }) => (
+const FeatureBlock = ({ id, eyebrow, title, desc, bullets, Mockup, reverse, light }) => (
   <div id={id}>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
       <div className={reverse ? 'md:order-2' : ''}>
-        <p className="text-[12px] font-semibold uppercase tracking-widest text-[#9B8FF5] mb-3">{eyebrow}</p>
-        <h3 className="text-[26px] md:text-[32px] font-bold tracking-tight text-[#F5F3F0] leading-tight mb-5">
+        <p className="text-[12px] font-semibold uppercase tracking-widest text-[#7161EF] dark:text-[#9B8FF5] mb-3">{eyebrow}</p>
+        <h3 className="text-[26px] md:text-[32px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] leading-tight mb-5">
           {title}
         </h3>
-        <p className="text-[16px] font-normal text-white/60 leading-relaxed mb-7">{desc}</p>
+        <p className="text-[16px] font-normal text-black/60 dark:text-white/60 leading-relaxed mb-7">{desc}</p>
         <ul className="space-y-3.5">
           {bullets.map((b) => (
             <li key={b} className="flex items-start gap-3">
-              <span className="mt-0.5 w-5 h-5 rounded-full bg-[#241F3D] flex items-center justify-center flex-shrink-0">
-                <span className="material-symbols-outlined text-[13px] text-[#9B8FF5]">check</span>
+              <span className="mt-0.5 w-5 h-5 rounded-full bg-[#EEECFD] dark:bg-[#241F3D] flex items-center justify-center flex-shrink-0">
+                <span className="material-symbols-outlined text-[13px] text-[#7161EF] dark:text-[#9B8FF5]">check</span>
               </span>
-              <span className="text-[14px] font-normal text-white/55 leading-relaxed">{b}</span>
+              <span className="text-[14px] font-normal text-black/55 dark:text-white/55 leading-relaxed">{b}</span>
             </li>
           ))}
         </ul>
       </div>
       <div className={reverse ? 'md:order-1' : ''}>
-        <Mockup className="shadow-[0_30px_70px_-25px_rgba(0,0,0,0.65)]" />
+        <Mockup className="shadow-[0_30px_70px_-25px_rgba(0,0,0,0.65)]" light={light} />
       </div>
     </div>
   </div>
 );
 
-const Features = () => (
-  <section className="relative py-24 md:py-32 border-t border-white/10 bg-[#131313]">
+const Features = ({ light }) => (
+  <section className="relative py-24 md:py-32 border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#131313]">
     <div className="max-w-6xl mx-auto px-6 space-y-24 md:space-y-32">
       {SECTIONS.map((s) => (
         <Reveal key={s.id}>
-          <FeatureBlock {...s} />
+          <FeatureBlock {...s} light={light} />
         </Reveal>
       ))}
     </div>

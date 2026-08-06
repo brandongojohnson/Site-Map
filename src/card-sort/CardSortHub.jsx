@@ -10,6 +10,7 @@ import StudyCreated from './StudyCreated';
 import StudyResults from './StudyResults';
 import AccountBadge from '../shared/components/AccountBadge';
 import GetStartedMenu from '../shared/components/GetStartedMenu';
+import SortlyLogo from '../shared/components/SortlyLogo';
 
 const StudyRow = ({ study, onViewResults, onDelete }) => {
   const [copied, setCopied] = useState(false);
@@ -195,17 +196,7 @@ const CardSortHub = ({ onExit }) => {
   return (
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
       <header className="flex items-center justify-between px-8 py-5">
-        <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1.5 text-[17px] font-bold tracking-tight text-black">
-            <span className="material-symbols-outlined text-[20px] text-[#7161EF]">layers</span>
-            Sortly
-          </span>
-          <span className="w-px h-6 bg-[#e6e6e9]" />
-          <div>
-            <h1 className="text-xl font-black leading-tight">Card Sort</h1>
-            <p className="text-[10px] uppercase tracking-widest text-[#474747]">Studies</p>
-          </div>
-        </div>
+        <SortlyLogo context="Card Sort" subtitle="Studies" iconClassName="text-[20px] text-[#7161EF]" textClassName="text-black" />
         <div className="flex items-center gap-3">
           <GetStartedMenu onNavigate={(target) => target === 'editor' && onExit()} />
           <AccountBadge />

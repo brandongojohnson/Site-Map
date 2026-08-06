@@ -112,7 +112,7 @@ const Hero = ({ onGetStarted }) => {
          mockup's own bottom edge and the section's (pb-40/-mb-24 and
          pb-56/-mb-40 both net to 64px) — any taller and this would paint
          over the screenshot itself, which stays untouched. */}
-      <div className="absolute inset-x-0 bottom-0 h-16 z-0 pointer-events-none bg-gradient-to-b from-transparent to-[#131313]" />
+      <div className="absolute inset-x-0 bottom-0 h-16 z-0 pointer-events-none bg-gradient-to-b from-transparent to-white dark:to-[#131313]" />
     </section>
   );
 };
