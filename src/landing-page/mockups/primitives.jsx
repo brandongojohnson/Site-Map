@@ -14,7 +14,7 @@ export const WindowChrome = ({ label, right, children, className = '', accent = 
     className={`rounded-2xl backdrop-blur-xl border overflow-hidden ${
       light
         ? `bg-white/60 shadow-[0_8px_32px_-12px_rgba(23,21,18,0.18)] ${accent ? 'border-[#7161EF]/30' : 'border-white/60'}`
-        : `bg-[#1C1C1F]/60 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.5)] ${accent ? 'border-[#7161EF]/30' : 'border-white/10'}`
+        : `bg-[#1C1C1F]/10 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.5)] ${accent ? 'border-[#7161EF]/30' : 'border-white/10'}`
     } ${className}`}
   >
     <div

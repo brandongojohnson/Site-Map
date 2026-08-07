@@ -6,8 +6,8 @@ const FinalCTA = ({ onGetStarted }) => (
     <div className="relative max-w-6xl mx-auto rounded-[28px] overflow-hidden bg-[#FAFAFA] border border-black/10 dark:bg-white/[0.03] dark:border-white/10 px-8 py-24 md:py-32 text-center">
       {/* Abstract organic texture */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full bg-[#7161EF]/20 blur-[110px]" />
-        <div className="absolute -bottom-32 right-[6%] w-[440px] h-[440px] rounded-full bg-[#5E6EEF]/15 blur-[110px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[420px] h-[420px] rounded-full bg-[#7161EF]/20 blur-[110px]" />
+        <div className="absolute top-1/2 right-1/2 -translate-y-1/2 translate-x-1/2 w-[440px] h-[440px] rounded-full bg-[#5E6EEF]/15 blur-[110px]" />
       </div>
 
       <div className="relative">

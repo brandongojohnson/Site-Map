@@ -15,7 +15,7 @@ const CardSortMockup = ({ className = '', light = false }) => (
       </div>
     }
   >
-    <div className={`p-4 backdrop-blur-sm ${light ? 'bg-white/40' : 'bg-white/[0.03]'}`}>
+    <div className={`p-4 backdrop-blur-sm ${light ? 'bg-[#F3F3F4]' : 'bg-white/[0.03]'}`}>
       <div className="flex gap-3">
         <GroupColumn title="Unsorted" count={2} light={light}>
           <CardChip label="Billing FAQ" faded light={light} />

@@ -66,7 +66,7 @@ const SitemapMockup = ({ className = '', light = false }) => (
     }
   >
     <div
-      className={`relative w-full backdrop-blur-sm ${light ? 'bg-white/40' : 'bg-white/[0.03]'}`}
+      className={`relative w-full backdrop-blur-sm ${light ? 'bg-[#F3F3F4]' : 'bg-white/[0.03]'}`}
       style={{ aspectRatio: `${W} / ${H}` }}
     >
       <div

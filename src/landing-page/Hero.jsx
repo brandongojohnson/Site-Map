@@ -27,6 +27,7 @@ const Hero = ({ onGetStarted }) => {
   }, [mounted]);
 
   const isImage = heroBg?.type === 'image';
+
   // object-fit/object-position/opacity are properties of a rendered <img>,
   // not of a CSS background-image — a custom photo renders as an actual img
   // element so those controls have something real to act on. Presets (and
@@ -34,14 +35,18 @@ const Hero = ({ onGetStarted }) => {
   const sectionStyle = isImage
     ? { backgroundColor: '#131313' }
     : {
-        backgroundImage: heroBg?.type === 'preset' ? heroBg.value : DEFAULT_AURORA,
+        backgroundImage:
+          heroBg?.type === 'preset' ? heroBg.value : DEFAULT_AURORA,
         backgroundSize: 'cover',
         backgroundPosition: 'top',
         backgroundColor: '#131313',
       };
 
   return (
-    <section id="top" className="relative overflow-hidden pt-28 pb-40 md:pt-36 md:pb-56" style={sectionStyle}>
+    <section
+      className="relative overflow-visible pt-24 md:pt-28 pb-40 md:pb-56"
+      style={sectionStyle}
+    >
       {isImage && (
         <img
           src={heroBg.src}
@@ -61,7 +66,9 @@ const Hero = ({ onGetStarted }) => {
       <div className="max-w-5xl mx-auto px-6 text-center">
         <div
           className={`transition-all duration-700 ease-out ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            mounted
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-6'
           }`}
         >
           <div
@@ -78,17 +85,26 @@ const Hero = ({ onGetStarted }) => {
           </h1>
 
           <p className="max-w-2xl mx-auto text-[17px] md:text-[19px] font-normal leading-relaxed text-white/65 mb-10">
-            Turn card sorts and stakeholder input into a clear, shareable sitemap — without
-            switching between five different tools to get there.
+            Turn card sorts and stakeholder input into a clear, shareable
+            sitemap — without switching between five different tools to get
+            there.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button onClick={onGetStarted} className={`${PILL_PRIMARY} px-8 py-4 text-[15px]`}>
+            <button
+              onClick={onGetStarted}
+              className="rounded-full font-semibold transition-all duration-200 active:scale-95 bg-[#F5F3F0] text-[#131313] hover:opacity-90 px-8 py-4 text-[15px]"
+            >
               Start for free
             </button>
+
             <button
-              onClick={() => document.querySelector('#capabilities')?.scrollIntoView({ behavior: 'smooth' })}
-              className={`${PILL_OUTLINE} px-8 py-4 text-[15px]`}
+              onClick={() =>
+                document
+                  .querySelector('#capabilities')
+                  ?.scrollIntoView({ behavior: 'smooth' })
+              }
+              className="rounded-full font-semibold transition-all duration-200 active:scale-95 border-[1.5px] border-white/20 text-[#F5F3F0] hover:bg-white/10 px-8 py-4 text-[15px]"
             >
               Book a demo
             </button>
@@ -97,22 +113,33 @@ const Hero = ({ onGetStarted }) => {
       </div>
 
       <div
-        className={`relative max-w-5xl mx-auto px-4 sm:px-6 mt-16 md:mt-20 transition-all duration-700 delay-150 ease-out ${
-          mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        className={`relative z-20 max-w-5xl mx-auto px-4 sm:px-6 mt-16 md:mt-20 transition-all duration-700 delay-150 ease-out ${
+          mounted
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-8'
         }`}
       >
-        <div className="relative -mb-24 md:-mb-40">
+        <div className="relative z-20 -mb-24 md:-mb-40">
           <HeroMockup className="shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]" />
         </div>
       </div>
 
-      {/* Fades the hero's own background (aurora, preset, or custom photo)
-         into the flat Capabilities background below, instead of cutting
-         hard at the section boundary. 64px is exactly the gap between the
-         mockup's own bottom edge and the section's (pb-40/-mb-24 and
-         pb-56/-mb-40 both net to 64px) — any taller and this would paint
-         over the screenshot itself, which stays untouched. */}
-      <div className="absolute inset-x-0 bottom-0 h-16 z-0 pointer-events-none bg-gradient-to-b from-transparent to-white dark:to-[#131313]" />
+      {/* Blend hero into the next section. Half the gradient stays inside
+          the Hero, half extends below it. The mockup floats above it. */}
+      <div
+        className="
+          absolute
+          inset-x-0
+          -bottom-16
+          h-32
+          z-10
+          pointer-events-none
+          bg-gradient-to-b
+          from-transparent
+          to-white
+          dark:to-[#131313]
+        "
+      />
     </section>
   );
 };

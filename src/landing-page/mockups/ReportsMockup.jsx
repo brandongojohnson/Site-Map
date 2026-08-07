@@ -33,7 +33,7 @@ const ReportsMockup = ({ className = '', light = false }) => (
       </div>
     }
   >
-    <div className={`p-5 backdrop-blur-sm grid grid-cols-2 gap-6 ${light ? 'bg-white/40' : 'bg-white/[0.03]'}`}>
+    <div className={`p-5 backdrop-blur-sm grid grid-cols-2 gap-6 ${light ? 'bg-[#F3F3F4]' : 'bg-white/[0.03]'}`}>
       <div>
         <p className={`text-[10px] font-bold uppercase tracking-widest mb-2.5 ${light ? 'text-[#86868C]' : 'text-white/40'}`}>
           Similarity Matrix

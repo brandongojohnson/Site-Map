@@ -20,7 +20,7 @@ const LeftSidebar = ({
 }) => (
   <aside className="h-screen w-64 fixed left-0 top-0 bg-[#f3f3f4] flex flex-col p-6 space-y-8 z-40">
     <div className="mb-6">
-      <SortlyLogo context={title} subtitle={subtitle} iconClassName="text-base text-black" textClassName="text-black" />
+      <SortlyLogo subtitle={subtitle} iconClassName="text-base text-black" textClassName="text-black" />
     </div>
 
     {primaryLabel && (

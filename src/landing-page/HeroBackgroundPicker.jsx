@@ -175,7 +175,7 @@ const HeroBackgroundPicker = ({ bg, setBg }) => {
   };
 
   return (
-    <div className="absolute bottom-4 right-4 z-20">
+    <div className="absolute bottom-4 right-4 z-30">
       {open && (
         <div
           className={`absolute bottom-12 right-0 w-64 rounded-2xl p-4 ${GLASS_PANEL}`}

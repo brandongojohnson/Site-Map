@@ -30,7 +30,7 @@ const GetStartedMenu = ({ onNavigate }) => {
             onClick={() => setOpen(false)}
             className="fixed inset-0 z-40 cursor-default"
           />
-          <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-64 rounded-2xl p-2 bg-white border border-[#e6e6e9] shadow-[0_20px_50px_-15px_rgba(23,21,18,0.25)]">
+          <div className="absolute right-0 top-[calc(100%+16px)] z-50 w-64 rounded-2xl p-2 bg-white border border-[#e6e6e9] shadow-[0_20px_50px_-15px_rgba(23,21,18,0.25)]">
             {START_OPTIONS.map((opt) => (
               <button
                 key={opt.target}

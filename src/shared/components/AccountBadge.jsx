@@ -49,7 +49,7 @@ const AccountBadge = () => {
             onClick={() => setMenuOpen(false)}
             className="fixed inset-0 z-40 cursor-default"
           />
-          <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-56 rounded-2xl p-2 bg-white border border-[#e6e6e9] shadow-[0_20px_50px_-15px_rgba(23,21,18,0.25)]">
+          <div className="absolute right-0 top-[calc(100%+16px)] z-50 w-56 rounded-2xl p-2 bg-white border border-[#e6e6e9] shadow-[0_20px_50px_-15px_rgba(23,21,18,0.25)]">
             <div className="px-3 py-2.5 mb-1 border-b border-[#e6e6e9]">
               <p className="text-[13px] font-semibold text-black truncate">
                 {user.displayName || 'Signed in'}
