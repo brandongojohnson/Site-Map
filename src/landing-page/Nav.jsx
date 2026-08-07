@@ -28,7 +28,21 @@ const Nav = ({ onGetStarted, theme, onToggleTheme }) => {
   const { user } = useAuth();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    // Reading window.scrollY and calling setState directly on every 'scroll'
+    // event forces a style/layout recalc on the same frame the browser is
+    // trying to paint the scroll itself — the classic cause of janky scroll
+    // under a fixed, blurred header. Deferring the read+setState to the next
+    // animation frame (and skipping if one's already queued) keeps this to
+    // at most one update per rendered frame.
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 24);
+        ticking = false;
+      });
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -46,7 +60,7 @@ const Nav = ({ onGetStarted, theme, onToggleTheme }) => {
   return (
     <>
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 transform-gpu ${
         scrolled ? GLASS_NAV_SCROLLED : GLASS_NAV_TOP
       }`}
     >

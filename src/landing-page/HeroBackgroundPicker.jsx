@@ -56,7 +56,7 @@ const DragPreview = ({ draft, onPosChange }) => {
       onPointerUp={() => {
         dragging.current = false;
       }}
-      className="relative w-full h-32 rounded-lg overflow-hidden border border-white/15 cursor-move touch-none select-none"
+      className="relative w-full h-32 rounded-lg overflow-hidden border border-white/15 bg-[#131313] cursor-move touch-none select-none"
     >
       <img
         src={draft.src}

@@ -4,6 +4,11 @@ import { GLASS_PILL } from './glassStyles';
 import HeroMockup from './mockups/HeroMockup';
 import { useHeroBackground } from './useHeroBackground';
 import HeroBackgroundPicker from './HeroBackgroundPicker';
+import { useAuth } from '../card-sort/useAuth';
+
+// The hero background is a shared, site-wide setting (see
+// useHeroBackground) — only this account can change it for everyone else.
+const BACKGROUND_ADMIN_EMAIL = 'brandon.johnson0416@gmail.com';
 
 // background-image can't mix gradient functions with a plain color in one
 // value list (invalid CSS drops the whole property) — the solid base comes
@@ -19,6 +24,8 @@ const Hero = ({ onGetStarted }) => {
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );
   const [heroBg, setHeroBg] = useHeroBackground();
+  const { user } = useAuth();
+  const canEditBackground = user?.email === BACKGROUND_ADMIN_EMAIL;
 
   useEffect(() => {
     if (mounted) return;
@@ -35,12 +42,12 @@ const Hero = ({ onGetStarted }) => {
   const sectionStyle = isImage
     ? { backgroundColor: '#131313' }
     : {
-        backgroundImage:
-          heroBg?.type === 'preset' ? heroBg.value : DEFAULT_AURORA,
-        backgroundSize: 'cover',
-        backgroundPosition: 'top',
-        backgroundColor: '#131313',
-      };
+      backgroundImage:
+        heroBg?.type === 'preset' ? heroBg.value : DEFAULT_AURORA,
+      backgroundSize: 'cover',
+      backgroundPosition: 'top',
+      backgroundColor: '#131313',
+    };
 
   return (
     <section
@@ -61,15 +68,14 @@ const Hero = ({ onGetStarted }) => {
         />
       )}
 
-      <HeroBackgroundPicker bg={heroBg} setBg={setHeroBg} />
+      {canEditBackground && <HeroBackgroundPicker bg={heroBg} setBg={setHeroBg} />}
 
       <div className="max-w-5xl mx-auto px-6 text-center">
         <div
-          className={`transition-all duration-700 ease-out ${
-            mounted
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-6'
-          }`}
+          className={`transition-all duration-700 ease-out ${mounted
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-6'
+            }`}
         >
           <div
             className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[12px] font-normal text-white/60 mb-8 ${GLASS_PILL}`}
@@ -113,11 +119,10 @@ const Hero = ({ onGetStarted }) => {
       </div>
 
       <div
-        className={`relative z-20 max-w-5xl mx-auto px-4 sm:px-6 mt-16 md:mt-20 transition-all duration-700 delay-150 ease-out ${
-          mounted
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 translate-y-8'
-        }`}
+        className={`relative z-20 max-w-5xl mx-auto px-4 sm:px-6 mt-16 md:mt-20 transition-all duration-700 delay-150 ease-out ${mounted
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-0 translate-y-8'
+          }`}
       >
         <div className="relative z-20 -mb-24 md:-mb-40">
           <HeroMockup className="shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]" />
@@ -130,14 +135,15 @@ const Hero = ({ onGetStarted }) => {
         className="
           absolute
           inset-x-0
-          -bottom-16
-          h-32
+          bottom-0
+          h-[60%]
           z-10
           pointer-events-none
-          bg-gradient-to-b
-          from-transparent
-          to-white
-          dark:to-[#131313]
+          bg-gradient-to-t
+          from-white
+          from-[40%]
+          to-transparent
+          dark:from-[#131313]
         "
       />
     </section>
