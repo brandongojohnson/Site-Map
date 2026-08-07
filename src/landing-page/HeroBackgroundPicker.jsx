@@ -30,7 +30,7 @@ const swatchStyle = (value) => ({ backgroundImage: value });
 // Drag-to-reposition surface: pointer capture keeps delivering move events to
 // this element even once the cursor leaves its bounds mid-drag, so a fast
 // drag doesn't "drop" partway through.
-const DragPreview = ({ draft, onPosChange }) => {
+const DragPreview = ({ draft, onPosChange, aspectRatio }) => {
   const ref = useRef(null);
   const dragging = useRef(false);
 
@@ -56,7 +56,8 @@ const DragPreview = ({ draft, onPosChange }) => {
       onPointerUp={() => {
         dragging.current = false;
       }}
-      className="relative w-full h-32 rounded-lg overflow-hidden border border-white/15 bg-[#131313] cursor-move touch-none select-none"
+      className="relative w-full rounded-lg overflow-hidden border border-white/15 bg-[#131313] cursor-move touch-none select-none"
+      style={{ aspectRatio }}
     >
       <img
         src={draft.src}
@@ -77,7 +78,7 @@ const DragPreview = ({ draft, onPosChange }) => {
   );
 };
 
-const AdjustPanel = ({ draft, setDraft, onCancel, onApply }) => (
+const AdjustPanel = ({ draft, setDraft, onCancel, onApply, previewAspectRatio }) => (
   <div>
     <p className="text-[10px] font-bold uppercase tracking-widest text-white/45 mb-3">
       Adjust image
@@ -86,6 +87,7 @@ const AdjustPanel = ({ draft, setDraft, onCancel, onApply }) => (
     <DragPreview
       draft={draft}
       onPosChange={(posX, posY) => setDraft((d) => ({ ...d, posX, posY }))}
+      aspectRatio={previewAspectRatio}
     />
     <p className="text-[10px] font-normal text-white/35 mt-1.5 mb-4">Drag the preview to reposition</p>
 
@@ -140,7 +142,7 @@ const AdjustPanel = ({ draft, setDraft, onCancel, onApply }) => (
 // upload, by pasting an image URL, or from a built-in gradient preset.
 // Custom images pass through an adjust step (fit / position / opacity)
 // before they're committed to useHeroBackground / localStorage.
-const HeroBackgroundPicker = ({ bg, setBg }) => {
+const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(null);
   const [urlValue, setUrlValue] = useState('');
@@ -187,6 +189,7 @@ const HeroBackgroundPicker = ({ bg, setBg }) => {
               setDraft={setDraft}
               onCancel={() => setDraft(null)}
               onApply={commitDraft}
+              previewAspectRatio={previewAspectRatio}
             />
           ) : (
             <>

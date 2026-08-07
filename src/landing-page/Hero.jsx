@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PILL_PRIMARY, PILL_OUTLINE } from './buttonStyles';
 import { GLASS_PILL } from './glassStyles';
 import HeroMockup from './mockups/HeroMockup';
@@ -26,12 +26,32 @@ const Hero = ({ onGetStarted }) => {
   const [heroBg, setHeroBg] = useHeroBackground();
   const { user } = useAuth();
   const canEditBackground = user?.email === BACKGROUND_ADMIN_EMAIL;
+  const sectionRef = useRef(null);
+  // Drives the adjust panel's preview box (see HeroBackgroundPicker) so it
+  // matches this section's actual width:height ratio instead of an
+  // arbitrary fixed preview height — otherwise "contain"/"cover" look
+  // right in the small preview but crop or letterbox differently once
+  // applied to the real, much-wider-than-tall hero.
+  const [heroAspectRatio, setHeroAspectRatio] = useState(16 / 9);
 
   useEffect(() => {
     if (mounted) return;
     const frame = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(frame);
   }, [mounted]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const update = () => {
+      const { width, height } = el.getBoundingClientRect();
+      if (width > 0 && height > 0) setHeroAspectRatio(width / height);
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const isImage = heroBg?.type === 'image';
 
@@ -51,6 +71,7 @@ const Hero = ({ onGetStarted }) => {
 
   return (
     <section
+      ref={sectionRef}
       className="relative overflow-visible pt-24 md:pt-28 pb-40 md:pb-56"
       style={sectionStyle}
     >
@@ -68,7 +89,9 @@ const Hero = ({ onGetStarted }) => {
         />
       )}
 
-      {canEditBackground && <HeroBackgroundPicker bg={heroBg} setBg={setHeroBg} />}
+      {canEditBackground && (
+        <HeroBackgroundPicker bg={heroBg} setBg={setHeroBg} previewAspectRatio={heroAspectRatio} />
+      )}
 
       <div className="max-w-5xl mx-auto px-6 text-center">
         <div
@@ -141,7 +164,7 @@ const Hero = ({ onGetStarted }) => {
           pointer-events-none
           bg-gradient-to-t
           from-white
-          from-[40%]
+          from-[55%]
           to-transparent
           dark:from-[#131313]
         "
