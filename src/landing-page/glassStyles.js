@@ -21,4 +21,4 @@ export const DROPDOWN_GLASS =
 export const GLASS_NAV_TOP = 'bg-transparent border-b border-transparent';
 
 export const GLASS_NAV_SCROLLED =
-  'bg-white/80 backdrop-blur-xl border-b border-black/10 dark:bg-[#131313]/80 dark:border-white/10';
+  'bg-white/80 backdrop-blur-xl border-b border-black/10 dark:bg-[#131313]/50 dark:border-white/10';

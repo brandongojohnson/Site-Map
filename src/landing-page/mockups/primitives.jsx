@@ -55,13 +55,13 @@ export const StatusDot = ({ tone = 'accent', light = false }) => (
 );
 
 // A node card for the sitemap canvas, positioned absolutely by the caller.
-export const NodeChip = ({ icon, title, sub, style, accent = false, light = false }) => (
+export const NodeChip = ({ icon, title, sub, style, accent = false, light = false, className = '', titleClassName = '' }) => (
   <div
     className={`absolute -translate-x-1/2 -translate-y-1/2 w-[132px] rounded-xl border px-3 py-2.5 ${
       light
         ? `bg-white shadow-[0_8px_20px_-8px_rgba(23,21,18,0.15)] ${accent ? 'border-[#7161EF]/40' : 'border-[#E4E4E7]'}`
         : `bg-[#232326] shadow-[0_8px_20px_-8px_rgba(0,0,0,0.4)] ${accent ? 'border-[#7161EF]/40' : 'border-white/10'}`
-    }`}
+    } ${className}`}
     style={style}
   >
     <div className="flex items-center gap-1.5 mb-1">
@@ -72,7 +72,7 @@ export const NodeChip = ({ icon, title, sub, style, accent = false, light = fals
       >
         {icon}
       </span>
-      <span className={`text-[11px] font-semibold truncate ${light ? 'text-[#18181B]' : 'text-[#F5F3F0]'}`}>{title}</span>
+      <span className={`text-[11px] font-semibold truncate ${light ? 'text-[#18181B]' : 'text-[#F5F3F0]'} ${titleClassName}`}>{title}</span>
     </div>
     <div className="flex items-center gap-1">
       <StatusDot tone={accent ? 'accent' : 'muted'} light={light} />
