@@ -39,11 +39,10 @@ const edges = [
 
 const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
 
-// Not a real node — grown in by the decorative cursor animation below as a
-// fourth tier-two sibling of Products/Solutions/About, in the open space
-// under About, to demonstrate "add a page." Positioned and connected with
-// the same curved-edge formula as the real tier-two nodes (see pathFor).
-const NEW_NODE = { icon: 'article', title: 'Blog', sub: '/blog', x: 290, y: 350 };
+// Not a real node — grown in by the decorative cursor animation below,
+// directly under Homepage (the only node in that column, so there's room),
+// to demonstrate "add a page."
+const NEW_NODE = { icon: 'article', title: 'Blog', sub: '/blog', x: 110, y: 330 };
 const ADD_BUTTON = { x: 110, y: 250 };
 
 // A real node — faded out by the same animation to demonstrate "remove a
@@ -157,11 +156,12 @@ const HeroMockup = ({ className = '' }) => (
           })}
           {/* Grows in alongside the new node below, drawn with the
               pathLength trick so stroke-dashoffset animates 0→1 cleanly
-              regardless of the path's actual on-screen length. Same curve
-              shape as the real tier-one-to-tier-two edges above. */}
+              regardless of the path's actual on-screen length. A straight
+              drop rather than the curvePath formula, since Home and Blog
+              share a column (curvePath assumes a horizontal hop). */}
           <path
             className="hero-new-edge"
-            d={curvePath(byId.home, NEW_NODE)}
+            d={`M ${byId.home.x} ${byId.home.y + 27} L ${NEW_NODE.x} ${NEW_NODE.y - 27}`}
             fill="none"
             stroke="#7161EF"
             strokeOpacity={0.5}

@@ -4,6 +4,7 @@ import { GLASS_PILL } from './glassStyles';
 import HeroMockup from './mockups/HeroMockup';
 import { useHeroBackground } from './useHeroBackground';
 import HeroBackgroundPicker from './HeroBackgroundPicker';
+import HeroCanvas from './HeroCanvas';
 import { useAuth } from '../card-sort/useAuth';
 
 // The hero background is a shared, site-wide setting (see
@@ -54,6 +55,10 @@ const Hero = ({ onGetStarted }) => {
   }, []);
 
   const isImage = heroBg?.type === 'image';
+  // "Animated" is its own opt-in choice in the picker (see
+  // HeroBackgroundPicker) rather than the default — the default stays the
+  // plain CSS aurora below, same as before HeroCanvas existed.
+  const isAnimated = heroBg?.type === 'animated';
 
   // object-fit/object-position/opacity are properties of a rendered <img>,
   // not of a CSS background-image — a custom photo renders as an actual img
@@ -75,6 +80,8 @@ const Hero = ({ onGetStarted }) => {
       className="relative overflow-visible pt-24 md:pt-28 pb-40 md:pb-56"
       style={sectionStyle}
     >
+      {isAnimated && <HeroCanvas className="absolute inset-0 w-full h-full" />}
+
       {isImage && (
         <img
           src={heroBg.src}
@@ -93,7 +100,9 @@ const Hero = ({ onGetStarted }) => {
         <HeroBackgroundPicker bg={heroBg} setBg={setHeroBg} previewAspectRatio={heroAspectRatio} />
       )}
 
-      <div className="max-w-5xl mx-auto px-6 text-center">
+      {/* relative+z so the copy paints above the background layers — an
+          absolutely positioned canvas/photo would otherwise cover it. */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <div
           className={`transition-all duration-700 ease-out ${mounted
             ? 'opacity-100 translate-y-0'

@@ -235,7 +235,7 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
                 </button>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 mb-3">
+              <div className="grid grid-cols-4 gap-2 mb-3">
                 {PRESETS.map((p) => (
                   <button
                     key={p.id}
@@ -252,6 +252,30 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
                     style={swatchStyle(p.value)}
                   />
                 ))}
+                {/* Live WebGL shader (see HeroCanvas) rather than a static
+                    swatch — shown as an icon tile instead of a gradient
+                    preview since there's no single frame that represents
+                    it. */}
+                <button
+                  onClick={() => {
+                    setBg({ type: 'animated' });
+                    setOpen(false);
+                  }}
+                  title="Animated"
+                  className={`h-10 rounded-lg border flex items-center justify-center transition-all ${
+                    bg?.type === 'animated'
+                      ? 'border-[#7161EF] ring-2 ring-[#7161EF]/30'
+                      : 'border-white/15 hover:bg-white/5'
+                  }`}
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(135deg, #131313 0%, #2A2470 45%, #5E6EEF 75%, #B9A9F5 100%)',
+                  }}
+                >
+                  <span className="material-symbols-outlined text-[16px] text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
+                    animation
+                  </span>
+                </button>
               </div>
 
               <button
