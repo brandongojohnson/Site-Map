@@ -39,19 +39,6 @@ const edges = [
 
 const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
 
-// Not a real node — grown in by the decorative cursor animation below,
-// directly under Homepage (the only node in that column, so there's room),
-// to demonstrate "add a page."
-const NEW_NODE = { icon: 'article', title: 'Blog', sub: '/blog', x: 110, y: 330 };
-const ADD_BUTTON = { x: 110, y: 250 };
-
-// A real node — faded out by the same animation to demonstrate "remove a
-// page" in the same pass, so the mockup shows a full add-and-reorganize
-// story rather than just growth.
-const DELETE_NODE_ID = 'cases';
-const DELETE_EDGE = ['solutions', 'cases'];
-const DELETE_BUTTON = { x: 525, y: 195 };
-
 // Every branch from home runs fully accented out to its third-column leaf,
 // not just the first hop out of the highlighted node.
 const ACCENT_EDGES = new Set([
@@ -64,9 +51,6 @@ const ACCENT_EDGES = new Set([
   'about-contact',
 ]);
 
-// Shared by both real edges (looked up by id) and the animation's synthetic
-// edge to NEW_NODE (which isn't a real node, so it's passed as a literal
-// {x, y} instead of an id).
 const curvePath = (a, b) => {
   const x1 = a.x + 66;
   const y1 = a.y;
@@ -141,11 +125,9 @@ const HeroMockup = ({ className = '' }) => (
         >
           {edges.map(([from, to]) => {
             const accented = ACCENT_EDGES.has(`${from}-${to}`);
-            const isDeleteEdge = from === DELETE_EDGE[0] && to === DELETE_EDGE[1];
             return (
               <path
                 key={`${from}-${to}`}
-                className={isDeleteEdge ? 'hero-delete-edge' : ''}
                 d={pathFor(from, to)}
                 fill="none"
                 stroke={accented ? '#7161EF' : '#E4E4E7'}
@@ -154,20 +136,6 @@ const HeroMockup = ({ className = '' }) => (
               />
             );
           })}
-          {/* Grows in alongside the new node below, drawn with the
-              pathLength trick so stroke-dashoffset animates 0→1 cleanly
-              regardless of the path's actual on-screen length. A straight
-              drop rather than the curvePath formula, since Home and Blog
-              share a column (curvePath assumes a horizontal hop). */}
-          <path
-            className="hero-new-edge"
-            d={`M ${byId.home.x} ${byId.home.y + 27} L ${NEW_NODE.x} ${NEW_NODE.y - 27}`}
-            fill="none"
-            stroke="#7161EF"
-            strokeOpacity={0.5}
-            strokeWidth={2}
-            pathLength={1}
-          />
         </svg>
         {nodes.map((n) => (
           <NodeChip
@@ -177,59 +145,9 @@ const HeroMockup = ({ className = '' }) => (
             sub={n.sub}
             accent={n.accent}
             light
-            className={n.id === DELETE_NODE_ID ? 'hero-delete-node' : ''}
             style={{ left: `${(n.x / W) * 100}%`, top: `${(n.y / H) * 100}%` }}
           />
         ))}
-
-        {/* Faded out (with its edge above) by the cursor animation:
-            mirrors removing a page from the sitemap. */}
-        <div
-          className="hero-delete-button absolute z-10 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-[#474747] border-2 border-white shadow-[0_2px_8px_-2px_rgba(23,21,18,0.4)] flex items-center justify-center"
-          style={{ left: `${(DELETE_BUTTON.x / W) * 100}%`, top: `${(DELETE_BUTTON.y / H) * 100}%` }}
-        >
-          <span className="material-symbols-outlined text-[12px] text-white leading-none">close</span>
-        </div>
-
-        {/* Grown in by the cursor animation: mirrors the real editor's
-            hover "+" button on a node, then the child it creates. */}
-        <NodeChip
-          icon={NEW_NODE.icon}
-          title={NEW_NODE.title}
-          sub={NEW_NODE.sub}
-          light
-          className="hero-new-node"
-          titleClassName="hero-new-node-title"
-          style={{ left: `${(NEW_NODE.x / W) * 100}%`, top: `${(NEW_NODE.y / H) * 100}%` }}
-        />
-        <div
-          className="hero-add-button absolute z-10 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#7161EF] border-2 border-white shadow-[0_2px_8px_-2px_rgba(23,21,18,0.4)] flex items-center justify-center"
-          style={{ left: `${(ADD_BUTTON.x / W) * 100}%`, top: `${(ADD_BUTTON.y / H) * 100}%` }}
-        >
-          <span className="material-symbols-outlined text-[14px] text-white leading-none">add</span>
-        </div>
-
-        {/* Decorative cursor: visits Case Studies and removes it, then
-            visits Home and adds Blog — sells the "this is a live,
-            collaborative canvas" feel at a glance. */}
-        <div className="hero-cursor absolute z-20 pointer-events-none">
-          <span className="hero-cursor-ripple absolute -inset-2.5 rounded-full bg-[#7161EF]/40" />
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 18 18"
-            fill="none"
-            className="relative drop-shadow-[0_2px_4px_rgba(23,21,18,0.35)]"
-          >
-            <path
-              d="M2 1.5L15.5 8L9.6 9.6L7.6 15.5L2 1.5Z"
-              fill="#131313"
-              stroke="white"
-              strokeWidth="1.1"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
       </div>
 
       <div className="w-full md:w-[240px] flex-shrink-0 border-t md:border-t-0 md:border-l border-white/40 bg-white/40 backdrop-blur-sm p-4">

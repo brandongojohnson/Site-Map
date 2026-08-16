@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SortlyLogo from '../shared/components/SortlyLogo';
 
 const StudyCreated = ({ study, link, onViewResults, onDone }) => {
   const [copied, setCopied] = useState(false);
@@ -16,6 +17,12 @@ const StudyCreated = ({ study, link, onViewResults, onDone }) => {
   return (
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex items-center justify-center px-8">
       <div className="w-full max-w-xl text-center">
+        <SortlyLogo
+          subtitle="Card Sort Studies"
+          className="justify-center mb-8"
+          iconClassName="text-base text-black"
+          textClassName="text-black"
+        />
         <div className="w-16 h-16 bg-[#7161EF] rounded-2xl flex items-center justify-center text-white mx-auto mb-6">
           <span className="material-symbols-outlined text-3xl">check</span>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { catUid, SORT_TYPES } from './sortUtils';
+import SortlyLogo from '../shared/components/SortlyLogo';
 
 const UNSORTED = '__unsorted__';
 
@@ -121,9 +122,8 @@ const SortBoard = ({ study, onFinish, onExit }) => {
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex flex-col">
       <header className="flex items-center justify-between px-8 py-4 border-b border-[#c6c6c6]/40 bg-white sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#7161EF] rounded-lg flex items-center justify-center text-white">
-            <span className="material-symbols-outlined">style</span>
-          </div>
+          <SortlyLogo iconClassName="text-base text-black" textClassName="text-black" />
+          <span className="w-px h-8 bg-[#e6e6e9]" />
           <div>
             <h1 className="text-lg font-black leading-tight">{studyName}</h1>
             <p className="text-[10px] uppercase tracking-widest text-[#474747]">

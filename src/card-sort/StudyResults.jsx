@@ -5,6 +5,7 @@ import { downloadFile } from './sortUtils';
 import SimilarityMatrix from './SimilarityMatrix';
 import Dendrogram from './Dendrogram';
 import CategoryFrequency from './CategoryFrequency';
+import SortlyLogo from '../shared/components/SortlyLogo';
 
 const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'study';
 
@@ -76,9 +77,8 @@ const StudyResults = ({ studyId, onExit }) => {
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
       <header className="flex items-center justify-between px-8 py-5 border-b border-[#c6c6c6]/40 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#7161EF] rounded-lg flex items-center justify-center text-white">
-            <span className="material-symbols-outlined">insights</span>
-          </div>
+          <SortlyLogo iconClassName="text-base text-black" textClassName="text-black" />
+          <span className="w-px h-8 bg-[#e6e6e9]" />
           <div>
             <h1 className="text-xl font-black leading-tight">{study.studyName}</h1>
             <p className="text-[10px] uppercase tracking-widest text-[#474747]">

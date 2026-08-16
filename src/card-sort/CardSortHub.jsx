@@ -196,7 +196,7 @@ const CardSortHub = ({ onExit }) => {
   return (
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
       <header className="flex items-center justify-between px-8 py-5">
-        <SortlyLogo context="Card Sort" subtitle="Studies" iconClassName="text-[20px] text-[#7161EF]" textClassName="text-black" />
+        <SortlyLogo subtitle="Card Sort Studies" iconClassName="text-base text-black" textClassName="text-black" />
         <div className="flex items-center gap-3">
           <GetStartedMenu onNavigate={(target) => target === 'editor' && onExit()} />
           <AccountBadge />

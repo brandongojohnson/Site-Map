@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getStudy, saveStudySession } from './studyStore';
 import { buildResults } from './sortUtils';
 import SortBoard from './SortBoard';
+import SortlyLogo from '../shared/components/SortlyLogo';
 
 const inputCls =
   'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-[#7161EF] focus:ring-0';
@@ -45,7 +46,8 @@ const TakeStudy = ({ studyId }) => {
 
   if (phase === 'loading') {
     return (
-      <div className="min-h-screen bg-[#f3f3f4] flex items-center justify-center font-body text-sm text-[#474747]">
+      <div className="min-h-screen bg-[#f3f3f4] flex flex-col items-center justify-center font-body text-sm text-[#474747] gap-6">
+        <SortlyLogo subtitle="Card Sort Studies" iconClassName="text-base text-black" textClassName="text-black" />
         Loading study…
       </div>
     );
@@ -55,6 +57,12 @@ const TakeStudy = ({ studyId }) => {
     return (
       <div className="min-h-screen bg-[#f3f3f4] flex items-center justify-center font-body px-8">
         <div className="text-center max-w-md">
+          <SortlyLogo
+            subtitle="Card Sort Studies"
+            className="justify-center mb-8"
+            iconClassName="text-base text-black"
+            textClassName="text-black"
+          />
           <span className="material-symbols-outlined text-4xl text-[#8a8a8a]">link_off</span>
           <h1 className="text-lg font-black mt-4 mb-2">This study link isn't valid</h1>
           <p className="text-sm text-[#474747]">
@@ -85,6 +93,12 @@ const TakeStudy = ({ studyId }) => {
     return (
       <div className="min-h-screen bg-[#f3f3f4] flex items-center justify-center font-body px-8">
         <div className="text-center max-w-md">
+          <SortlyLogo
+            subtitle="Card Sort Studies"
+            className="justify-center mb-8"
+            iconClassName="text-base text-black"
+            textClassName="text-black"
+          />
           <div className="w-16 h-16 bg-[#7161EF] rounded-2xl flex items-center justify-center text-white mx-auto mb-6">
             <span className="material-symbols-outlined text-3xl">favorite</span>
           </div>
@@ -99,11 +113,9 @@ const TakeStudy = ({ studyId }) => {
 
   // intro
   return (
-    <div className="min-h-screen bg-[#f3f3f4] flex items-center justify-center font-body px-8">
+    <div className="min-h-screen bg-[#f3f3f4] flex flex-col items-center justify-center font-body px-8">
+      <SortlyLogo subtitle="Card Sort Studies" className="mb-6" iconClassName="text-base text-black" textClassName="text-black" />
       <div className="w-full max-w-xl bg-white rounded-2xl shadow-sm p-8">
-        <p className="text-[10px] uppercase tracking-widest text-[#8a8a8a] font-bold mb-2">
-          Card Sort
-        </p>
         <h1 className="text-2xl font-black mb-4">{study.studyName}</h1>
 
         {study.intention && (
