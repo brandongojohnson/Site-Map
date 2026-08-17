@@ -20,7 +20,7 @@ const SimilarityMatrix = ({ labels, matrix }) => {
         <p className="text-xs text-[#474747]">
           Share of participants who placed each pair of cards in the same group.
         </p>
-        <div className="flex items-center gap-2 text-[10px] text-[#8a8a8a] uppercase tracking-widest">
+        <div className="flex items-center gap-2 text-[10px] text-[#8a8a8a] uppercase tracking-normal">
           <span>Low</span>
           <div className="flex">
             {RAMP.map((hex) => (

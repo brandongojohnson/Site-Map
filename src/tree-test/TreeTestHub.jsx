@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ref, get } from 'firebase/database';
 import { db } from '../config/firebase';
-import { useAuth, signInWithGoogle } from './useAuth';
+import { useAuth, signInWithGoogle } from '../card-sort/useAuth';
 import { createStudy, deleteStudy, listMyStudies, buildStudyLink } from './studyStore';
-import { makeCards, makeCategories, SORT_TYPES } from './sortUtils';
-import CardSortStudy from './CardSortStudy';
+import TreeTestStudy from './TreeTestStudy';
 import CreateStudyForm from './CreateStudyForm';
 import StudyCreated from './StudyCreated';
 import StudyResults from './StudyResults';
@@ -18,7 +17,7 @@ const StudyRow = ({ study, onViewResults, onDelete }) => {
 
   useEffect(() => {
     let cancelled = false;
-    get(ref(db, `cardSortStudySessions/${study.id}`)).then((snap) => {
+    get(ref(db, `treeTestStudySessions/${study.id}`)).then((snap) => {
       if (!cancelled) setSessionCount(snap.exists() ? Object.keys(snap.val()).length : 0);
     });
     return () => {
@@ -45,7 +44,7 @@ const StudyRow = ({ study, onViewResults, onDelete }) => {
       <div className="min-w-0">
         <h3 className="font-bold text-sm truncate">{study.studyName}</h3>
         <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] mt-1">
-          {SORT_TYPES[study.type]?.label} · {study.cards?.length ?? 0} cards ·{' '}
+          {study.tasks?.length ?? 0} task{study.tasks?.length === 1 ? '' : 's'} ·{' '}
           {sessionCount === null ? '…' : sessionCount} response{sessionCount === 1 ? '' : 's'}
         </p>
       </div>
@@ -71,16 +70,14 @@ const StudyRow = ({ study, onViewResults, onDelete }) => {
   );
 };
 
-// Entry point reached from the sidebar. Offers a solo "quick sort" (unchanged,
-// see CardSortStudy, no login required) alongside creating a study with a
+// Entry point reached from the sidebar. Offers a solo "quick test" (no
+// login required, see TreeTestStudy) alongside creating a study with a
 // shareable link — that requires a Google account, since studies and their
-// responses are stored under the creator's account.
-// Sign-in redirects the whole page away and back, so "click create while
-// signed out" can't just resume in memory — the intent survives the round
-// trip in sessionStorage and is replayed once a real user shows up.
-const POST_LOGIN_INTENT_KEY = 'cardSortPostLoginIntent';
+// responses are stored under the creator's account. Mirrors CardSortHub's
+// structure and sign-in-resume behavior exactly.
+const POST_LOGIN_INTENT_KEY = 'treeTestPostLoginIntent';
 
-const CardSortHub = ({ onNavigate }) => {
+const TreeTestHub = ({ onNavigate }) => {
   const { user, authError } = useAuth();
   const [mode, setMode] = useState('hub'); // hub | quick | create | created | results
   const [studies, setStudies] = useState([]);
@@ -112,7 +109,7 @@ const CardSortHub = ({ onNavigate }) => {
     if (mode === 'create' && user === null) setMode('hub');
   }, [mode, user]);
 
-  // Resume "Create a Study" after the sign-in redirect brings the user back.
+  // Resume "Create a Test" after the sign-in redirect brings the user back.
   useEffect(() => {
     if (user && sessionStorage.getItem(POST_LOGIN_INTENT_KEY) === 'create') {
       sessionStorage.removeItem(POST_LOGIN_INTENT_KEY);
@@ -120,20 +117,11 @@ const CardSortHub = ({ onNavigate }) => {
     }
   }, [user]);
 
-  const handleCreate = async ({ type, studyName, intention, cardLabels, categoryNames }) => {
+  const handleCreate = async ({ studyName, intention, tree, tasks }) => {
     if (!user) return;
     setCreating(true);
     try {
-      const record = await createStudy(
-        {
-          type,
-          studyName,
-          intention,
-          cards: makeCards(cardLabels),
-          categories: makeCategories(categoryNames, type !== 'open'),
-        },
-        user.uid
-      );
+      const record = await createStudy({ studyName, intention, tree, tasks }, user.uid);
       setLastCreated(record);
       setMode('created');
     } catch (err) {
@@ -145,7 +133,7 @@ const CardSortHub = ({ onNavigate }) => {
 
   const handleDelete = async (studyId) => {
     if (!user) return;
-    if (!window.confirm('Delete this study and all of its responses? This can\'t be undone.')) return;
+    if (!window.confirm("Delete this test and all of its responses? This can't be undone.")) return;
     try {
       await deleteStudy(studyId, user.uid);
       setStudies((prev) => prev.filter((s) => s.id !== studyId));
@@ -167,7 +155,7 @@ const CardSortHub = ({ onNavigate }) => {
   };
 
   if (mode === 'quick') {
-    return <CardSortStudy onExit={() => setMode('hub')} />;
+    return <TreeTestStudy onExit={() => setMode('hub')} />;
   }
 
   if (mode === 'create') {
@@ -196,7 +184,7 @@ const CardSortHub = ({ onNavigate }) => {
   return (
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
       <header className="flex items-center justify-between px-8 py-5">
-        <SortlyLogo subtitle="Card Sort Studies" iconClassName="text-base text-black" textClassName="text-black" />
+        <SortlyLogo subtitle="Tree Test Studies" iconClassName="text-base text-black" textClassName="text-black" />
         <div className="flex items-center gap-3">
           <GetStartedMenu onNavigate={onNavigate} />
           <AccountBadge />
@@ -217,11 +205,11 @@ const CardSortHub = ({ onNavigate }) => {
               {user ? 'send' : 'login'}
             </span>
             <h2 className="font-black text-base mb-1">
-              {user ? 'Create a Study to Send' : 'Sign In to Create a Study'}
+              {user ? 'Create a Test to Send' : 'Sign In to Create a Test'}
             </h2>
             <p className="text-sm text-white/70">
               {user
-                ? 'Describe your intention, define the deck, and get a link to send to participants. Collects a similarity matrix, dendrogram, and category frequency analysis as responses come in.'
+                ? 'Build a hierarchy, write your tasks, and get a link to send to participants. Collects success rate, directness, time on task, and where wrong turns lead as responses come in.'
                 : 'Studies and their responses are saved to your Google account, so you can come back to results from any device. Click to sign in and get started.'}
             </p>
           </button>
@@ -230,9 +218,9 @@ const CardSortHub = ({ onNavigate }) => {
             className="text-left rounded-xl p-6 bg-white hover:shadow-md transition-all"
           >
             <span className="material-symbols-outlined text-2xl mb-3 block">bolt</span>
-            <h2 className="font-black text-base mb-1">Quick Sort (This Device)</h2>
+            <h2 className="font-black text-base mb-1">Quick Test (This Device)</h2>
             <p className="text-sm text-[#474747]">
-              Sort a deck yourself, right now, and see your own results immediately. No sign-in
+              Build a tree, attempt your own tasks, and see your results immediately. No sign-in
               needed.
             </p>
           </button>
@@ -245,7 +233,7 @@ const CardSortHub = ({ onNavigate }) => {
           <p className="text-sm text-[#8a8a8a]">Loading…</p>
         ) : studies.length === 0 ? (
           <p className="text-sm text-[#8a8a8a]">
-            You haven't created a study yet. Create one above to get a shareable link.
+            You haven't created a test yet. Create one above to get a shareable link.
           </p>
         ) : (
           <div className="space-y-3">
@@ -267,4 +255,4 @@ const CardSortHub = ({ onNavigate }) => {
   );
 };
 
-export default CardSortHub;
+export default TreeTestHub;

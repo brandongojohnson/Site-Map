@@ -152,7 +152,7 @@ const HeroMockup = ({ className = '' }) => (
 
       <div className="w-full md:w-[240px] flex-shrink-0 border-t md:border-t-0 md:border-l border-white/40 bg-white/40 backdrop-blur-sm p-4">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[#86868C]">
+          <span className="text-[10px] font-bold uppercase tracking-normal text-[#86868C]">
             Card Sort
           </span>
           <div className="flex items-center gap-2">

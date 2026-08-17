@@ -39,7 +39,7 @@ const Capabilities = () => (
     <div className="max-w-6xl mx-auto px-6">
       <Reveal>
         <div className="mb-14 md:mb-20">
-          <p className="text-[12px] font-semibold uppercase tracking-widest text-[#7161EF] dark:text-[#9B8FF5] mb-3">
+          <p className="text-[12px] font-semibold uppercase tracking-normal text-[#7161EF] dark:text-[#9B8FF5] mb-3">
             Capabilities
           </p>
           <h2 className="text-[40px] md:text-[60px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] leading-tight">

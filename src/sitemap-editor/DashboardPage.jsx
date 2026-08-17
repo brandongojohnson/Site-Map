@@ -123,7 +123,7 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
                     e.stopPropagation();
                     onOpenBoard(board.id);
                   }}
-                  className="mt-4 w-full py-2 rounded-lg bg-[#f3f3f4] group-hover:bg-[#7161EF] group-hover:text-white text-black text-xs font-bold uppercase tracking-widest transition-all"
+                  className="mt-4 w-full py-2 rounded-lg bg-[#f3f3f4] group-hover:bg-[#7161EF] group-hover:text-white text-black text-xs font-bold uppercase tracking-normal transition-all"
                 >
                   Open Board
                 </button>
@@ -137,7 +137,7 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
               className="min-h-[220px] rounded-xl border-2 border-dashed border-[#d8d8dd] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] hover:border-[#7161EF] hover:text-[#7161EF] transition-all disabled:opacity-50"
             >
               <span className="material-symbols-outlined text-3xl">add_circle</span>
-              <span className="text-xs font-bold uppercase tracking-widest">New Blank Board</span>
+              <span className="text-xs font-bold uppercase tracking-normal">New Blank Board</span>
             </button>
 
             {/* Templates entry */}
@@ -146,7 +146,7 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
               className="min-h-[220px] rounded-xl border-2 border-dashed border-[#d8d8dd] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] hover:border-[#7161EF] hover:text-[#7161EF] transition-all"
             >
               <span className="material-symbols-outlined text-3xl">grid_view</span>
-              <span className="text-xs font-bold uppercase tracking-widest">Browse Templates</span>
+              <span className="text-xs font-bold uppercase tracking-normal">Browse Templates</span>
               <span className="text-[11px] normal-case tracking-normal">
                 Start from a common website structure
               </span>

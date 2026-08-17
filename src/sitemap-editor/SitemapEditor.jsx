@@ -199,7 +199,7 @@ const SitemapEditor = ({ boardId, onNavigate, hideDashboard = false }) => {
         <p className="text-red-600">{error}</p>
         <button
           onClick={() => onNavigate(hideDashboard ? 'templates' : 'dashboard')}
-          className="px-6 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 transition-all"
+          className="px-6 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 transition-all"
         >
           {hideDashboard ? 'Back to Templates' : 'Back to Dashboard'}
         </button>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-// Same two destinations as the landing page's Get started dropdown — lets
-// someone already inside one section (Card Sort or Sitemap) jump straight
-// to the other without backing out to the dashboard first.
+// Same destinations as the landing page's Get started dropdown — lets
+// someone already inside one section (Card Sort, Tree Test, or Sitemap)
+// jump straight to another without backing out to the dashboard first.
 const START_OPTIONS = [
-  { target: 'cardsort', icon: 'style', label: 'Card Sort', desc: 'Start a sorting study' },
   { target: 'editor', icon: 'account_tree', label: 'Sitemap', desc: 'Start building a sitemap' },
+  { target: 'cardsort', icon: 'style', label: 'Card Sort', desc: 'Start a sorting study' },
+  { target: 'treetest', icon: 'alt_route', label: 'Tree Test', desc: 'Start a tree test' },
 ];
 
 const GetStartedMenu = ({ onNavigate }) => {

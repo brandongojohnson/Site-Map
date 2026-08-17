@@ -38,7 +38,7 @@ const Footer = () => (
 
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <h4 className="text-[12px] font-semibold uppercase tracking-widest text-[#131313] dark:text-[#F5F3F0] mb-4">
+            <h4 className="text-[12px] font-semibold uppercase tracking-normal text-[#131313] dark:text-[#F5F3F0] mb-4">
               {col.title}
             </h4>
             <ul className="space-y-3">

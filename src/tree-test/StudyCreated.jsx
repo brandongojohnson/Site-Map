@@ -18,7 +18,7 @@ const StudyCreated = ({ study, link, onViewResults, onDone }) => {
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex items-center justify-center px-8">
       <div className="w-full max-w-xl text-center">
         <SortlyLogo
-          subtitle="Card Sort Studies"
+          subtitle="Tree Test Studies"
           className="justify-center mb-8"
           iconClassName="text-base text-black"
           textClassName="text-black"
@@ -28,8 +28,8 @@ const StudyCreated = ({ study, link, onViewResults, onDone }) => {
         </div>
         <h1 className="text-2xl font-black mb-2">“{study.studyName}” is ready to send</h1>
         <p className="text-sm text-[#474747] mb-8">
-          Share this link with participants. Each person who opens it gets your intention
-          statement, then sorts the {study.cards.length} cards on their own device.
+          Share this link with participants. Each person who opens it gets your intention statement,
+          then attempts all {study.tasks.length} tasks on their own device.
         </p>
 
         <div className="flex items-center gap-2 bg-white rounded-lg border border-[#c6c6c6]/60 p-2 mb-3">
@@ -48,8 +48,8 @@ const StudyCreated = ({ study, link, onViewResults, onDone }) => {
         </div>
 
         <p className="text-xs text-[#8a8a8a] mb-10">
-          Results — including the similarity matrix, dendrogram, and category frequency
-          analysis — build up automatically as responses come in.
+          Results — success rate, directness, time on task, and where wrong turns lead — build up
+          automatically as responses come in.
         </p>
 
         <div className="flex items-center justify-center gap-4">

@@ -1,24 +1,22 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { getStudy, subscribeStudySessions, buildStudyLink } from './studyStore';
-import { buildSimilarityMatrix, categoryFrequency } from './analysisUtils';
-import { downloadFile } from './sortUtils';
-import SimilarityMatrix from './SimilarityMatrix';
-import Dendrogram from './Dendrogram';
-import CategoryFrequency from './CategoryFrequency';
+import { taskStats } from './analysisUtils';
+import { downloadFile } from './treeTestUtils';
+import TaskSuccessChart from './TaskSuccessChart';
+import DestinationBreakdown from './DestinationBreakdown';
 import SortlyLogo from '../shared/components/SortlyLogo';
 
-const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'study';
+const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'tree-test';
 
 const TABS = [
-  { key: 'matrix', label: 'Similarity Matrix', icon: 'grid_on' },
-  { key: 'dendrogram', label: 'Dendrogram', icon: 'account_tree' },
-  { key: 'frequency', label: 'Category Frequency', icon: 'bar_chart' },
+  { key: 'success', label: 'Task Success', icon: 'bar_chart' },
+  { key: 'destinations', label: 'Where People Went', icon: 'route' },
 ];
 
 const StudyResults = ({ studyId, onExit }) => {
   const [study, setStudy] = useState(null);
   const [sessions, setSessions] = useState([]);
-  const [tab, setTab] = useState('matrix');
+  const [tab, setTab] = useState('success');
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -30,12 +28,10 @@ const StudyResults = ({ studyId, onExit }) => {
     return unsubscribe;
   }, [studyId]);
 
-  const cardLabels = useMemo(() => (study?.cards || []).map((c) => c.label), [study]);
-  const matrix = useMemo(
-    () => (cardLabels.length ? buildSimilarityMatrix(cardLabels, sessions) : []),
-    [cardLabels, sessions]
+  const stats = useMemo(
+    () => (study ? taskStats(study.tasks, sessions) : []),
+    [study, sessions]
   );
-  const frequencies = useMemo(() => categoryFrequency(sessions), [sessions]);
 
   const copyLink = async () => {
     try {
@@ -54,13 +50,19 @@ const StudyResults = ({ studyId, onExit }) => {
       'application/json'
     );
 
-  const exportMatrixCsv = () => {
+  const exportStatsCsv = () => {
     const esc = (v) => `"${String(v).replace(/"/g, '""')}"`;
-    const rows = [['', ...cardLabels].map(esc)];
-    cardLabels.forEach((label, i) => {
-      rows.push([label, ...matrix[i].map((v) => Math.round(v * 100))].map(esc));
+    const rows = [['Task', 'Attempts', 'Success Rate', 'Direct Rate (of successes)', 'Avg Time (s)']];
+    stats.forEach((s) => {
+      rows.push([
+        s.prompt,
+        s.attempts,
+        `${Math.round(s.successRate * 100)}%`,
+        `${Math.round(s.directRate * 100)}%`,
+        (s.avgDurationMs / 1000).toFixed(1),
+      ]);
     });
-    downloadFile(`${slugify(study.studyName)}-similarity-matrix.csv`, rows.map((r) => r.join(',')).join('\n'), 'text/csv');
+    downloadFile(`${slugify(study.studyName)}-task-stats.csv`, rows.map((r) => r.map(esc).join(',')).join('\n'), 'text/csv');
   };
 
   if (!study) {
@@ -70,8 +72,6 @@ const StudyResults = ({ studyId, onExit }) => {
       </div>
     );
   }
-
-  const hasEnoughData = sessions.length >= 2;
 
   return (
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
@@ -109,13 +109,11 @@ const StudyResults = ({ studyId, onExit }) => {
           </p>
         )}
 
-        {!hasEnoughData && (
+        {sessions.length === 0 && (
           <div className="rounded-lg border-2 border-dashed border-[#c6c6c6]/70 p-6 text-center mb-8">
             <span className="material-symbols-outlined text-3xl text-[#8a8a8a]">hourglass_top</span>
             <p className="mt-2 text-sm text-[#474747]">
-              {sessions.length === 0
-                ? 'No responses yet. Share the link above to start collecting sorts.'
-                : 'Waiting on at least one more response — the similarity matrix and dendrogram need 2+ participants to be meaningful.'}
+              No responses yet. Share the link above to start collecting attempts.
             </p>
           </div>
         )}
@@ -137,11 +135,11 @@ const StudyResults = ({ studyId, onExit }) => {
           </div>
           <div className="flex gap-2">
             <button
-              onClick={exportMatrixCsv}
-              disabled={!hasEnoughData}
+              onClick={exportStatsCsv}
+              disabled={sessions.length === 0}
               className="px-3 py-2 rounded-lg text-[10px] uppercase tracking-normal bg-white border border-[#c6c6c6]/60 hover:bg-[#e8e8e8] disabled:opacity-40 transition-all"
             >
-              Export Matrix CSV
+              Export Stats CSV
             </button>
             <button
               onClick={exportSessionsJson}
@@ -154,21 +152,8 @@ const StudyResults = ({ studyId, onExit }) => {
         </div>
 
         <section className="rounded-xl bg-white shadow-sm p-6">
-          {tab === 'matrix' &&
-            (hasEnoughData ? (
-              <SimilarityMatrix labels={cardLabels} matrix={matrix} />
-            ) : (
-              <p className="text-sm text-[#8a8a8a]">Not enough responses yet.</p>
-            ))}
-          {tab === 'dendrogram' &&
-            (hasEnoughData ? (
-              <Dendrogram labels={cardLabels} matrix={matrix} />
-            ) : (
-              <p className="text-sm text-[#8a8a8a]">Not enough responses yet.</p>
-            ))}
-          {tab === 'frequency' && (
-            <CategoryFrequency frequencies={frequencies} sessionCount={sessions.length} />
-          )}
+          {tab === 'success' && <TaskSuccessChart stats={stats} />}
+          {tab === 'destinations' && <DestinationBreakdown tasks={study.tasks} sessions={sessions} />}
         </section>
       </main>
     </div>

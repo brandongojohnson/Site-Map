@@ -28,7 +28,7 @@ export const Footer = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 flex-1">
           {cols.map(({ heading, items }) => (
             <div key={heading}>
-              <p className="font-sans text-[11px] font-semibold uppercase tracking-widest text-text-muted mb-4">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-normal text-text-muted mb-4">
                 {heading}
               </p>
               <ul className="space-y-3">

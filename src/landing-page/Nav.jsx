@@ -6,8 +6,9 @@ import { useAuth, signOutUser } from '../card-sort/useAuth';
 import SortlyLogo from '../shared/components/SortlyLogo';
 
 const START_OPTIONS = [
-  { target: 'cardsort', icon: 'style', label: 'Card Sort', desc: 'Start a sorting study' },
   { target: 'editor', icon: 'account_tree', label: 'Sitemap', desc: 'Start building a sitemap' },
+  { target: 'cardsort', icon: 'style', label: 'Card Sort', desc: 'Start a sorting study' },
+  { target: 'treetest', icon: 'alt_route', label: 'Tree Test', desc: 'Start a tree test' },
 ];
 
 const LINKS = [
@@ -74,7 +75,7 @@ const Nav = ({ onGetStarted, theme, onToggleTheme }) => {
             <button
               key={l.label}
               onClick={() => scrollTo(l.href)}
-              className={`text-[13px] font-normal tracking-wide transition-colors ${textMuted} ${textMutedHover}`}
+              className={`text-[13px] font-normal tracking-normal transition-colors ${textMuted} ${textMutedHover}`}
             >
               {l.label}
             </button>

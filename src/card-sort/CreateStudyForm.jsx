@@ -9,7 +9,7 @@ const inputCls =
 
 const StepShell = ({ eyebrow, title, subtitle, children }) => (
   <div className="w-full max-w-2xl">
-    <p className="text-[10px] uppercase tracking-widest text-[#8a8a8a] font-bold mb-2">{eyebrow}</p>
+    <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] font-bold mb-2">{eyebrow}</p>
     <h2 className="text-2xl font-black mb-2">{title}</h2>
     {subtitle && <p className="text-sm text-[#474747] mb-8">{subtitle}</p>}
     {!subtitle && <div className="mb-8" />}
@@ -104,12 +104,12 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
           <span className="w-px h-8 bg-[#e6e6e9]" />
           <div>
             <h1 className="text-xl font-black leading-tight">Create a Study to Send</h1>
-            <p className="text-[10px] uppercase tracking-widest text-[#474747]">Setup</p>
+            <p className="text-[10px] uppercase tracking-normal text-[#474747]">Setup</p>
           </div>
         </div>
         <button
           onClick={onExit}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm uppercase tracking-widest text-[#474747] hover:bg-[#e8e8e8] transition-all"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm uppercase tracking-normal text-[#474747] hover:bg-[#e8e8e8] transition-all"
         >
           <span className="material-symbols-outlined text-base">close</span>
           Cancel
@@ -152,7 +152,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
                   </div>
                   <h3 className="font-black text-base mb-1">{meta.label}</h3>
                   <p className="text-sm text-[#474747] mb-2">{meta.tagline}</p>
-                  <p className="text-[11px] uppercase tracking-wide text-[#8a8a8a]">
+                  <p className="text-[11px] uppercase tracking-normal text-[#8a8a8a]">
                     Best for: {meta.bestFor}
                   </p>
                 </button>
@@ -201,20 +201,20 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
             subtitle="One card per line. Add at least 2 to continue."
           >
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] uppercase tracking-widest text-[#474747] font-bold">
+              <span className="text-[10px] uppercase tracking-normal text-[#474747] font-bold">
                 {cardLines.length} card{cardLines.length === 1 ? '' : 's'}
               </span>
               <div className="flex gap-2">
                 <button
                   onClick={importFromSitemap}
                   disabled={importing}
-                  className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-widest bg-[#7161EF] text-white hover:opacity-90 disabled:opacity-50 transition-all"
+                  className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-normal bg-[#7161EF] text-white hover:opacity-90 disabled:opacity-50 transition-all"
                 >
                   {importing ? 'Importing…' : 'Import Sitemap Pages'}
                 </button>
                 <button
                   onClick={() => setCardsText(SAMPLE_CARDS.join('\n'))}
-                  className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-widest bg-white border border-[#c6c6c6]/60 hover:bg-[#e8e8e8] transition-all"
+                  className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-normal bg-white border border-[#c6c6c6]/60 hover:bg-[#e8e8e8] transition-all"
                 >
                   Sample Deck
                 </button>
@@ -242,12 +242,12 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
             }
           >
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] uppercase tracking-widest text-[#474747] font-bold">
+              <span className="text-[10px] uppercase tracking-normal text-[#474747] font-bold">
                 {categoryLines.length} categor{categoryLines.length === 1 ? 'y' : 'ies'}
               </span>
               <button
                 onClick={() => setCategoriesText(SAMPLE_CATEGORIES.join('\n'))}
-                className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-widest bg-white border border-[#c6c6c6]/60 hover:bg-[#e8e8e8] transition-all"
+                className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-normal bg-white border border-[#c6c6c6]/60 hover:bg-[#e8e8e8] transition-all"
               >
                 Sample Categories
               </button>
@@ -282,7 +282,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
                 ],
               ].map(([label, value]) => (
                 <div key={label} className="flex items-start justify-between px-5 py-3.5 gap-6">
-                  <span className="text-[10px] uppercase tracking-widest text-[#8a8a8a] font-bold flex-shrink-0 pt-0.5">
+                  <span className="text-[10px] uppercase tracking-normal text-[#8a8a8a] font-bold flex-shrink-0 pt-0.5">
                     {label}
                   </span>
                   <span className="text-sm font-medium text-right">{value}</span>
@@ -296,7 +296,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
       <footer className="sticky bottom-0 bg-white border-t border-[#c6c6c6]/40 px-8 py-4 flex items-center justify-between">
         <button
           onClick={goBack}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm uppercase tracking-widest text-[#474747] hover:bg-[#e8e8e8] transition-all"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm uppercase tracking-normal text-[#474747] hover:bg-[#e8e8e8] transition-all"
         >
           <span className="material-symbols-outlined text-base">arrow_back</span>
           {stepIndex === 0 ? 'Cancel' : 'Back'}
@@ -304,7 +304,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
         <button
           onClick={goNext}
           disabled={!canAdvance || creating}
-          className="px-8 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 disabled:opacity-40 disabled:active:scale-100 transition-all"
+          className="px-8 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 active:scale-95 disabled:opacity-40 disabled:active:scale-100 transition-all"
         >
           {step === 'review' ? (creating ? 'Creating…' : 'Create Study & Get Link') : 'Continue'}
         </button>

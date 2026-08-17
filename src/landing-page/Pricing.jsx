@@ -49,7 +49,7 @@ const Pricing = ({ onGetStarted }) => {
     <section id="pricing" className="relative py-24 md:py-32 border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#131313]">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center max-w-xl mx-auto mb-10">
-          <p className="text-[12px] font-semibold uppercase tracking-widest text-[#7161EF] dark:text-[#9B8FF5] mb-3">
+          <p className="text-[12px] font-semibold uppercase tracking-normal text-[#7161EF] dark:text-[#9B8FF5] mb-3">
             Pricing
           </p>
           <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] mb-4">
@@ -96,7 +96,7 @@ const Pricing = ({ onGetStarted }) => {
                 }`}
               >
                 {t.popular && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[11px] font-bold uppercase tracking-wide bg-[#131313] text-white dark:bg-[#F5F3F0] dark:text-[#131313] rounded-full px-3.5 py-1.5">
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[11px] font-bold uppercase tracking-normal bg-[#131313] text-white dark:bg-[#F5F3F0] dark:text-[#131313] rounded-full px-3.5 py-1.5">
                     Most popular
                   </span>
                 )}

@@ -5,15 +5,15 @@ import SitemapEditor from './SitemapEditor';
 import { useAuth } from '../card-sort/useAuth';
 
 // Shell for the sitemap side of the app: Dashboard (boards in progress),
-// Templates, and the editor itself. Card Sort lives outside this shell, so
-// navigating there is delegated up to App.
+// Templates, and the editor itself. Card Sort and Tree Test live outside
+// this shell, so navigating there is delegated up to App.
 //
 // Dashboard lists every board in the shared workspace (there's no per-board
 // ownership yet), so it's reserved for signed-in visitors. Signed-out
 // visitors can still build and edit a sitemap freely — they just land on
 // Templates instead of the boards-in-progress list, and can't navigate back
 // to it either.
-const SitemapApp = ({ onOpenCardSort }) => {
+const SitemapApp = ({ onNavigateApp }) => {
   const { user } = useAuth();
   const [view, setView] = useState(null); // null while auth state resolves
   const [boardId, setBoardId] = useState(null);
@@ -24,8 +24,8 @@ const SitemapApp = ({ onOpenCardSort }) => {
   }, [user, view]);
 
   const navigate = (target) => {
-    if (target === 'cardsort') {
-      onOpenCardSort();
+    if (target === 'cardsort' || target === 'treetest') {
+      onNavigateApp(target);
       return;
     }
     if (target === 'dashboard' && !user) {

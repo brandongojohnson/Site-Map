@@ -35,7 +35,7 @@ const ReportsMockup = ({ className = '', light = false }) => (
   >
     <div className={`p-5 backdrop-blur-sm grid grid-cols-2 gap-6 ${light ? 'bg-[#F3F3F4]' : 'bg-white/[0.03]'}`}>
       <div>
-        <p className={`text-[10px] font-bold uppercase tracking-widest mb-2.5 ${light ? 'text-[#86868C]' : 'text-white/40'}`}>
+        <p className={`text-[10px] font-bold uppercase tracking-normal mb-2.5 ${light ? 'text-[#86868C]' : 'text-white/40'}`}>
           Similarity Matrix
         </p>
         <div className="inline-grid gap-[3px]" style={{ gridTemplateColumns: 'repeat(6, 1fr)' }}>
@@ -51,7 +51,7 @@ const ReportsMockup = ({ className = '', light = false }) => (
         </div>
       </div>
       <div>
-        <p className={`text-[10px] font-bold uppercase tracking-widest mb-2.5 ${light ? 'text-[#86868C]' : 'text-white/40'}`}>
+        <p className={`text-[10px] font-bold uppercase tracking-normal mb-2.5 ${light ? 'text-[#86868C]' : 'text-white/40'}`}>
           Category Frequency
         </p>
         <div className="space-y-2.5">

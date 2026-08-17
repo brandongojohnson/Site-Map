@@ -82,7 +82,7 @@ const TemplatesPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
               <button
                 onClick={() => useTemplate(template)}
                 disabled={!!creatingId}
-                className="w-full py-2.5 rounded-lg bg-[#f3f3f4] group-hover:bg-[#7161EF] group-hover:text-white text-black text-xs font-bold uppercase tracking-widest transition-all disabled:opacity-50"
+                className="w-full py-2.5 rounded-lg bg-[#f3f3f4] group-hover:bg-[#7161EF] group-hover:text-white text-black text-xs font-bold uppercase tracking-normal transition-all disabled:opacity-50"
               >
                 {creatingId === template.id ? 'Creating…' : 'Use Template'}
               </button>

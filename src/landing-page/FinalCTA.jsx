@@ -11,7 +11,7 @@ const FinalCTA = ({ onGetStarted }) => (
       </div>
 
       <div className="relative">
-        <p className="text-[12px] font-semibold uppercase tracking-widest text-[#7161EF] dark:text-[#9B8FF5] mb-6">
+        <p className="text-[12px] font-semibold uppercase tracking-normal text-[#7161EF] dark:text-[#9B8FF5] mb-6">
           Get started
         </p>
         <h2 className="text-[32px] md:text-[48px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] leading-tight max-w-2xl mx-auto mb-6">

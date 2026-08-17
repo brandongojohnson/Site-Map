@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { getStudy, saveStudySession } from './studyStore';
-import { buildResults } from './sortUtils';
-import SortBoard from './SortBoard';
+import TestRunner from './TestRunner';
 import SortlyLogo from '../shared/components/SortlyLogo';
 
 const inputCls =
   'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-[#7161EF] focus:ring-0';
 
-// Full-screen participant flow opened via a shared link (?cardsort=<studyId>).
+// Full-screen participant flow opened via a shared link (?treetest=<studyId>).
 // Intentionally has no path back into the researcher's editor or study list.
 const TakeStudy = ({ studyId }) => {
-  const [phase, setPhase] = useState('loading'); // loading | intro | sort | thanks | error
+  const [phase, setPhase] = useState('loading'); // loading | intro | test | thanks | error
   const [study, setStudy] = useState(null);
   const [participant, setParticipant] = useState('');
 
@@ -34,12 +33,11 @@ const TakeStudy = ({ studyId }) => {
     };
   }, [studyId]);
 
-  const handleFinish = (categories, assignments) => {
-    const results = buildResults(study.cards, categories, assignments);
+  const handleFinish = (taskRecords) => {
     saveStudySession(studyId, {
       participant: participant.trim(),
       completedAt: new Date().toISOString(),
-      results,
+      tasks: taskRecords,
     }).catch((err) => console.error('Failed to save session:', err));
     setPhase('thanks');
   };
@@ -47,8 +45,8 @@ const TakeStudy = ({ studyId }) => {
   if (phase === 'loading') {
     return (
       <div className="min-h-screen bg-[#f3f3f4] flex flex-col items-center justify-center font-body text-sm text-[#474747] gap-6">
-        <SortlyLogo subtitle="Card Sort Studies" iconClassName="text-base text-black" textClassName="text-black" />
-        Loading study…
+        <SortlyLogo subtitle="Tree Test Studies" iconClassName="text-base text-black" textClassName="text-black" />
+        Loading test…
       </div>
     );
   }
@@ -58,31 +56,28 @@ const TakeStudy = ({ studyId }) => {
       <div className="min-h-screen bg-[#f3f3f4] flex items-center justify-center font-body px-8">
         <div className="text-center max-w-md">
           <SortlyLogo
-            subtitle="Card Sort Studies"
+            subtitle="Tree Test Studies"
             className="justify-center mb-8"
             iconClassName="text-base text-black"
             textClassName="text-black"
           />
           <span className="material-symbols-outlined text-4xl text-[#8a8a8a]">link_off</span>
-          <h1 className="text-lg font-black mt-4 mb-2">This study link isn't valid</h1>
+          <h1 className="text-lg font-black mt-4 mb-2">This test link isn't valid</h1>
           <p className="text-sm text-[#474747]">
-            It may have been deleted, or the link was copied incorrectly. Check with whoever
-            sent it to you.
+            It may have been deleted, or the link was copied incorrectly. Check with whoever sent it
+            to you.
           </p>
         </div>
       </div>
     );
   }
 
-  if (phase === 'sort') {
+  if (phase === 'test') {
     return (
-      <SortBoard
-        study={{
-          type: study.type,
-          studyName: study.studyName,
-          cards: study.cards,
-          initialCategories: study.categories,
-        }}
+      <TestRunner
+        studyName={study.studyName}
+        tree={study.tree}
+        tasks={study.tasks}
         onFinish={handleFinish}
         onExit={() => setPhase('intro')}
       />
@@ -94,7 +89,7 @@ const TakeStudy = ({ studyId }) => {
       <div className="min-h-screen bg-[#f3f3f4] flex items-center justify-center font-body px-8">
         <div className="text-center max-w-md">
           <SortlyLogo
-            subtitle="Card Sort Studies"
+            subtitle="Tree Test Studies"
             className="justify-center mb-8"
             iconClassName="text-base text-black"
             textClassName="text-black"
@@ -114,7 +109,7 @@ const TakeStudy = ({ studyId }) => {
   // intro
   return (
     <div className="min-h-screen bg-[#f3f3f4] flex flex-col items-center justify-center font-body px-8">
-      <SortlyLogo subtitle="Card Sort Studies" className="mb-6" iconClassName="text-base text-black" textClassName="text-black" />
+      <SortlyLogo subtitle="Tree Test Studies" className="mb-6" iconClassName="text-base text-black" textClassName="text-black" />
       <div className="w-full max-w-xl bg-white rounded-2xl shadow-sm p-8">
         <h1 className="text-2xl font-black mb-4">{study.studyName}</h1>
 
@@ -125,12 +120,9 @@ const TakeStudy = ({ studyId }) => {
         )}
 
         <p className="text-xs text-[#8a8a8a] mb-6">
-          You'll sort {study.cards.length} cards into groups
-          {study.type === 'closed'
-            ? ' that are already provided.'
-            : study.type === 'hybrid'
-            ? ', starting from some provided groups — feel free to add your own.'
-            : ' that you create and name yourself.'}
+          You'll be given {study.tasks.length} task{study.tasks.length === 1 ? '' : 's'}, one at a time.
+          For each, click through the pages until you reach where you'd expect to complete it, then
+          confirm your answer. There's no visual design here — just page names.
         </p>
 
         <label className="block mb-6">
@@ -146,10 +138,10 @@ const TakeStudy = ({ studyId }) => {
         </label>
 
         <button
-          onClick={() => setPhase('sort')}
+          onClick={() => setPhase('test')}
           className="w-full py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 active:scale-95 transition-all"
         >
-          Begin Sorting
+          Begin Test
         </button>
       </div>
     </div>

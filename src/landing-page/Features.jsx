@@ -50,7 +50,7 @@ const FeatureBlock = ({ id, eyebrow, title, desc, bullets, Mockup, reverse, ligh
   <div id={id}>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
       <div className={reverse ? 'md:order-2' : ''}>
-        <p className="text-[12px] font-semibold uppercase tracking-widest text-[#7161EF] dark:text-[#9B8FF5] mb-3">{eyebrow}</p>
+        <p className="text-[12px] font-semibold uppercase tracking-normal text-[#7161EF] dark:text-[#9B8FF5] mb-3">{eyebrow}</p>
         <h3 className="text-[26px] md:text-[32px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] leading-tight mb-5">
           {title}
         </h3>

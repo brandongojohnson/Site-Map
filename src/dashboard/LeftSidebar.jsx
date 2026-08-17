@@ -25,8 +25,9 @@ const LeftSidebar = ({
 
     {primaryLabel && (
       <button
+        style = {{borderRadius:"10px"}}
         onClick={onPrimary}
-        className="w-full py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all mb-8"
+        className="w-full py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 active:scale-95 transition-all mb-8"
       >
         {primaryLabel}
       </button>

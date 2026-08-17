@@ -1,20 +1,48 @@
 import React from 'react';
-import { SORT_TYPES, resultsToCsv, downloadFile } from './sortUtils';
+import { sessionTasksToCsv, downloadFile } from './treeTestUtils';
 import SortlyLogo from '../shared/components/SortlyLogo';
 
-const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'card-sort';
+const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'tree-test';
+
+const ResultCard = ({ task, i }) => (
+  <section className="rounded-xl bg-white shadow-sm p-5">
+    <div className="flex items-start justify-between gap-3 mb-3">
+      <div className="min-w-0">
+        <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] font-bold mb-1">Task {i + 1}</p>
+        <h3 className="font-bold text-sm">{task.prompt}</h3>
+      </div>
+      <span
+        className={`flex-shrink-0 text-[10px] uppercase tracking-normal font-bold px-2.5 py-1 rounded-full ${
+          task.skipped
+            ? 'bg-[#f3f3f4] text-[#8a8a8a]'
+            : task.correct
+            ? 'bg-green-50 text-green-700'
+            : 'bg-red-50 text-red-600'
+        }`}
+      >
+        {task.skipped ? 'Skipped' : task.correct ? 'Correct' : 'Incorrect'}
+      </span>
+    </div>
+    <p className="text-xs text-[#474747]">
+      {task.skipped ? 'No answer given.' : (
+        <>
+          Chose <span className="font-semibold">{task.answerTitle}</span>
+          {task.correct && (task.direct ? ' — went straight there.' : ' — backtracked along the way.')}
+        </>
+      )}
+      {' · '}
+      {(task.durationMs / 1000).toFixed(1)}s
+    </p>
+  </section>
+);
 
 const ResultsScreen = ({ session, saveState, onRestart, onNewStudy, onExit }) => {
-  const { studyName, participant, type, results, completedAt } = session;
+  const { studyName, participant, tasks, completedAt } = session;
+  const successCount = tasks.filter((t) => t.correct).length;
 
-  const exportCsv = () =>
-    downloadFile(`${slugify(studyName)}-results.csv`, resultsToCsv(results), 'text/csv');
+  const exportCsv = () => downloadFile(`${slugify(studyName)}-results.csv`, sessionTasksToCsv(tasks), 'text/csv');
   const exportJson = () =>
-    downloadFile(
-      `${slugify(studyName)}-results.json`,
-      JSON.stringify(session, null, 2),
-      'application/json'
-    );
+    downloadFile(`${slugify(studyName)}-results.json`, JSON.stringify(session, null, 2), 'application/json');
 
   return (
     <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
@@ -25,8 +53,7 @@ const ResultsScreen = ({ session, saveState, onRestart, onNewStudy, onExit }) =>
           <div>
             <h1 className="text-xl font-black leading-tight">{studyName}</h1>
             <p className="text-[10px] uppercase tracking-normal text-[#474747]">
-              Results · {SORT_TYPES[type].label}
-              {participant ? ` · ${participant}` : ''}
+              Results{participant ? ` · ${participant}` : ''}
             </p>
           </div>
         </div>
@@ -46,13 +73,10 @@ const ResultsScreen = ({ session, saveState, onRestart, onNewStudy, onExit }) =>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-8 py-10">
+      <main className="max-w-3xl mx-auto px-8 py-10">
         <div className="flex items-center justify-between mb-8">
           <p className="text-sm text-[#474747]">
-            Completed {new Date(completedAt).toLocaleString()} ·{' '}
-            {results.groups.reduce((n, g) => n + g.cards.length, 0)} cards sorted into{' '}
-            {results.groups.filter((g) => g.cards.length > 0).length} groups
-            {results.unsorted.length > 0 && `, ${results.unsorted.length} left unsorted`}
+            Completed {new Date(completedAt).toLocaleString()} · {successCount}/{tasks.length} correct
           </p>
           <p className="text-xs uppercase tracking-normal font-bold">
             {saveState === 'saving' && <span className="text-[#8a8a8a]">Saving to cloud…</span>}
@@ -61,41 +85,10 @@ const ResultsScreen = ({ session, saveState, onRestart, onNewStudy, onExit }) =>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-start">
-          {results.groups.map((group, i) => (
-            <section key={`${group.category}-${i}`} className="rounded-xl bg-white shadow-sm p-5">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-black text-sm">{group.category}</h3>
-                <span className="text-[10px] font-bold text-[#8a8a8a] tabular-nums">
-                  {group.cards.length}
-                </span>
-              </div>
-              {group.cards.length === 0 ? (
-                <p className="text-xs text-[#c6c6c6]">Empty group</p>
-              ) : (
-                <ul className="space-y-1.5">
-                  {group.cards.map((card) => (
-                    <li key={card} className="text-sm px-3 py-1.5 rounded-md bg-[#f3f3f4]">
-                      {card}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
+        <div className="space-y-3">
+          {tasks.map((task, i) => (
+            <ResultCard key={task.taskId} task={task} i={i} />
           ))}
-
-          {results.unsorted.length > 0 && (
-            <section className="rounded-xl border-2 border-dashed border-[#c6c6c6]/70 p-5">
-              <h3 className="font-black text-sm text-[#8a8a8a] mb-3">Unsorted</h3>
-              <ul className="space-y-1.5">
-                {results.unsorted.map((card) => (
-                  <li key={card} className="text-sm px-3 py-1.5 rounded-md bg-white text-[#474747]">
-                    {card}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
         </div>
 
         <div className="flex items-center justify-center gap-4 mt-12 pb-16">
@@ -103,13 +96,13 @@ const ResultsScreen = ({ session, saveState, onRestart, onNewStudy, onExit }) =>
             onClick={onRestart}
             className="px-6 py-3 rounded-lg text-sm uppercase tracking-normal bg-white border border-[#c6c6c6]/60 hover:bg-[#e8e8e8] transition-all"
           >
-            Sort Again
+            Test Again
           </button>
           <button
             onClick={onNewStudy}
             className="px-6 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 active:scale-95 transition-all"
           >
-            New Study
+            New Test
           </button>
           <button
             onClick={onExit}

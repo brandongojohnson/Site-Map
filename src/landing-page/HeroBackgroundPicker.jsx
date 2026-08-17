@@ -80,7 +80,7 @@ const DragPreview = ({ draft, onPosChange, aspectRatio }) => {
 
 const AdjustPanel = ({ draft, setDraft, onCancel, onApply, previewAspectRatio }) => (
   <div>
-    <p className="text-[10px] font-bold uppercase tracking-widest text-white/45 mb-3">
+    <p className="text-[10px] font-bold uppercase tracking-normal text-white/45 mb-3">
       Adjust image
     </p>
 
@@ -193,7 +193,7 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
             />
           ) : (
             <>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-white/45 mb-3">
+              <p className="text-[10px] font-bold uppercase tracking-normal text-white/45 mb-3">
                 Hero background
               </p>
 

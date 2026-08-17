@@ -6,7 +6,7 @@ const Contact = () => (
     <div className="max-w-6xl mx-auto px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-start">
         <div>
-          <p className="text-[12px] font-semibold uppercase tracking-widest text-[#7161EF] dark:text-[#9B8FF5] mb-3">
+          <p className="text-[12px] font-semibold uppercase tracking-normal text-[#7161EF] dark:text-[#9B8FF5] mb-3">
             Get in touch
           </p>
           <h2 className="text-[32px] md:text-[44px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] leading-tight mb-5">

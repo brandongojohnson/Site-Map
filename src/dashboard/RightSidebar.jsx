@@ -12,7 +12,7 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
 
       <div className="space-y-8">
         <div className="space-y-3">
-          <label className="text-[10px] uppercase tracking-widest text-on-surface-variant block">Page Title</label>
+          <label className="text-[10px] uppercase tracking-normal text-on-surface-variant block">Page Title</label>
           <input
             type="text"
             value={node.title}
@@ -22,7 +22,7 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
         </div>
 
         <div className="space-y-3">
-          <label className="text-[10px] uppercase tracking-widest text-on-surface-variant block">URL Slug</label>
+          <label className="text-[10px] uppercase tracking-normal text-on-surface-variant block">URL Slug</label>
           <div className="flex items-center bg-[#f3f3f4] rounded-lg overflow-hidden">
             <span className="pl-4 text-xs text-[#777777] font-mono">/</span>
             <input
@@ -35,7 +35,7 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
         </div>
 
         <div className="space-y-3">
-          <label className="text-[10px] uppercase tracking-widest text-on-surface-variant block">Description</label>
+          <label className="text-[10px] uppercase tracking-normal text-on-surface-variant block">Description</label>
           <textarea
             rows={4}
             value={node.description}
@@ -46,15 +46,15 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
         </div>
 
         <div className="space-y-3">
-          <label className="text-[10px] uppercase tracking-widest text-on-surface-variant block">Navigation Status</label>
+          <label className="text-[10px] uppercase tracking-normal text-on-surface-variant block">Navigation Status</label>
           <div className="flex gap-2">
             <button
               onClick={() => onUpdate({ status: 'public' })}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors ${node.status === 'public' ? 'bg-[#7161EF] text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
+              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-normal transition-colors ${node.status === 'public' ? 'bg-[#7161EF] text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
             >Public</button>
             <button
               onClick={() => onUpdate({ status: 'draft' })}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors ${node.status === 'draft' ? 'bg-[#7161EF] text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
+              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-normal transition-colors ${node.status === 'draft' ? 'bg-[#7161EF] text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
             >Draft</button>
           </div>
         </div>
@@ -62,7 +62,7 @@ const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
         <div className="pt-8 mt-8 border-t border-[#c6c6c6]/15">
           <button
             onClick={onDelete}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-lg border border-red-500/20 text-red-600 hover:bg-red-50 transition-colors text-xs font-bold uppercase tracking-widest"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-lg border border-red-500/20 text-red-600 hover:bg-red-50 transition-colors text-xs font-bold uppercase tracking-normal"
           >
             <span className="material-symbols-outlined text-sm">delete</span>
             Delete Page

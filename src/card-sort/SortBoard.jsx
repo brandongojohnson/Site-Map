@@ -126,7 +126,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
           <span className="w-px h-8 bg-[#e6e6e9]" />
           <div>
             <h1 className="text-lg font-black leading-tight">{studyName}</h1>
-            <p className="text-[10px] uppercase tracking-widest text-[#474747]">
+            <p className="text-[10px] uppercase tracking-normal text-[#474747]">
               {SORT_TYPES[type].label}
             </p>
           </div>
@@ -146,14 +146,14 @@ const SortBoard = ({ study, onFinish, onExit }) => {
           </div>
           <button
             onClick={onExit}
-            className="px-4 py-2 rounded-lg text-xs uppercase tracking-widest text-[#474747] hover:bg-[#e8e8e8] transition-all"
+            className="px-4 py-2 rounded-lg text-xs uppercase tracking-normal text-[#474747] hover:bg-[#e8e8e8] transition-all"
           >
             Quit
           </button>
           <button
             onClick={() => onFinish(categories, assignments)}
             disabled={sortedCount === 0}
-            className="px-6 py-2.5 bg-[#7161EF] text-white rounded-lg font-bold text-xs uppercase tracking-widest hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all"
+            className="px-6 py-2.5 bg-[#7161EF] text-white rounded-lg font-bold text-xs uppercase tracking-normal hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all"
           >
             {allSorted ? 'Finish' : `Finish (${unsortedCards.length} left)`}
           </button>
@@ -169,7 +169,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
             dragOverId === UNSORTED ? 'bg-[#e8e8e8]' : ''
           }`}
         >
-          <h2 className="text-[10px] uppercase tracking-widest font-bold text-[#474747] mb-4">
+          <h2 className="text-[10px] uppercase tracking-normal font-bold text-[#474747] mb-4">
             Unsorted Cards ({unsortedCards.length})
           </h2>
           {unsortedCards.length === 0 ? (
@@ -298,7 +298,7 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                 }`}
               >
                 <span className="material-symbols-outlined text-3xl">add_circle</span>
-                <span className="text-xs uppercase tracking-widest font-bold">New Group</span>
+                <span className="text-xs uppercase tracking-normal font-bold">New Group</span>
                 <span className="text-[10px]">Click, or drop a card here</span>
               </button>
             )}
