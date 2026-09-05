@@ -19,6 +19,7 @@ const SitemapCanvas = ({
         backgroundSize: '24px 24px',
         cursor: isPanning ? 'grabbing' : 'grab',
         marginRight: selectedId ? '320px' : '0',
+        touchAction: 'none',
       }}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}

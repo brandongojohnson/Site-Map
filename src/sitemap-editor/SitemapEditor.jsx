@@ -176,17 +176,146 @@ const SitemapEditor = ({ boardId, onNavigate, hideDashboard = false }) => {
 
   const onMouseUp = () => setIsPanning(false);
 
+  // zoom/pan get set from several different places (wheel, the +/- buttons,
+  // touch pinch, trackpad pinch), so mirror them in refs the native-event
+  // handlers below can read synchronously — they're registered once via
+  // addEventListener, not as React props, so their closures would otherwise
+  // see stale state.
+  const zoomRef = useRef(zoom);
+  const panRef = useRef(pan);
+  useEffect(() => { zoomRef.current = zoom; }, [zoom]);
+  useEffect(() => { panRef.current = pan; }, [pan]);
+
+  const clampZoom = (z) => Math.min(2, Math.max(0.3, z));
+
+  // Pan that keeps whichever content point was under `anchor` (in svg-local
+  // coordinates) still under it after zooming from refZoom/refPan to
+  // newZoom — the math every zoom gesture below shares, so the canvas zooms
+  // toward the cursor/fingers instead of jumping from a fixed corner.
+  const anchoredPan = (refZoom, refPan, anchor, newZoom) => {
+    const ratio = newZoom / refZoom;
+    return { x: anchor.x - ratio * (anchor.x - refPan.x), y: anchor.y - ratio * (anchor.y - refPan.y) };
+  };
+
+  const applyZoom = (newZoomRaw, clientX, clientY, refZoom = zoomRef.current, refPan = panRef.current) => {
+    const newZoom = clampZoom(newZoomRaw);
+    const rect = svgRef.current.getBoundingClientRect();
+    const anchor = { x: clientX - rect.left, y: clientY - rect.top };
+    const newPan = anchoredPan(refZoom, refPan, anchor, newZoom);
+    zoomRef.current = newZoom;
+    panRef.current = newPan;
+    setZoom(newZoom);
+    setPan(newPan);
+  };
+
   const onWheel = useCallback((e) => {
     e.preventDefault();
-    setZoom(z => Math.min(2, Math.max(0.3, z - e.deltaY * 0.001)));
+    applyZoom(zoomRef.current - e.deltaY * 0.001, e.clientX, e.clientY);
+  }, []);
+
+  // ====================== Pinch to zoom (touch) ======================
+  const pinchRef = useRef(null);
+  const touchDistance = (touches) =>
+    Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
+  const touchMidpoint = (touches) => ({
+    x: (touches[0].clientX + touches[1].clientX) / 2,
+    y: (touches[0].clientY + touches[1].clientY) / 2,
+  });
+
+  const onTouchStart = useCallback((e) => {
+    if (e.touches.length !== 2) return;
+    e.preventDefault();
+    pinchRef.current = { prevDist: touchDistance(e.touches), prevMidpoint: touchMidpoint(e.touches) };
+  }, []);
+
+  // Each frame recomputes pan/zoom relative to the *previous* frame's touch
+  // positions (not the gesture's start) so it self-corrects continuously —
+  // and so a two-finger drag with no pinch still pans, since the anchor
+  // point tracks the live midpoint rather than a fixed one.
+  const onTouchMove = useCallback((e) => {
+    if (e.touches.length !== 2 || !pinchRef.current) return;
+    e.preventDefault();
+
+    const dist = touchDistance(e.touches);
+    const midpoint = touchMidpoint(e.touches);
+    const { prevDist, prevMidpoint } = pinchRef.current;
+
+    const currentZoom = zoomRef.current;
+    const currentPan = panRef.current;
+    const newZoom = Math.min(2, Math.max(0.3, currentZoom * (dist / prevDist)));
+    const ratio = newZoom / currentZoom;
+
+    const rect = svgRef.current.getBoundingClientRect();
+    const prevAnchor = { x: prevMidpoint.x - rect.left, y: prevMidpoint.y - rect.top };
+    const newAnchor = { x: midpoint.x - rect.left, y: midpoint.y - rect.top };
+
+    const newPan = {
+      x: newAnchor.x - ratio * (prevAnchor.x - currentPan.x),
+      y: newAnchor.y - ratio * (prevAnchor.y - currentPan.y),
+    };
+
+    zoomRef.current = newZoom;
+    panRef.current = newPan;
+    setZoom(newZoom);
+    setPan(newPan);
+
+    pinchRef.current = { prevDist: dist, prevMidpoint: midpoint };
+  }, []);
+
+  const onTouchEnd = useCallback((e) => {
+    if (e.touches.length < 2) pinchRef.current = null;
+  }, []);
+
+  // ====================== Pinch to zoom (trackpad, Safari) ======================
+  // Safari never sends touchstart/touchmove for a trackpad pinch — only
+  // these non-standard Gesture events — so without handling them here
+  // preventDefault is never called and Safari falls back to zooming the
+  // whole page instead of the canvas. Chrome/Firefox trackpad pinch arrives
+  // as wheel+ctrlKey instead, which onWheel above already covers.
+  // e.scale is cumulative since gesturestart (not incremental like touch's
+  // per-frame delta), so each change is computed fresh from the state
+  // captured at gesturestart rather than the previous event.
+  const gestureRef = useRef(null);
+
+  const onGestureStart = useCallback((e) => {
+    e.preventDefault();
+    gestureRef.current = { baseZoom: zoomRef.current, basePan: panRef.current };
+  }, []);
+
+  const onGestureChange = useCallback((e) => {
+    e.preventDefault();
+    if (!gestureRef.current) return;
+    const { baseZoom, basePan } = gestureRef.current;
+    applyZoom(baseZoom * e.scale, e.clientX, e.clientY, baseZoom, basePan);
+  }, []);
+
+  const onGestureEnd = useCallback((e) => {
+    e.preventDefault();
+    gestureRef.current = null;
   }, []);
 
   useEffect(() => {
     const el = svgRef.current;
     if (!el) return;
     el.addEventListener('wheel', onWheel, { passive: false });
-    return () => el.removeEventListener('wheel', onWheel);
-  }, [onWheel]);
+    el.addEventListener('touchstart', onTouchStart, { passive: false });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    el.addEventListener('touchend', onTouchEnd);
+    el.addEventListener('touchcancel', onTouchEnd);
+    el.addEventListener('gesturestart', onGestureStart, { passive: false });
+    el.addEventListener('gesturechange', onGestureChange, { passive: false });
+    el.addEventListener('gestureend', onGestureEnd, { passive: false });
+    return () => {
+      el.removeEventListener('wheel', onWheel);
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
+      el.removeEventListener('touchcancel', onTouchEnd);
+      el.removeEventListener('gesturestart', onGestureStart);
+      el.removeEventListener('gesturechange', onGestureChange);
+      el.removeEventListener('gestureend', onGestureEnd);
+    };
+  }, [onWheel, onTouchStart, onTouchMove, onTouchEnd, onGestureStart, onGestureChange, onGestureEnd]);
 
   // ====================== Render ======================
   if (loading) {

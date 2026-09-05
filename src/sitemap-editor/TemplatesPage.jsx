@@ -41,7 +41,7 @@ const TemplatesPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
 
       <main className="ml-64 min-h-screen p-10 pt-24">
         <header className="mb-10">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-[#8a8a8a] mb-2">Workspace</p>
+          <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] mb-2">Workspace</p>
           <h1 className="text-3xl font-black tracking-tight text-black mb-1">Templates</h1>
           <p className="text-sm text-[#6b6b70]">
             Common website structures to start from — each becomes a new board you can reshape
@@ -54,6 +54,17 @@ const TemplatesPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          <button
+            onClick={() => onNavigate('import')}
+            className="min-h-[220px] rounded-xl border-2 border-dashed border-[#d8d8dd] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] hover:border-[#7161EF] hover:text-[#7161EF] transition-all"
+          >
+            <span className="material-symbols-outlined text-3xl">upload_file</span>
+            <span className="text-xs font-bold uppercase tracking-normal">Import Sitemap</span>
+            <span className="text-[11px] normal-case tracking-normal px-6 text-center">
+              Paste a structure or upload a JSON file instead
+            </span>
+          </button>
+
           {TEMPLATES.map((template) => (
             <div
               key={template.id}

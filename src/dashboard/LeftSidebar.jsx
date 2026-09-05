@@ -5,6 +5,7 @@ const NAV_ITEMS = [
   { icon: 'dashboard', label: 'Dashboard', view: 'dashboard' },
   { icon: 'layers', label: 'Pages', view: 'editor' },
   { icon: 'grid_view', label: 'Templates', view: 'templates' },
+  { icon: 'upload_file', label: 'Import', view: 'import' },
   { icon: 'ios_share', label: 'Export', action: 'export' },
 ];
 

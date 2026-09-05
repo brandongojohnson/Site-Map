@@ -67,7 +67,7 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
 
       <main className="ml-64 min-h-screen p-10 pt-24">
         <header className="mb-10">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-[#8a8a8a] mb-2">Workspace</p>
+          <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] mb-2">Workspace</p>
           <h1 className="text-3xl font-black tracking-tight text-black mb-1">Boards in progress</h1>
           <p className="text-sm text-[#6b6b70]">
             Pick up where you left off, or start a new structure from scratch or a template.
@@ -149,6 +149,18 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
               <span className="text-xs font-bold uppercase tracking-normal">Browse Templates</span>
               <span className="text-[11px] normal-case tracking-normal">
                 Start from a common website structure
+              </span>
+            </button>
+
+            {/* Import entry */}
+            <button
+              onClick={() => onNavigate('import')}
+              className="min-h-[220px] rounded-xl border-2 border-dashed border-[#d8d8dd] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] hover:border-[#7161EF] hover:text-[#7161EF] transition-all"
+            >
+              <span className="material-symbols-outlined text-3xl">upload_file</span>
+              <span className="text-xs font-bold uppercase tracking-normal">Import Sitemap</span>
+              <span className="text-[11px] normal-case tracking-normal">
+                Paste a structure or upload a JSON file
               </span>
             </button>
           </div>

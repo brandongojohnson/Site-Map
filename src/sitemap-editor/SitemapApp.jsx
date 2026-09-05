@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DashboardPage from './DashboardPage';
 import TemplatesPage from './TemplatesPage';
+import ImportPage from './ImportPage';
 import SitemapEditor from './SitemapEditor';
 import { useAuth } from '../card-sort/useAuth';
 
@@ -49,6 +50,10 @@ const SitemapApp = ({ onNavigateApp }) => {
 
   if (view === 'templates') {
     return <TemplatesPage onNavigate={navigate} onOpenBoard={openBoard} hideDashboard={!user} />;
+  }
+
+  if (view === 'import') {
+    return <ImportPage onNavigate={navigate} onOpenBoard={openBoard} hideDashboard={!user} />;
   }
 
   if (view === 'editor' && boardId) {
