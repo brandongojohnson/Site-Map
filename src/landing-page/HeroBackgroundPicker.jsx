@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { GLASS_PANEL } from './glassStyles';
+import './HeroBackgroundPicker.css';
 
 export const PRESETS = [
   {
@@ -56,61 +57,52 @@ const DragPreview = ({ draft, onPosChange, aspectRatio }) => {
       onPointerUp={() => {
         dragging.current = false;
       }}
-      className="relative w-full rounded-lg overflow-hidden border border-white/15 bg-[#131313] cursor-move touch-none select-none"
+      className="hbp-drag-preview"
       style={{ aspectRatio }}
     >
       <img
         src={draft.src}
         alt=""
         draggable={false}
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="hbp-drag-preview-img"
         style={{
           objectFit: draft.fit,
           objectPosition: `${draft.posX}% ${draft.posY}%`,
           opacity: draft.opacity / 100,
         }}
       />
-      <div
-        className="absolute w-3 h-3 rounded-full bg-white border-2 border-[#7161EF] shadow-[0_0_0_2px_rgba(0,0,0,0.4)] pointer-events-none -translate-x-1/2 -translate-y-1/2"
-        style={{ left: `${draft.posX}%`, top: `${draft.posY}%` }}
-      />
+      <div className="hbp-drag-handle" style={{ left: `${draft.posX}%`, top: `${draft.posY}%` }} />
     </div>
   );
 };
 
 const AdjustPanel = ({ draft, setDraft, onCancel, onApply, previewAspectRatio }) => (
   <div>
-    <p className="text-[10px] font-bold uppercase tracking-normal text-white/45 mb-3">
-      Adjust image
-    </p>
+    <p className="hbp-label">Adjust image</p>
 
     <DragPreview
       draft={draft}
       onPosChange={(posX, posY) => setDraft((d) => ({ ...d, posX, posY }))}
       aspectRatio={previewAspectRatio}
     />
-    <p className="text-[10px] font-normal text-white/35 mt-1.5 mb-4">Drag the preview to reposition</p>
+    <p className="hbp-hint">Drag the preview to reposition</p>
 
-    <p className="text-[11px] font-semibold text-white/60 mb-2">Fit</p>
-    <div className="grid grid-cols-3 gap-1.5 mb-4">
+    <p className="hbp-sublabel">Fit</p>
+    <div className="hbp-fit-grid">
       {FIT_OPTIONS.map((fit) => (
         <button
           key={fit}
           onClick={() => setDraft((d) => ({ ...d, fit }))}
-          className={`rounded-lg py-1.5 text-[11px] font-semibold capitalize border transition-colors ${
-            draft.fit === fit
-              ? 'bg-white text-[#131313] border-white'
-              : 'text-white/60 border-white/15 hover:bg-white/10'
-          }`}
+          className={`hbp-fit-btn ${draft.fit === fit ? 'is-active' : ''}`}
         >
           {fit}
         </button>
       ))}
     </div>
 
-    <div className="flex items-center justify-between mb-1.5">
-      <p className="text-[11px] font-semibold text-white/60">Opacity</p>
-      <p className="text-[11px] font-normal text-white/40">{draft.opacity}%</p>
+    <div className="hbp-opacity-row">
+      <p className="hbp-opacity-label">Opacity</p>
+      <p className="hbp-opacity-value">{draft.opacity}%</p>
     </div>
     <input
       type="range"
@@ -118,20 +110,14 @@ const AdjustPanel = ({ draft, setDraft, onCancel, onApply, previewAspectRatio })
       max="100"
       value={draft.opacity}
       onChange={(e) => setDraft((d) => ({ ...d, opacity: Number(e.target.value) }))}
-      className="w-full mb-5 accent-[#7161EF]"
+      className="hbp-range"
     />
 
-    <div className="flex items-center gap-2">
-      <button
-        onClick={onCancel}
-        className="flex-1 rounded-lg border border-white/15 py-2 text-[12px] font-semibold text-white/60 hover:bg-white/10 transition-colors"
-      >
+    <div className="hbp-actions-row">
+      <button onClick={onCancel} className="hbp-cancel-btn">
         Cancel
       </button>
-      <button
-        onClick={onApply}
-        className="flex-1 rounded-lg bg-white text-[#131313] py-2 text-[12px] font-semibold hover:opacity-90 transition-opacity"
-      >
+      <button onClick={onApply} className="hbp-apply-btn">
         Apply
       </button>
     </div>
@@ -177,12 +163,9 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
   };
 
   return (
-    <div className="absolute bottom-4 right-4 z-30">
+    <div className="hbp-root">
       {open && (
-        <div
-          className={`absolute bottom-12 right-0 w-64 rounded-2xl p-4 ${GLASS_PANEL}`}
-          style={{ backdropFilter: 'blur(24px)' }}
-        >
+        <div className={`hbp-panel ${GLASS_PANEL}`}>
           {draft ? (
             <AdjustPanel
               draft={draft}
@@ -193,49 +176,41 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
             />
           ) : (
             <>
-              <p className="text-[10px] font-bold uppercase tracking-normal text-white/45 mb-3">
-                Hero background
-              </p>
+              <p className="hbp-label">Hero background</p>
 
               {bg?.type === 'image' && (
-                <button
-                  onClick={editCurrentImage}
-                  className="w-full flex items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 py-2.5 text-[12px] font-semibold text-[#F5F3F0] hover:bg-white/10 transition-colors mb-3"
-                >
-                  <span className="material-symbols-outlined text-[16px]">tune</span>
+                <button onClick={editCurrentImage} className="hbp-option-btn">
+                  <span className="material-symbols-outlined hbp-icon-16">tune</span>
                   Adjust current image
                 </button>
               )}
 
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className="w-full flex items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 py-2.5 text-[12px] font-semibold text-[#F5F3F0] hover:bg-white/10 transition-colors mb-3"
-              >
-                <span className="material-symbols-outlined text-[16px]">upload</span>
+              <button onClick={() => fileInputRef.current?.click()} className="hbp-option-btn">
+                <span className="material-symbols-outlined hbp-icon-16">upload</span>
                 Upload image
               </button>
-              <input ref={fileInputRef} type="file" accept="image/*" onChange={onFile} className="hidden" />
+              <input ref={fileInputRef} type="file" accept="image/*" onChange={onFile} className="hbp-hidden-input" />
 
-              <div className="flex items-center gap-1.5 mb-3">
+              <div className="hbp-url-row">
                 <input
                   type="url"
                   value={urlValue}
                   onChange={(e) => setUrlValue(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && applyUrl()}
                   placeholder="Paste image URL"
-                  className="flex-1 min-w-0 rounded-lg border border-white/15 bg-white/5 px-2.5 py-2 text-[12px] text-[#F5F3F0] placeholder:text-white/35 focus:outline-none focus:border-[#7161EF]"
+                  className="hbp-url-input"
                 />
                 <button
                   onClick={applyUrl}
                   disabled={!urlValue.trim()}
                   aria-label="Apply URL"
-                  className="w-8 h-8 flex-shrink-0 rounded-lg flex items-center justify-center text-[#F5F3F0] bg-white/5 border border-white/15 hover:bg-white/10 disabled:opacity-40 transition-colors"
+                  className="hbp-url-submit"
                 >
-                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  <span className="material-symbols-outlined hbp-icon-16">arrow_forward</span>
                 </button>
               </div>
 
-              <div className="grid grid-cols-4 gap-2 mb-3">
+              <div className="hbp-preset-grid">
                 {PRESETS.map((p) => (
                   <button
                     key={p.id}
@@ -244,10 +219,8 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
                       setOpen(false);
                     }}
                     title={p.label}
-                    className={`h-10 rounded-lg border transition-all ${
-                      bg?.type === 'preset' && bg.value === p.value
-                        ? 'border-[#7161EF] ring-2 ring-[#7161EF]/30'
-                        : 'border-white/15'
+                    className={`hbp-preset-swatch ${
+                      bg?.type === 'preset' && bg.value === p.value ? 'is-active' : ''
                     }`}
                     style={swatchStyle(p.value)}
                   />
@@ -262,19 +235,30 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
                     setOpen(false);
                   }}
                   title="Animated"
-                  className={`h-10 rounded-lg border flex items-center justify-center transition-all ${
-                    bg?.type === 'animated'
-                      ? 'border-[#7161EF] ring-2 ring-[#7161EF]/30'
-                      : 'border-white/15 hover:bg-white/5'
-                  }`}
+                  className={`hbp-animated-swatch ${bg?.type === 'animated' ? 'is-active' : ''}`}
                   style={{
                     backgroundImage:
                       'linear-gradient(135deg, #131313 0%, #2A2470 45%, #5E6EEF 75%, #B9A9F5 100%)',
                   }}
                 >
-                  <span className="material-symbols-outlined text-[16px] text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
-                    animation
-                  </span>
+                  <span className="material-symbols-outlined hbp-animated-icon">animation</span>
+                </button>
+                {/* Live WebGL starfield (see Galaxy.jsx) — same icon-tile
+                    treatment as Animated, since there's no static frame that
+                    represents it either. */}
+                <button
+                  onClick={() => {
+                    setBg({ type: 'galaxy' });
+                    setOpen(false);
+                  }}
+                  title="Galaxy"
+                  className={`hbp-animated-swatch ${bg?.type === 'galaxy' ? 'is-active' : ''}`}
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(135deg, #050510 0%, #131836 45%, #2E4E8F 80%, #6EC7C2 100%)',
+                  }}
+                >
+                  <span className="material-symbols-outlined hbp-animated-icon">auto_awesome</span>
                 </button>
               </div>
 
@@ -284,7 +268,7 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
                   setOpen(false);
                 }}
                 disabled={!bg}
-                className="w-full text-[11px] font-normal text-white/45 hover:text-[#F5F3F0] disabled:opacity-40 transition-colors"
+                className="hbp-reset-btn"
               >
                 Reset to default
               </button>
@@ -299,9 +283,9 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
           setOpen((o) => !o);
         }}
         aria-label="Change hero background"
-        className={`w-10 h-10 rounded-full flex items-center justify-center text-white/60 hover:text-[#F5F3F0] transition-colors ${GLASS_PANEL}`}
+        className={`hbp-toggle-btn ${GLASS_PANEL}`}
       >
-        <span className="material-symbols-outlined text-[18px]">wallpaper</span>
+        <span className="material-symbols-outlined hbp-toggle-icon">wallpaper</span>
       </button>
     </div>
   );

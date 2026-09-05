@@ -1,0 +1,45 @@
+.sitemap-canvas {
+  margin-left: 256px;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.sitemap-canvas-zoom-controls {
+  position: fixed;
+  bottom: 32px;
+  left: 288px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(198, 198, 198, 0.1);
+  z-index: 30;
+}
+
+.sitemap-canvas-zoom-btn {
+  padding: 8px;
+  border-radius: 9999px;
+  transition: background-color 0.15s;
+}
+.sitemap-canvas-zoom-btn:hover {
+  background: #f3f3f4;
+}
+
+.sitemap-canvas-zoom-divider {
+  height: 16px;
+  width: 1px;
+  background: rgba(198, 198, 198, 0.3);
+  margin: 0 4px;
+}
+
+.sitemap-canvas-zoom-pct {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0 8px;
+}

@@ -1,0 +1,136 @@
+.process-section {
+  position: relative;
+  padding: 96px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+@media (min-width: 768px) {
+  .process-section {
+    padding: 128px 0;
+  }
+}
+.dark .process-section {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  background: #131313;
+}
+
+.process-inner {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.process-header {
+  margin-bottom: 64px;
+}
+@media (min-width: 768px) {
+  .process-header {
+    margin-bottom: 80px;
+  }
+}
+
+.process-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: #7161ef;
+  margin-bottom: 12px;
+}
+.dark .process-eyebrow {
+  color: #9b8ff5;
+}
+
+.process-title {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: #131313;
+  line-height: 1.25;
+}
+@media (min-width: 768px) {
+  .process-title {
+    font-size: 44px;
+  }
+}
+.dark .process-title {
+  color: #f5f3f0;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 40px;
+}
+@media (min-width: 640px) {
+  .process-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .process-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+.process-step {
+  min-width: 0;
+}
+@media (min-width: 1024px) {
+  .process-step {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 24px;
+  }
+  .dark .process-step {
+    border-left-color: rgba(255, 255, 255, 0.1);
+  }
+  .process-step:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+.process-step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.process-step-icon {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.dark .process-step-icon {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.process-step-number {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.35);
+}
+.dark .process-step-number {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.process-step-title {
+  font-size: 15px;
+  font-weight: 400;
+  color: #131313;
+  margin-bottom: 8px;
+}
+.dark .process-step-title {
+  color: #f5f3f0;
+}
+
+.process-step-desc {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+  line-height: 1.625;
+}
+.dark .process-step-desc {
+  color: rgba(255, 255, 255, 0.5);
+}

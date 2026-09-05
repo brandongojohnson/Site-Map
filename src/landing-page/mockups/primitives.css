@@ -1,0 +1,261 @@
+/* Shared chrome + primitives so every product mockup on the marketing page
+   reads as one consistent "screenshot". Dark is the default (matches the
+   product's own dark UI); .is-light opts into the bright look used for the
+   hero screenshot. */
+
+.wc-frame {
+  border-radius: 16px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-width: 1px;
+  border-style: solid;
+  overflow: hidden;
+  background: rgba(28, 28, 31, 0.1);
+  box-shadow: 0 8px 32px -12px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.wc-frame.is-light {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px -12px rgba(23, 21, 18, 0.18);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.wc-frame.is-accent {
+  border-color: rgba(113, 97, 239, 0.3);
+}
+
+.wc-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.wc-titlebar.is-light {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.wc-titlebar.is-accent {
+  border-color: rgba(113, 97, 239, 0.15);
+}
+
+.wc-titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wc-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.wc-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.15);
+}
+.wc-dot.is-light {
+  background: #e4e4e7;
+}
+.wc-dot.is-accent-dot {
+  background: rgba(113, 97, 239, 0.5);
+}
+
+.wc-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+}
+.wc-label.is-light {
+  color: #86868c;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+.status-dot.tone-accent {
+  background: #7161ef;
+}
+.status-dot.tone-muted {
+  background: rgba(255, 255, 255, 0.25);
+}
+.status-dot.tone-muted.is-light {
+  background: #c7c7cc;
+}
+.status-dot.tone-default {
+  background: #f5f3f0;
+}
+.status-dot.tone-default.is-light {
+  background: #18181b;
+}
+
+.node-chip {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 132px;
+  border-radius: 12px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px 12px;
+  background: #232326;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.node-chip.is-light {
+  background: #fff;
+  box-shadow: 0 8px 20px -8px rgba(23, 21, 18, 0.15);
+  border-color: #e4e4e7;
+}
+.node-chip.is-accent {
+  border-color: rgba(113, 97, 239, 0.4);
+}
+
+.node-chip-row1 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.node-chip-icon {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+}
+.node-chip-icon.is-light {
+  color: #86868c;
+}
+.node-chip-icon.is-accent {
+  color: #7161ef;
+}
+
+.node-chip-title {
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #f5f3f0;
+}
+.node-chip-title.is-light {
+  color: #18181b;
+}
+
+.node-chip-row2 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.node-chip-sub {
+  font-size: 9px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(255, 255, 255, 0.35);
+}
+.node-chip-sub.is-light {
+  color: #9c9ca3;
+}
+
+.card-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #232326;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f5f3f0;
+}
+.card-chip.is-light {
+  background: #fff;
+  border-color: #e4e4e7;
+  color: #18181b;
+}
+.card-chip.is-faded {
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.35);
+}
+.card-chip.is-faded.is-light {
+  border-color: #e4e4e7;
+  color: #9c9ca3;
+}
+
+.card-chip-icon {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.25);
+}
+.card-chip-icon.is-light {
+  color: #c7c7cc;
+}
+
+.card-chip-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.group-col {
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: dashed;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 10px;
+  flex: 1 1 0%;
+  min-width: 0;
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+}
+.group-col.is-light {
+  border-color: #e4e4e7;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.group-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.group-col-title {
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #f5f3f0;
+}
+.group-col-title.is-light {
+  color: #18181b;
+}
+
+.group-col-count {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+}
+.group-col-count.is-light {
+  color: #9c9ca3;
+}
+
+.group-col-children {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

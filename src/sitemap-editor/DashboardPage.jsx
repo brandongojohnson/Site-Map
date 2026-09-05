@@ -11,6 +11,7 @@ import {
   timeAgo,
 } from './boardStore';
 import { countNodes } from '../utils/treeUtils';
+import './DashboardPage.css';
 
 const DashboardPage = ({ onNavigate, onOpenBoard }) => {
   const [boards, setBoards] = useState(null);
@@ -55,7 +56,7 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
   };
 
   return (
-    <div className="light font-body text-on-surface bg-[#fafafa] min-h-screen">
+    <div className="light dashboard-page">
       <LeftSidebar
         activeView="dashboard"
         onNavigate={onNavigate}
@@ -65,43 +66,39 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
 
       <TopBar onNavigate={onNavigate} />
 
-      <main className="ml-64 min-h-screen p-10 pt-24">
-        <header className="mb-10">
-          <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] mb-2">Workspace</p>
-          <h1 className="text-3xl font-black tracking-tight text-black mb-1">Boards in progress</h1>
-          <p className="text-sm text-[#6b6b70]">
+      <main className="dashboard-main">
+        <header className="dashboard-header">
+          <p className="dashboard-eyebrow">Workspace</p>
+          <h1 className="dashboard-title">Boards in progress</h1>
+          <p className="dashboard-subtitle">
             Pick up where you left off, or start a new structure from scratch or a template.
           </p>
         </header>
 
-        {error && (
-          <p className="text-sm text-red-600 bg-red-50 rounded-lg px-4 py-3 mb-8">{error}</p>
-        )}
+        {error && <p className="dashboard-error">{error}</p>}
 
         {boards === null ? (
-          <p className="text-sm text-[#8a8a8a]">Loading boards…</p>
+          <p className="dashboard-loading">Loading boards…</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          <div className="dashboard-grid">
             {boards.map((board) => (
               <div
                 key={board.id}
                 onClick={() => onOpenBoard(board.id)}
-                className="group bg-white rounded-xl border border-[#e6e6e9] p-5 cursor-pointer hover:shadow-[0_16px_40px_-16px_rgba(23,21,18,0.18)] hover:border-[#7161EF]/30 transition-all"
+                className="dashboard-board-card"
               >
-                <div className="h-28 rounded-lg bg-[#fafafa] border border-[#efeff2] mb-4 p-2 overflow-hidden">
+                <div className="dashboard-board-thumb">
                   {board.tree ? (
-                    <MiniTree tree={board.tree} className="w-full h-full" />
+                    <MiniTree tree={board.tree} className="dashboard-board-thumb-svg" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[#c0c0c6] text-xs">
-                      Empty board
-                    </div>
+                    <div className="dashboard-board-thumb-empty">Empty board</div>
                   )}
                 </div>
 
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <h3 className="font-bold text-sm text-black truncate">{board.name}</h3>
-                    <p className="text-[11px] text-[#8a8a8a] mt-0.5">
+                <div className="dashboard-board-row">
+                  <div className="dashboard-board-meta">
+                    <h3 className="dashboard-board-name">{board.name}</h3>
+                    <p className="dashboard-board-sub">
                       {countNodes(board.tree)} page{countNodes(board.tree) === 1 ? '' : 's'} · Updated{' '}
                       {timeAgo(board.updatedAt)}
                     </p>
@@ -112,9 +109,9 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
                       handleDelete(board);
                     }}
                     title="Delete board"
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-[#b0b0b6] hover:bg-[#f3f3f4] hover:text-red-600 transition-all flex-shrink-0 opacity-0 group-hover:opacity-100"
+                    className="dashboard-board-delete"
                   >
-                    <span className="material-symbols-outlined text-[18px]">delete</span>
+                    <span className="material-symbols-outlined dashboard-board-delete-icon">delete</span>
                   </button>
                 </div>
 
@@ -123,7 +120,7 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
                     e.stopPropagation();
                     onOpenBoard(board.id);
                   }}
-                  className="mt-4 w-full py-2 rounded-lg bg-[#f3f3f4] group-hover:bg-[#7161EF] group-hover:text-white text-black text-xs font-bold uppercase tracking-normal transition-all"
+                  className="dashboard-board-open-btn"
                 >
                   Open Board
                 </button>
@@ -131,37 +128,23 @@ const DashboardPage = ({ onNavigate, onOpenBoard }) => {
             ))}
 
             {/* New blank board */}
-            <button
-              onClick={handleNewBoard}
-              disabled={creating}
-              className="min-h-[220px] rounded-xl border-2 border-dashed border-[#d8d8dd] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] hover:border-[#7161EF] hover:text-[#7161EF] transition-all disabled:opacity-50"
-            >
-              <span className="material-symbols-outlined text-3xl">add_circle</span>
-              <span className="text-xs font-bold uppercase tracking-normal">New Blank Board</span>
+            <button onClick={handleNewBoard} disabled={creating} className="dashboard-create-tile">
+              <span className="material-symbols-outlined dashboard-create-tile-icon">add_circle</span>
+              <span className="dashboard-create-tile-label">New Blank Board</span>
             </button>
 
             {/* Templates entry */}
-            <button
-              onClick={() => onNavigate('templates')}
-              className="min-h-[220px] rounded-xl border-2 border-dashed border-[#d8d8dd] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] hover:border-[#7161EF] hover:text-[#7161EF] transition-all"
-            >
-              <span className="material-symbols-outlined text-3xl">grid_view</span>
-              <span className="text-xs font-bold uppercase tracking-normal">Browse Templates</span>
-              <span className="text-[11px] normal-case tracking-normal">
-                Start from a common website structure
-              </span>
+            <button onClick={() => onNavigate('templates')} className="dashboard-create-tile">
+              <span className="material-symbols-outlined dashboard-create-tile-icon">grid_view</span>
+              <span className="dashboard-create-tile-label">Browse Templates</span>
+              <span className="dashboard-create-tile-desc">Start from a common website structure</span>
             </button>
 
             {/* Import entry */}
-            <button
-              onClick={() => onNavigate('import')}
-              className="min-h-[220px] rounded-xl border-2 border-dashed border-[#d8d8dd] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] hover:border-[#7161EF] hover:text-[#7161EF] transition-all"
-            >
-              <span className="material-symbols-outlined text-3xl">upload_file</span>
-              <span className="text-xs font-bold uppercase tracking-normal">Import Sitemap</span>
-              <span className="text-[11px] normal-case tracking-normal">
-                Paste a structure or upload a JSON file
-              </span>
+            <button onClick={() => onNavigate('import')} className="dashboard-create-tile">
+              <span className="material-symbols-outlined dashboard-create-tile-icon">upload_file</span>
+              <span className="dashboard-create-tile-label">Import Sitemap</span>
+              <span className="dashboard-create-tile-desc">Paste a structure or upload a JSON file</span>
             </button>
           </div>
         )}

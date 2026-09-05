@@ -1,0 +1,133 @@
+.final-cta-section {
+  padding: 80px 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+@media (min-width: 640px) {
+  .final-cta-section {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+@media (min-width: 768px) {
+  .final-cta-section {
+    padding-top: 112px;
+    padding-bottom: 112px;
+  }
+}
+.dark .final-cta-section {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  background: #131313;
+}
+
+.final-cta-card {
+  position: relative;
+  max-width: 1152px;
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 96px 32px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .final-cta-card {
+    padding-top: 128px;
+    padding-bottom: 128px;
+  }
+}
+.dark .final-cta-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.final-cta-texture {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.final-cta-blob-a {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  height: 420px;
+  border-radius: 9999px;
+  background: rgba(113, 97, 239, 0.2);
+  filter: blur(110px);
+}
+
+.final-cta-blob-b {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 440px;
+  height: 440px;
+  border-radius: 9999px;
+  background: rgba(94, 110, 239, 0.15);
+  filter: blur(110px);
+}
+
+.final-cta-content {
+  position: relative;
+}
+
+.final-cta-eyebrow {
+  margin-bottom: 24px;
+}
+
+.final-cta-title {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: #131313;
+  line-height: 1.25;
+  max-width: 672px;
+  margin: 0 auto 24px;
+}
+@media (min-width: 768px) {
+  .final-cta-title {
+    font-size: 48px;
+  }
+}
+.dark .final-cta-title {
+  color: #f5f3f0;
+}
+
+.final-cta-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
+  max-width: 512px;
+  margin: 0 auto 40px;
+}
+@media (min-width: 768px) {
+  .final-cta-subtitle {
+    font-size: 18px;
+  }
+}
+.dark .final-cta-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.final-cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  .final-cta-actions {
+    flex-direction: row;
+  }
+}
+
+.final-cta-btn {
+  padding: 16px 32px;
+  font-size: 15px;
+}

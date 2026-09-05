@@ -3,9 +3,7 @@ import { getStudy, saveStudySession } from './studyStore';
 import { buildResults } from './sortUtils';
 import SortBoard from './SortBoard';
 import SortlyLogo from '../shared/components/SortlyLogo';
-
-const inputCls =
-  'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-[#7161EF] focus:ring-0';
+import './CardSortShared.css';
 
 // Full-screen participant flow opened via a shared link (?cardsort=<studyId>).
 // Intentionally has no path back into the researcher's editor or study list.
@@ -46,8 +44,8 @@ const TakeStudy = ({ studyId }) => {
 
   if (phase === 'loading') {
     return (
-      <div className="min-h-screen bg-[#f3f3f4] flex flex-col items-center justify-center font-body text-sm text-[#474747] gap-6">
-        <SortlyLogo subtitle="Card Sort Studies" iconClassName="text-base text-black" textClassName="text-black" />
+      <div className="centered-screen-col">
+        <SortlyLogo subtitle="Card Sort Studies" iconClassName="centered-logo-icon" textClassName="centered-logo-text" />
         Loading study…
       </div>
     );
@@ -55,17 +53,17 @@ const TakeStudy = ({ studyId }) => {
 
   if (phase === 'error') {
     return (
-      <div className="min-h-screen bg-[#f3f3f4] flex items-center justify-center font-body px-8">
-        <div className="text-center max-w-md">
+      <div className="centered-screen">
+        <div className="centered-card">
           <SortlyLogo
             subtitle="Card Sort Studies"
-            className="justify-center mb-8"
-            iconClassName="text-base text-black"
-            textClassName="text-black"
+            className="centered-logo-wrap"
+            iconClassName="centered-logo-icon"
+            textClassName="centered-logo-text"
           />
-          <span className="material-symbols-outlined text-4xl text-[#8a8a8a]">link_off</span>
-          <h1 className="text-lg font-black mt-4 mb-2">This study link isn't valid</h1>
-          <p className="text-sm text-[#474747]">
+          <span className="material-symbols-outlined take-study-error-icon">link_off</span>
+          <h1 className="take-study-error-title">This study link isn't valid</h1>
+          <p className="take-study-error-desc">
             It may have been deleted, or the link was copied incorrectly. Check with whoever
             sent it to you.
           </p>
@@ -91,19 +89,19 @@ const TakeStudy = ({ studyId }) => {
 
   if (phase === 'thanks') {
     return (
-      <div className="min-h-screen bg-[#f3f3f4] flex items-center justify-center font-body px-8">
-        <div className="text-center max-w-md">
+      <div className="centered-screen">
+        <div className="centered-card">
           <SortlyLogo
             subtitle="Card Sort Studies"
-            className="justify-center mb-8"
-            iconClassName="text-base text-black"
-            textClassName="text-black"
+            className="centered-logo-wrap"
+            iconClassName="centered-logo-icon"
+            textClassName="centered-logo-text"
           />
-          <div className="w-16 h-16 bg-[#7161EF] rounded-2xl flex items-center justify-center text-white mx-auto mb-6">
-            <span className="material-symbols-outlined text-3xl">favorite</span>
+          <div className="centered-check-badge">
+            <span className="material-symbols-outlined centered-check-icon">favorite</span>
           </div>
-          <h1 className="text-xl font-black mb-2">Thanks for taking part</h1>
-          <p className="text-sm text-[#474747]">
+          <h1 className="take-study-thanks-title">Thanks for taking part</h1>
+          <p className="take-study-error-desc">
             Your responses to “{study.studyName}” have been submitted. You can close this tab.
           </p>
         </div>
@@ -113,18 +111,14 @@ const TakeStudy = ({ studyId }) => {
 
   // intro
   return (
-    <div className="min-h-screen bg-[#f3f3f4] flex flex-col items-center justify-center font-body px-8">
-      <SortlyLogo subtitle="Card Sort Studies" className="mb-6" iconClassName="text-base text-black" textClassName="text-black" />
-      <div className="w-full max-w-xl bg-white rounded-2xl shadow-sm p-8">
-        <h1 className="text-2xl font-black mb-4">{study.studyName}</h1>
+    <div className="centered-screen-col">
+      <SortlyLogo subtitle="Card Sort Studies" iconClassName="centered-logo-icon" textClassName="centered-logo-text" />
+      <div className="take-study-intro-card">
+        <h1 className="take-study-intro-title">{study.studyName}</h1>
 
-        {study.intention && (
-          <p className="text-sm text-[#474747] leading-relaxed mb-6 whitespace-pre-wrap">
-            {study.intention}
-          </p>
-        )}
+        {study.intention && <p className="take-study-intro-intention">{study.intention}</p>}
 
-        <p className="text-xs text-[#8a8a8a] mb-6">
+        <p className="take-study-intro-note">
           You'll sort {study.cards.length} cards into groups
           {study.type === 'closed'
             ? ' that are already provided.'
@@ -133,22 +127,17 @@ const TakeStudy = ({ studyId }) => {
             : ' that you create and name yourself.'}
         </p>
 
-        <label className="block mb-6">
-          <span className="text-[10px] uppercase tracking-normal text-[#474747] font-bold">
-            Your name (optional)
-          </span>
+        <label className="take-study-name-label">
+          <span className="take-study-name-label-text">Your name (optional)</span>
           <input
-            className={`${inputCls} mt-2`}
+            className="take-study-name-input"
             value={participant}
             onChange={(e) => setParticipant(e.target.value)}
             placeholder="e.g. Jamie R."
           />
         </label>
 
-        <button
-          onClick={() => setPhase('sort')}
-          className="w-full py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 active:scale-95 transition-all"
-        >
+        <button onClick={() => setPhase('sort')} className="take-study-begin-btn">
           Begin Sorting
         </button>
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { destinationBreakdown } from './analysisUtils';
+import './TreeTestCharts.css';
 
 const BAR_HUE = '#2a78d6';
 const WRONG_HUE = '#c6c6c6';
@@ -9,41 +10,39 @@ const WRONG_HUE = '#c6c6c6';
 // the popular one, which a bare success rate can't show.
 const DestinationBreakdown = ({ tasks, sessions }) => {
   if (tasks.length === 0) {
-    return <p className="text-sm text-[#8a8a8a]">No tasks yet.</p>;
+    return <p className="chart-empty">No tasks yet.</p>;
   }
 
   return (
-    <div className="space-y-8">
+    <div className="chart-task-list">
       {tasks.map((task, i) => {
         const breakdown = destinationBreakdown(task, sessions);
         const maxCount = Math.max(1, ...breakdown.map((b) => b.count));
         return (
           <div key={task.id}>
-            <p className="text-sm font-bold mb-3">
+            <p className="chart-task-title">
               Task {i + 1}: {task.prompt}
             </p>
             {breakdown.length === 0 ? (
-              <p className="text-xs text-[#8a8a8a]">No responses yet.</p>
+              <p className="chart-empty">No responses yet.</p>
             ) : (
-              <div className="space-y-2.5">
+              <div className="chart-dest-list">
                 {breakdown.map((b) => (
                   <div key={b.nodeId}>
-                    <div className="flex items-baseline justify-between mb-1">
-                      <span className={`text-xs ${b.correct ? 'font-semibold text-black' : 'text-[#474747]'}`}>
+                    <div className="chart-dest-row-header">
+                      <span className={`chart-dest-label ${b.correct ? 'is-correct' : ''}`}>
                         {b.title}
                         {b.correct && (
-                          <span className="material-symbols-outlined text-[13px] align-middle ml-1 text-green-700">
-                            check_circle
-                          </span>
+                          <span className="material-symbols-outlined chart-dest-check">check_circle</span>
                         )}
                       </span>
-                      <span className="text-[11px] text-[#8a8a8a] tabular-nums">
+                      <span className="chart-dest-count">
                         {b.count} participant{b.count === 1 ? '' : 's'}
                       </span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-[#e1e0d9] overflow-hidden">
+                    <div className="chart-track-sm">
                       <div
-                        className="h-full rounded-full"
+                        className="chart-fill"
                         style={{ width: `${(b.count / maxCount) * 100}%`, background: b.correct ? BAR_HUE : WRONG_HUE }}
                       />
                     </div>

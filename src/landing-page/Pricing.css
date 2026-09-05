@@ -1,0 +1,226 @@
+.pricing-header {
+  text-align: center;
+  max-width: 576px;
+  margin: 0 auto 40px;
+}
+
+.pricing-title {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+@media (min-width: 768px) {
+  .pricing-title {
+    font-size: 40px;
+  }
+}
+
+.pricing-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.55);
+}
+.dark .pricing-subtitle {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.pricing-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 56px;
+}
+
+.pricing-toggle-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.35);
+}
+.pricing-toggle-label.is-active {
+  color: #131313;
+}
+.dark .pricing-toggle-label {
+  color: rgba(255, 255, 255, 0.35);
+}
+.dark .pricing-toggle-label.is-active {
+  color: #f5f3f0;
+}
+
+.pricing-toggle-switch {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+.dark .pricing-toggle-switch {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.pricing-toggle-thumb {
+  position: absolute;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: #fff;
+  transition: all 0.15s;
+  left: 4px;
+}
+.pricing-toggle-thumb.is-yearly {
+  left: 24px;
+}
+
+.pricing-save-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7161ef;
+  background: #eeecfd;
+  border-radius: 9999px;
+  padding: 4px 10px;
+}
+.dark .pricing-save-badge {
+  color: #9b8ff5;
+  background: #241f3d;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.pricing-tier {
+  position: relative;
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-tier.is-popular {
+  background: #fafafa;
+  border: 2px solid rgba(113, 97, 239, 0.3);
+  box-shadow: 0 30px 60px -25px rgba(23, 21, 18, 0.15);
+}
+@media (min-width: 768px) {
+  .pricing-tier.is-popular {
+    transform: translateY(-12px);
+  }
+}
+.dark .pricing-tier.is-popular {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.6);
+}
+
+.pricing-popular-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  background: #131313;
+  color: #fff;
+  border-radius: 9999px;
+  padding: 6px 14px;
+}
+.dark .pricing-popular-badge {
+  background: #f5f3f0;
+  color: #131313;
+}
+
+.pricing-tier-name {
+  font-size: 18px;
+  font-weight: 400;
+  color: #131313;
+  margin-bottom: 6px;
+}
+.dark .pricing-tier-name {
+  color: #f5f3f0;
+}
+
+.pricing-tier-tagline {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 24px;
+  line-height: 1.625;
+}
+.dark .pricing-tier-tagline {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pricing-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 28px;
+}
+
+.pricing-price {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #131313;
+}
+.dark .pricing-price {
+  color: #f5f3f0;
+}
+
+.pricing-price-period {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.35);
+}
+.dark .pricing-price-period {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.pricing-cta-btn {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.pricing-feature-icon {
+  font-size: 16px;
+  color: #7161ef;
+  margin-top: 2px;
+}
+.dark .pricing-feature-icon {
+  color: #9b8ff5;
+}
+
+.pricing-feature-text {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.55);
+  line-height: 1.625;
+}
+.dark .pricing-feature-text {
+  color: rgba(255, 255, 255, 0.55);
+}

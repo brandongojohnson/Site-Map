@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { PILL_PRIMARY, PILL_OUTLINE } from './buttonStyles';
 import { SURFACE_CARD } from './glassStyles';
+import './sharedStyles.css';
+import './Pricing.css';
 
 const TIERS = [
   {
@@ -46,85 +48,54 @@ const Pricing = ({ onGetStarted }) => {
   const [yearly, setYearly] = useState(true);
 
   return (
-    <section id="pricing" className="relative py-24 md:py-32 border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#131313]">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center max-w-xl mx-auto mb-10">
-          <p className="text-[12px] font-semibold uppercase tracking-normal text-[#7161EF] dark:text-[#9B8FF5] mb-3">
-            Pricing
-          </p>
-          <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] mb-4">
-            Simple pricing, room to grow.
-          </h2>
-          <p className="text-[16px] font-normal text-black/55 dark:text-white/55">
+    <section id="pricing" className="section-band">
+      <div className="section-band-inner">
+        <div className="pricing-header">
+          <p className="section-eyebrow">Pricing</p>
+          <h2 className="section-heading pricing-title">Simple pricing, room to grow.</h2>
+          <p className="pricing-subtitle">
             Start free. Upgrade when your research program needs more than one study at a time.
           </p>
         </div>
 
-        <div className="flex items-center justify-center gap-3 mb-14">
-          <span className={`text-[14px] font-normal ${!yearly ? 'text-[#131313] dark:text-[#F5F3F0]' : 'text-black/35 dark:text-white/35'}`}>
-            Monthly
-          </span>
-          <button
-            onClick={() => setYearly((y) => !y)}
-            className="relative w-12 h-7 rounded-full bg-black/15 dark:bg-white/20 flex-shrink-0"
-            aria-label="Toggle yearly billing"
-          >
-            <span
-              className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-all ${
-                yearly ? 'left-6' : 'left-1'
-              }`}
-            />
+        <div className="pricing-toggle-row">
+          <span className={`pricing-toggle-label ${!yearly ? 'is-active' : ''}`}>Monthly</span>
+          <button onClick={() => setYearly((y) => !y)} className="pricing-toggle-switch" aria-label="Toggle yearly billing">
+            <span className={`pricing-toggle-thumb ${yearly ? 'is-yearly' : ''}`} />
           </button>
-          <span className={`text-[14px] font-normal ${yearly ? 'text-[#131313] dark:text-[#F5F3F0]' : 'text-black/35 dark:text-white/35'}`}>
-            Yearly
-          </span>
-          <span className="text-[11px] font-semibold text-[#7161EF] dark:text-[#9B8FF5] bg-[#EEECFD] dark:bg-[#241F3D] rounded-full px-2.5 py-1">
-            Save 20%
-          </span>
+          <span className={`pricing-toggle-label ${yearly ? 'is-active' : ''}`}>Yearly</span>
+          <span className="pricing-save-badge">Save 20%</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <div className="pricing-grid">
           {TIERS.map((t) => {
             const price = yearly ? t.yearly : t.monthly;
             return (
-              <div
-                key={t.name}
-                className={`relative rounded-2xl p-8 flex flex-col ${
-                  t.popular
-                    ? 'bg-[#FAFAFA] border-2 border-[#7161EF]/30 shadow-[0_30px_60px_-25px_rgba(23,21,18,0.15)] dark:bg-white/[0.06] dark:border-white/30 dark:shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)] md:-translate-y-3'
-                    : SURFACE_CARD
-                }`}
-              >
-                {t.popular && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[11px] font-bold uppercase tracking-normal bg-[#131313] text-white dark:bg-[#F5F3F0] dark:text-[#131313] rounded-full px-3.5 py-1.5">
-                    Most popular
-                  </span>
-                )}
+              <div key={t.name} className={`pricing-tier ${t.popular ? 'is-popular' : SURFACE_CARD}`}>
+                {t.popular && <span className="pricing-popular-badge">Most popular</span>}
 
-                <h3 className="text-[18px] font-semibold text-[#131313] dark:text-[#F5F3F0] mb-1.5">{t.name}</h3>
-                <p className="text-[13px] font-normal text-black/50 dark:text-white/50 mb-6 leading-relaxed">{t.tagline}</p>
+                <h3 className="pricing-tier-name">{t.name}</h3>
+                <p className="pricing-tier-tagline">{t.tagline}</p>
 
-                <div className="flex items-baseline gap-1 mb-7">
-                  <span className="text-[40px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0]">
-                    ${price}
+                <div className="pricing-price-row">
+                  <span className="pricing-price">${price}</span>
+                  <span className="pricing-price-period">
+                    / month{yearly && price > 0 ? ', billed yearly' : ''}
                   </span>
-                  <span className="text-[13px] font-normal text-black/35 dark:text-white/35">/ month{yearly && price > 0 ? ', billed yearly' : ''}</span>
                 </div>
 
                 <button
                   onClick={onGetStarted}
-                  className={`${t.popular ? PILL_PRIMARY : PILL_OUTLINE} w-full py-3 text-[14px] mb-7`}
+                  className={`${t.popular ? PILL_PRIMARY : PILL_OUTLINE} pricing-cta-btn`}
                 >
                   {t.cta}
                 </button>
 
-                <ul className="space-y-3">
+                <ul className="pricing-features">
                   {t.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5">
-                      <span className="material-symbols-outlined text-[16px] text-[#7161EF] dark:text-[#9B8FF5] mt-0.5">
-                        check
-                      </span>
-                      <span className="text-[13.5px] font-normal text-black/55 dark:text-white/55 leading-relaxed">{f}</span>
+                    <li key={f} className="pricing-feature">
+                      <span className="material-symbols-outlined pricing-feature-icon">check</span>
+                      <span className="pricing-feature-text">{f}</span>
                     </li>
                   ))}
                 </ul>

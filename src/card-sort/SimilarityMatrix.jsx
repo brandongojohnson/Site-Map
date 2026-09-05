@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './CardSortCharts.css';
 
 // Sequential blue ramp, light→dark (see dataviz skill palette.md).
 const RAMP = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#2a78d6', '#1c5cab', '#104281', '#0d366b'];
@@ -16,13 +17,13 @@ const SimilarityMatrix = ({ labels, matrix }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-3">
-        <p className="text-xs text-[#474747]">
+      <div className="matrix-header">
+        <p className="matrix-caption">
           Share of participants who placed each pair of cards in the same group.
         </p>
-        <div className="flex items-center gap-2 text-[10px] text-[#8a8a8a] uppercase tracking-normal">
+        <div className="matrix-legend">
           <span>Low</span>
-          <div className="flex">
+          <div className="matrix-legend-swatches">
             {RAMP.map((hex) => (
               <div key={hex} style={{ width: 12, height: 12, background: hex }} />
             ))}
@@ -31,18 +32,15 @@ const SimilarityMatrix = ({ labels, matrix }) => {
         </div>
       </div>
 
-      <div className="overflow-auto rounded-lg border border-[#e1e0d9]" style={{ maxHeight: 560 }}>
-        <table className="border-collapse" style={{ tableLayout: 'fixed', width: 'max-content' }}>
+      <div className="matrix-scroll" style={{ maxHeight: 560 }}>
+        <table className="matrix-table" style={{ tableLayout: 'fixed', width: 'max-content' }}>
           <thead>
             <tr>
-              <th
-                className="sticky top-0 left-0 z-[60] bg-[#fcfcfb]"
-                style={{ width: CELL * 6, minWidth: CELL * 6 }}
-              />
+              <th className="matrix-th-corner" style={{ width: CELL * 6, minWidth: CELL * 6 }} />
               {labels.map((label, j) => (
                 <th
                   key={label}
-                  className="sticky top-0 bg-[#fcfcfb] px-0 relative"
+                  className="matrix-th-col"
                   style={{
                     width: CELL,
                     minWidth: CELL,
@@ -55,7 +53,7 @@ const SimilarityMatrix = ({ labels, matrix }) => {
                 >
                   {/* absolutely positioned so the rotated label doesn't widen the column */}
                   <div
-                    className="absolute text-[10px] font-medium text-[#52514e] whitespace-nowrap origin-bottom-left"
+                    className="matrix-col-label"
                     style={{ bottom: 6, left: CELL / 2 + 4, transform: 'rotate(-55deg)' }}
                     title={label}
                   >
@@ -69,7 +67,7 @@ const SimilarityMatrix = ({ labels, matrix }) => {
             {labels.map((rowLabel, i) => (
               <tr key={rowLabel}>
                 <th
-                  className="sticky left-0 z-10 bg-[#fcfcfb] text-[10px] font-medium text-[#52514e] text-right pr-2 whitespace-nowrap"
+                  className="matrix-th-row"
                   style={{ width: CELL * 6, minWidth: CELL * 6, height: CELL }}
                   title={rowLabel}
                 >

@@ -1,0 +1,10 @@
+.landing-page {
+  background: #fff;
+  color: #131313;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.dark .landing-page {
+  background: #131313;
+  color: #f5f3f0;
+}

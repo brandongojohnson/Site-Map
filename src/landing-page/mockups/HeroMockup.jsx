@@ -1,5 +1,6 @@
 import React from 'react';
 import { WindowChrome, NodeChip, CardChip, GroupColumn } from './primitives';
+import './HeroMockup.css';
 
 const MENU_ITEMS = [
   { icon: 'dashboard' },
@@ -74,55 +75,37 @@ const HeroMockup = ({ className = '' }) => (
     light
     className={className}
     right={
-      <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-[#9C9CA3]">
-        <span className="material-symbols-outlined text-[15px]">groups</span>
+      <div className="hero-mockup-collab">
+        <span className="material-symbols-outlined hero-mockup-collab-icon">groups</span>
         4 collaborators
       </div>
     }
   >
-    <div className="flex flex-col md:flex-row">
-      <div className="hidden md:flex flex-col items-center gap-1.5 w-14 flex-shrink-0 border-r border-white/40 bg-white/30 backdrop-blur-sm py-4">
+    <div className="hero-mockup-body">
+      <div className="hero-mockup-sidebar">
         {MENU_ITEMS.map((item, i) => (
-          <span
-            key={i}
-            className={`material-symbols-outlined w-9 h-9 rounded-lg flex items-center justify-center text-[18px] ${
-              item.active ? 'bg-[#18181B] text-white' : 'text-[#86868C]'
-            }`}
-          >
+          <span key={i} className={`material-symbols-outlined hero-mockup-menu-icon ${item.active ? 'is-active' : ''}`}>
             {item.icon}
           </span>
         ))}
       </div>
 
-      <div
-        className="relative flex-1 min-w-0 bg-white/40 backdrop-blur-sm"
-        style={{ aspectRatio: `${W} / ${H}` }}
-      >
-        <div className="absolute top-3 left-3 z-10 flex items-center gap-0.5 rounded-full bg-white/80 backdrop-blur-md border border-white/60 px-1.5 py-1 shadow-[0_4px_14px_-6px_rgba(23,21,18,0.2)]">
+      <div className="hero-mockup-canvas" style={{ aspectRatio: `${W} / ${H}` }}>
+        <div className="hero-mockup-toolbar">
           {['undo', 'redo'].map((icon) => (
-            <span key={icon} className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
+            <span key={icon} className="material-symbols-outlined hero-mockup-toolbar-icon">
               {icon}
             </span>
           ))}
-          <span className="w-px h-4 bg-[#E4E4E7] mx-0.5" />
-          <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
-            remove
-          </span>
-          <span className="text-[9px] font-semibold text-[#47474D] px-0.5">100%</span>
-          <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
-            add
-          </span>
-          <span className="w-px h-4 bg-[#E4E4E7] mx-0.5" />
-          <span className="material-symbols-outlined w-6 h-6 rounded-full flex items-center justify-center text-[13px] text-[#47474D]">
-            add_box
-          </span>
+          <span className="hero-mockup-toolbar-divider" />
+          <span className="material-symbols-outlined hero-mockup-toolbar-icon">remove</span>
+          <span className="hero-mockup-zoom-pct">100%</span>
+          <span className="material-symbols-outlined hero-mockup-toolbar-icon">add</span>
+          <span className="hero-mockup-toolbar-divider" />
+          <span className="material-symbols-outlined hero-mockup-toolbar-icon">add_box</span>
         </div>
 
-        <svg
-          viewBox={`0 0 ${W} ${H}`}
-          className="absolute inset-0 w-full h-full"
-          preserveAspectRatio="none"
-        >
+        <svg viewBox={`0 0 ${W} ${H}`} className="hero-mockup-svg" preserveAspectRatio="none">
           {edges.map(([from, to]) => {
             const accented = ACCENT_EDGES.has(`${from}-${to}`);
             return (
@@ -150,19 +133,17 @@ const HeroMockup = ({ className = '' }) => (
         ))}
       </div>
 
-      <div className="w-full md:w-[240px] flex-shrink-0 border-t md:border-t-0 md:border-l border-white/40 bg-white/40 backdrop-blur-sm p-4">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-[10px] font-bold uppercase tracking-normal text-[#86868C]">
-            Card Sort
-          </span>
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-1.5 rounded-full bg-[#E4E4E7] overflow-hidden">
-              <div className="h-full w-4/5 bg-[#7161EF]" />
+      <div className="hero-mockup-panel">
+        <div className="hero-mockup-panel-header">
+          <span className="hero-mockup-panel-title">Card Sort</span>
+          <div className="hero-mockup-progress-row">
+            <div className="hero-mockup-progress-track">
+              <div className="hero-mockup-progress-fill" />
             </div>
-            <span className="text-[9px] font-semibold text-[#9C9CA3]">7/9</span>
+            <span className="hero-mockup-progress-count">7/9</span>
           </div>
         </div>
-        <div className="space-y-2.5">
+        <div className="hero-mockup-groups">
           <GroupColumn title="Navigation" count={3} light>
             <CardChip label="Products" light />
             <CardChip label="Solutions" light />

@@ -1,0 +1,154 @@
+/* Shared by CategoryFrequency.jsx, SimilarityMatrix.jsx, Dendrogram.jsx */
+
+.chart-empty {
+  font-size: 14px;
+  color: #8a8a8a;
+}
+
+.chart-caption {
+  font-size: 12px;
+  color: #474747;
+  margin-bottom: 20px;
+}
+
+.chart-caption-sm {
+  font-size: 12px;
+  color: #474747;
+  margin-bottom: 12px;
+}
+
+.category-freq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category-freq-row-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.category-freq-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.category-freq-count {
+  font-size: 12px;
+  color: #52514e;
+  font-variant-numeric: tabular-nums;
+}
+
+.category-freq-track {
+  height: 8px;
+  border-radius: 9999px;
+  background: #e1e0d9;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.category-freq-fill {
+  height: 100%;
+  border-radius: 9999px;
+}
+
+.category-freq-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.category-freq-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: #f3f3f4;
+  color: #474747;
+}
+
+.category-freq-tag-count {
+  color: #8a8a8a;
+}
+
+.matrix-caption {
+  font-size: 12px;
+  color: #474747;
+}
+
+.matrix-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.matrix-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: #8a8a8a;
+  text-transform: uppercase;
+  letter-spacing: normal;
+}
+
+.matrix-legend-swatches {
+  display: flex;
+}
+
+.matrix-scroll {
+  overflow: auto;
+  border-radius: 4px;
+  border: 1px solid #e1e0d9;
+}
+
+.matrix-table {
+  border-collapse: collapse;
+}
+
+.matrix-th-corner {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  background: #fcfcfb;
+}
+
+.matrix-th-col {
+  position: sticky;
+  top: 0;
+  background: #fcfcfb;
+  padding: 0;
+  position: relative;
+}
+
+.matrix-col-label {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 500;
+  color: #52514e;
+  white-space: nowrap;
+  transform-origin: bottom left;
+}
+
+.matrix-th-row {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background: #fcfcfb;
+  font-size: 10px;
+  font-weight: 500;
+  color: #52514e;
+  text-align: right;
+  padding-right: 8px;
+  white-space: nowrap;
+}
+
+.dendrogram-scroll {
+  overflow: auto;
+  border-radius: 4px;
+  border: 1px solid #e1e0d9;
+  background: #fcfcfb;
+}

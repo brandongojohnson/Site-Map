@@ -5,9 +5,7 @@ import MiniTree from './MiniTree';
 import { createBoard, blankTree } from './boardStore';
 import { parseStructureText } from './importUtils';
 import { countNodes } from '../utils/treeUtils';
-
-const inputCls =
-  'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-[#7161EF] focus:ring-0';
+import './ImportPage.css';
 
 const PLACEHOLDER = `Paste JSON:
 {
@@ -83,7 +81,7 @@ const ImportPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
   };
 
   return (
-    <div className="light font-body text-on-surface bg-[#fafafa] min-h-screen">
+    <div className="light import-page">
       <LeftSidebar
         activeView="import"
         onNavigate={onNavigate}
@@ -94,73 +92,68 @@ const ImportPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
 
       <TopBar onNavigate={onNavigate} />
 
-      <main className="ml-64 min-h-screen p-10 pt-24 max-w-5xl">
-        <header className="mb-8">
-          <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] mb-2">Workspace</p>
-          <h1 className="text-3xl font-black tracking-tight text-black mb-1">Import a Sitemap</h1>
-          <p className="text-sm text-[#6b6b70]">
+      <main className="import-main">
+        <header className="import-header">
+          <p className="import-eyebrow">Workspace</p>
+          <h1 className="import-title">Import a Sitemap</h1>
+          <p className="import-subtitle">
             Paste a page hierarchy or upload a file, and it becomes a new board you can reshape freely.
           </p>
         </header>
 
-        {error && <p className="text-sm text-red-600 bg-red-50 rounded-lg px-4 py-3 mb-6">{error}</p>}
+        {error && <p className="import-error">{error}</p>}
 
-        <div className="mb-6 max-w-sm">
-          <label className="text-[10px] uppercase tracking-normal text-[#8a8a8a] font-bold block mb-2">
-            Board name
-          </label>
+        <div className="import-name-field">
+          <label className="import-label">Board name</label>
           <input
-            className={inputCls}
+            className="import-input"
             value={boardName}
             onChange={(e) => setBoardName(e.target.value)}
             placeholder="e.g. Marketing Site Rebuild"
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="import-columns">
           <div>
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] uppercase tracking-normal text-[#474747] font-bold">Structure</span>
+            <div className="import-col-header">
+              <span className="import-col-label">Structure</span>
               <input
                 ref={fileInputRef}
                 type="file"
                 accept=".json,.txt,application/json,text/plain"
                 onChange={handleFile}
-                className="hidden"
+                className="import-file-input-hidden"
               />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-normal bg-[#7161EF] text-white hover:opacity-90 transition-all"
-              >
+              <button onClick={() => fileInputRef.current?.click()} className="import-upload-btn">
                 Upload File
               </button>
             </div>
             <textarea
               autoFocus
-              className={`${inputCls} h-80 resize-none font-mono text-xs leading-6`}
+              className="import-input import-textarea"
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder={PLACEHOLDER}
             />
-            <p className="mt-2 text-[11px] text-[#8a8a8a]">
+            <p className="import-hint">
               Accepts JSON (an object with a <code>children</code>/<code>pages</code> array, or a bare array of
               top-level pages) or plain indented text.
             </p>
           </div>
 
           <div>
-            <p className="text-[10px] uppercase tracking-normal text-[#474747] font-bold mb-3">Preview</p>
-            <div className="rounded-lg border border-[#c6c6c6]/60 bg-white h-80 overflow-hidden flex flex-col">
+            <p className="import-preview-label">Preview</p>
+            <div className="import-preview-box">
               {parseError ? (
-                <p className="text-xs text-red-600 p-4">{parseError}</p>
+                <p className="import-preview-error">{parseError}</p>
               ) : !tree ? (
-                <p className="text-xs text-[#8a8a8a] p-4">Nothing to preview yet.</p>
+                <p className="import-preview-empty">Nothing to preview yet.</p>
               ) : (
                 <>
-                  <div className="flex-1 p-3 overflow-hidden">
-                    <MiniTree tree={tree} className="w-full h-full" />
+                  <div className="import-preview-tree">
+                    <MiniTree tree={tree} className="import-preview-tree-svg" />
                   </div>
-                  <div className="px-4 py-2.5 border-t border-[#efeff2] text-[11px] text-[#8a8a8a]">
+                  <div className="import-preview-count">
                     {countNodes(tree)} page{countNodes(tree) === 1 ? '' : 's'}
                   </div>
                 </>
@@ -169,11 +162,7 @@ const ImportPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
           </div>
         </div>
 
-        <button
-          onClick={handleImport}
-          disabled={!tree || creating}
-          className="mt-8 px-8 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all"
-        >
+        <button onClick={handleImport} disabled={!tree || creating} className="import-submit-btn">
           {creating ? 'Creating…' : 'Create Board'}
         </button>
       </main>

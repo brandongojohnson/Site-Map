@@ -1,5 +1,6 @@
 import React from 'react';
 import { WindowChrome } from './primitives';
+import './ReportsMockup.css';
 
 // A believable density map — not real data, just enough variation to read
 // as "a similarity matrix" at a glance.
@@ -27,23 +28,21 @@ const ReportsMockup = ({ className = '', light = false }) => (
     className={className}
     light={light}
     right={
-      <div className={`flex items-center gap-1.5 text-[10px] ${light ? 'text-[#86868C]' : 'text-white/35'}`}>
-        <span className="material-symbols-outlined text-[13px]">groups</span>
+      <div className={`rm-badge ${light ? 'is-light' : ''}`}>
+        <span className="material-symbols-outlined rm-badge-icon">groups</span>
         24 responses
       </div>
     }
   >
-    <div className={`p-5 backdrop-blur-sm grid grid-cols-2 gap-6 ${light ? 'bg-[#F3F3F4]' : 'bg-white/[0.03]'}`}>
+    <div className={`rm-body ${light ? 'is-light' : ''}`}>
       <div>
-        <p className={`text-[10px] font-bold uppercase tracking-normal mb-2.5 ${light ? 'text-[#86868C]' : 'text-white/40'}`}>
-          Similarity Matrix
-        </p>
-        <div className="inline-grid gap-[3px]" style={{ gridTemplateColumns: 'repeat(6, 1fr)' }}>
+        <p className={`rm-col-title ${light ? 'is-light' : ''}`}>Similarity Matrix</p>
+        <div className="rm-matrix" style={{ gridTemplateColumns: 'repeat(6, 1fr)' }}>
           {matrix.map((row, i) =>
             row.map((v, j) => (
               <div
                 key={`${i}-${j}`}
-                className="w-4 h-4 rounded-[3px]"
+                className="rm-matrix-cell"
                 style={{ background: i === j ? (light ? 'rgba(23,21,18,0.08)' : 'rgba(255,255,255,0.12)') : shade(v) }}
               />
             ))
@@ -51,21 +50,16 @@ const ReportsMockup = ({ className = '', light = false }) => (
         </div>
       </div>
       <div>
-        <p className={`text-[10px] font-bold uppercase tracking-normal mb-2.5 ${light ? 'text-[#86868C]' : 'text-white/40'}`}>
-          Category Frequency
-        </p>
-        <div className="space-y-2.5">
+        <p className={`rm-col-title ${light ? 'is-light' : ''}`}>Category Frequency</p>
+        <div className="rm-bars">
           {bars.map((b) => (
             <div key={b.label}>
-              <div className="flex items-center justify-between mb-1">
-                <span className={`text-[10px] font-medium ${light ? 'text-[#18181B]' : 'text-[#F5F3F0]'}`}>{b.label}</span>
-                <span className={`text-[9px] ${light ? 'text-[#9C9CA3]' : 'text-white/35'}`}>{b.value}%</span>
+              <div className="rm-bar-header">
+                <span className={`rm-bar-label ${light ? 'is-light' : ''}`}>{b.label}</span>
+                <span className={`rm-bar-value ${light ? 'is-light' : ''}`}>{b.value}%</span>
               </div>
-              <div className={`h-1.5 rounded-full overflow-hidden ${light ? 'bg-[#E4E4E7]' : 'bg-white/10'}`}>
-                <div
-                  className="h-full rounded-full bg-[#7161EF]"
-                  style={{ width: `${b.value}%` }}
-                />
+              <div className={`rm-bar-track ${light ? 'is-light' : ''}`}>
+                <div className="rm-bar-fill" style={{ width: `${b.value}%` }} />
               </div>
             </div>
           ))}

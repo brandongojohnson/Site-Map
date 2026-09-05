@@ -1,0 +1,13 @@
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 256px;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 0 32px;
+  z-index: 50;
+}

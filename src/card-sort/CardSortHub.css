@@ -1,0 +1,192 @@
+.card-sort-study-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.card-sort-study-row:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.card-sort-study-row-info {
+  min-width: 0;
+}
+
+.card-sort-study-row-name {
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-sort-study-row-meta {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: #8a8a8a;
+  margin-top: 4px;
+}
+
+.card-sort-study-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.card-sort-copy-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  background: #f3f3f4;
+  transition: all 0.15s;
+}
+.card-sort-copy-btn:hover {
+  background: #e8e8e8;
+}
+
+.card-sort-delete-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a8a8a;
+  transition: all 0.15s;
+}
+.card-sort-delete-btn:hover {
+  background: #f3f3f4;
+  color: #7161ef;
+}
+
+.card-sort-delete-icon {
+  font-size: 16px;
+}
+
+.card-sort-hub {
+  min-height: 100vh;
+  background: #f3f3f4;
+  color: #000;
+}
+
+.card-sort-hub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+}
+
+.card-sort-hub-logo-icon {
+  font-size: 16px;
+  color: #000;
+}
+
+.card-sort-hub-logo-text {
+  color: #000;
+}
+
+.card-sort-hub-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-sort-hub-main {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 40px 32px;
+}
+
+.card-sort-hub-error {
+  font-size: 12px;
+  color: #dc2626;
+  background: #fef2f2;
+  border-radius: 4px;
+  padding: 10px 16px;
+  margin-bottom: 24px;
+}
+
+.card-sort-hub-cta-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+@media (min-width: 768px) {
+  .card-sort-hub-cta-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.card-sort-hub-cta-primary {
+  text-align: left;
+  border-radius: 8px;
+  padding: 24px;
+  background: #7161ef;
+  color: #fff;
+  transition: opacity 0.15s;
+}
+.card-sort-hub-cta-primary:hover {
+  opacity: 0.9;
+}
+
+.card-sort-hub-cta-secondary {
+  text-align: left;
+  border-radius: 8px;
+  padding: 24px;
+  background: #fff;
+  transition: box-shadow 0.15s;
+}
+.card-sort-hub-cta-secondary:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.card-sort-hub-cta-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.card-sort-hub-cta-title {
+  font-weight: 900;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.card-sort-hub-cta-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.card-sort-hub-cta-desc-secondary {
+  font-size: 14px;
+  color: #474747;
+}
+
+.card-sort-hub-section-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.card-sort-hub-empty-text {
+  font-size: 14px;
+  color: #8a8a8a;
+}
+
+.card-sort-hub-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

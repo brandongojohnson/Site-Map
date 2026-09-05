@@ -1,0 +1,584 @@
+/* Shared by ResultsScreen.jsx, StudyCreated.jsx, StudyResults.jsx, and
+   TakeStudy.jsx — the "results dashboard" header pattern and the "centered
+   card" screen pattern each repeat across these files. */
+
+.icon-16 {
+  font-size: 16px;
+}
+
+.results-page {
+  min-height: 100vh;
+  background: #f3f3f4;
+  color: #000;
+}
+
+.results-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #474747;
+}
+
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  border-bottom: 1px solid rgba(198, 198, 198, 0.4);
+  background: #fff;
+}
+
+.results-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.results-logo-icon {
+  font-size: 16px;
+  color: #000;
+}
+.results-logo-text {
+  color: #000;
+}
+
+.results-divider {
+  width: 1px;
+  height: 32px;
+  background: #e6e6e9;
+}
+
+.results-title {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.results-subtitle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: #474747;
+}
+
+.results-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.results-btn-outline {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  background: #fff;
+  border: 1px solid rgba(198, 198, 198, 0.6);
+  transition: all 0.15s;
+}
+.results-btn-outline:hover {
+  background: #e8e8e8;
+}
+.results-btn-outline:disabled {
+  opacity: 0.4;
+}
+
+.results-btn-ghost {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: #474747;
+  transition: all 0.15s;
+}
+.results-btn-ghost:hover {
+  background: #e8e8e8;
+}
+
+.results-main {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 40px 32px;
+}
+
+/* ResultsScreen specifics */
+
+.results-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.results-summary-text {
+  font-size: 14px;
+  color: #474747;
+}
+
+.results-save-state {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  font-weight: 700;
+}
+.results-save-state.is-saving {
+  color: #8a8a8a;
+}
+.results-save-state.is-saved {
+  color: #15803d;
+}
+.results-save-state.is-error {
+  color: #dc2626;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .results-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1280px) {
+  .results-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.results-group-card {
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+.results-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.results-group-title {
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.results-group-count {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8a8a8a;
+  font-variant-numeric: tabular-nums;
+}
+
+.results-group-empty {
+  font-size: 12px;
+  color: #c6c6c6;
+}
+
+.results-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.results-card-item {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: #f3f3f4;
+}
+
+.results-unsorted-card {
+  border-radius: 8px;
+  border: 2px dashed rgba(198, 198, 198, 0.7);
+  padding: 20px;
+}
+
+.results-unsorted-title {
+  font-weight: 900;
+  font-size: 14px;
+  color: #8a8a8a;
+  margin-bottom: 12px;
+}
+
+.results-unsorted-item {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: #fff;
+  color: #474747;
+}
+
+.results-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 48px;
+  padding-bottom: 64px;
+}
+
+.results-action-outline {
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  background: #fff;
+  border: 1px solid rgba(198, 198, 198, 0.6);
+  transition: all 0.15s;
+}
+.results-action-outline:hover {
+  background: #e8e8e8;
+}
+
+.results-action-primary {
+  padding: 12px 24px;
+  background: #7161ef;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  transition: all 0.15s;
+}
+.results-action-primary:hover {
+  opacity: 0.9;
+}
+.results-action-primary:active {
+  transform: scale(0.95);
+}
+
+.results-action-ghost {
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: #474747;
+  transition: all 0.15s;
+}
+.results-action-ghost:hover {
+  background: #e8e8e8;
+}
+
+/* StudyResults specifics */
+
+.results-intention {
+  font-size: 14px;
+  color: #474747;
+  background: #fff;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 32px;
+  white-space: pre-wrap;
+}
+
+.results-empty-banner {
+  border-radius: 4px;
+  border: 2px dashed rgba(198, 198, 198, 0.7);
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.results-empty-icon {
+  font-size: 30px;
+  color: #8a8a8a;
+}
+
+.results-empty-text {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #474747;
+}
+
+.results-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.results-tabs {
+  display: flex;
+  gap: 4px;
+  background: #fff;
+  border-radius: 4px;
+  padding: 4px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.results-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  letter-spacing: normal;
+  font-weight: 700;
+  transition: all 0.15s;
+  color: #474747;
+}
+.results-tab:hover {
+  background: #e8e8e8;
+}
+.results-tab.is-active {
+  background: #7161ef;
+  color: #fff;
+}
+.results-tab.is-active:hover {
+  background: #7161ef;
+}
+
+.results-toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.results-panel {
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 24px;
+}
+
+.results-panel-empty {
+  font-size: 14px;
+  color: #8a8a8a;
+}
+
+/* Centered-card screens: StudyCreated + TakeStudy phases */
+
+.centered-screen {
+  min-height: 100vh;
+  background: #f3f3f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32px;
+}
+
+.centered-screen-col {
+  min-height: 100vh;
+  background: #f3f3f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32px;
+  gap: 24px;
+}
+
+.centered-card {
+  width: 100%;
+  max-width: 576px;
+  text-align: center;
+}
+
+.centered-logo-wrap {
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.centered-logo-icon {
+  font-size: 16px;
+  color: #000;
+}
+.centered-logo-text {
+  color: #000;
+}
+
+.centered-check-badge {
+  width: 64px;
+  height: 64px;
+  background: #7161ef;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin: 0 auto 24px;
+}
+
+.centered-check-icon {
+  font-size: 30px;
+}
+
+.centered-title {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.centered-desc {
+  font-size: 14px;
+  color: #474747;
+  margin-bottom: 32px;
+}
+
+.centered-link-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid rgba(198, 198, 198, 0.6);
+  padding: 8px;
+  margin-bottom: 12px;
+}
+
+.centered-link-input {
+  flex-grow: 1;
+  background: transparent;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #474747;
+  border: none;
+}
+.centered-link-input:focus {
+  outline: none;
+}
+
+.centered-copy-btn {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background: #7161ef;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  transition: all 0.15s;
+}
+.centered-copy-btn:hover {
+  opacity: 0.9;
+}
+.centered-copy-btn:active {
+  transform: scale(0.95);
+}
+
+.centered-fine-print {
+  font-size: 12px;
+  color: #8a8a8a;
+  margin-bottom: 40px;
+}
+
+.centered-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* TakeStudy specifics */
+
+.take-study-error-icon {
+  font-size: 36px;
+  color: #8a8a8a;
+}
+
+.take-study-error-title {
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.take-study-error-desc {
+  font-size: 14px;
+  color: #474747;
+}
+
+.take-study-thanks-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.take-study-intro-card {
+  width: 100%;
+  max-width: 576px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 32px;
+}
+
+.take-study-intro-title {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+
+.take-study-intro-intention {
+  font-size: 14px;
+  color: #474747;
+  line-height: 1.625;
+  margin-bottom: 24px;
+  white-space: pre-wrap;
+}
+
+.take-study-intro-note {
+  font-size: 12px;
+  color: #8a8a8a;
+  margin-bottom: 24px;
+}
+
+.take-study-name-label {
+  display: block;
+  margin-bottom: 24px;
+}
+
+.take-study-name-label-text {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: #474747;
+  font-weight: 700;
+}
+
+.take-study-name-input {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid rgba(198, 198, 198, 0.6);
+  background: #fff;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #000;
+  margin-top: 8px;
+}
+.take-study-name-input:focus {
+  outline: none;
+  border-color: #7161ef;
+}
+
+.take-study-begin-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: #7161ef;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  transition: all 0.15s;
+}
+.take-study-begin-btn:hover {
+  opacity: 0.9;
+}
+.take-study-begin-btn:active {
+  transform: scale(0.95);
+}

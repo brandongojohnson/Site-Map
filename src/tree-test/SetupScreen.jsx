@@ -5,16 +5,14 @@ import { parseIndentedTree, treeToIndentedText, sitemapToTestTree, cloneSampleTr
 import TreeStep from './TreeStep';
 import TasksStep from './TasksStep';
 import SortlyLogo from '../shared/components/SortlyLogo';
-
-const inputCls =
-  'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-[#7161EF] focus:ring-0';
+import './WizardShell.css';
 
 const StepShell = ({ eyebrow, title, subtitle, wide, children }) => (
-  <div className={`w-full ${wide ? 'max-w-3xl' : 'max-w-2xl'}`}>
-    <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] font-bold mb-2">{eyebrow}</p>
-    <h2 className="text-2xl font-black mb-2">{title}</h2>
-    {subtitle && <p className="text-sm text-[#474747] mb-8">{subtitle}</p>}
-    {!subtitle && <div className="mb-8" />}
+  <div className={`wizard-step ${wide ? 'is-wide' : ''}`}>
+    <p className="wizard-step-eyebrow">{eyebrow}</p>
+    <h2 className="wizard-step-title">{title}</h2>
+    {subtitle && <p className="wizard-step-subtitle">{subtitle}</p>}
+    {!subtitle && <div className="wizard-step-spacer" />}
     {children}
   </div>
 );
@@ -90,37 +88,29 @@ const SetupScreen = ({ onStart, onExit }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex flex-col">
-      <header className="flex items-center justify-between px-8 py-5 border-b border-[#c6c6c6]/40 bg-white">
-        <div className="flex items-center gap-3">
-          <SortlyLogo iconClassName="text-base text-black" textClassName="text-black" />
-          <span className="w-px h-8 bg-[#e6e6e9]" />
+    <div className="wizard-shell">
+      <header className="wizard-header">
+        <div className="wizard-header-left">
+          <SortlyLogo iconClassName="wizard-header-logo-icon" textClassName="wizard-header-logo-text" />
+          <span className="wizard-header-divider" />
           <div>
-            <h1 className="text-xl font-black leading-tight">Tree Test</h1>
-            <p className="text-[10px] uppercase tracking-normal text-[#474747]">Setup</p>
+            <h1 className="wizard-header-title">Tree Test</h1>
+            <p className="wizard-header-subtitle">Setup</p>
           </div>
         </div>
-        <button
-          onClick={onExit}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm uppercase tracking-normal text-[#474747] hover:bg-[#e8e8e8] transition-all"
-        >
-          <span className="material-symbols-outlined text-base">close</span>
+        <button onClick={onExit} className="wizard-cancel-btn">
+          <span className="material-symbols-outlined wizard-icon-16">close</span>
           Cancel
         </button>
       </header>
 
-      <div className="flex items-center gap-2 px-8 py-4">
+      <div className="wizard-progress">
         {STEPS.map((s, i) => (
-          <div
-            key={s}
-            className={`h-1.5 rounded-full flex-grow transition-all ${
-              i <= stepIndex ? 'bg-[#7161EF]' : 'bg-[#dcdcdc]'
-            }`}
-          />
+          <div key={s} className={`wizard-progress-bar ${i <= stepIndex ? 'is-done' : 'is-pending'}`} />
         ))}
       </div>
 
-      <main className="flex-grow flex items-start justify-center px-8 pt-6 pb-16">
+      <main className="wizard-main">
         {step === 'name' && (
           <StepShell
             eyebrow={`Step ${stepIndex + 1} of ${STEPS.length}`}
@@ -129,7 +119,7 @@ const SetupScreen = ({ onStart, onExit }) => {
           >
             <input
               autoFocus
-              className={inputCls}
+              className="wizard-input"
               value={studyName}
               onChange={(e) => setStudyName(e.target.value)}
               onKeyDown={onEnterAdvance}
@@ -146,7 +136,7 @@ const SetupScreen = ({ onStart, onExit }) => {
           >
             <input
               autoFocus
-              className={inputCls}
+              className="wizard-input"
               value={participant}
               onChange={(e) => setParticipant(e.target.value)}
               onKeyDown={onEnterAdvance}
@@ -193,16 +183,16 @@ const SetupScreen = ({ onStart, onExit }) => {
             title="Ready to test"
             subtitle="Double-check the details, then start the session."
           >
-            <div className="rounded-xl bg-white shadow-sm divide-y divide-[#e8e8e8]">
+            <div className="wizard-review-card">
               {[
                 ['Study name', studyName.trim() || 'Untitled Study'],
                 ['Participant', participant.trim() || '—'],
                 ['Tree', tree ? `${(tree.children || []).length} top-level pages` : '—'],
                 ['Tasks', `${tasks.length} task${tasks.length === 1 ? '' : 's'}`],
               ].map(([label, value]) => (
-                <div key={label} className="flex items-center justify-between px-5 py-3.5">
-                  <span className="text-[10px] uppercase tracking-normal text-[#8a8a8a] font-bold">{label}</span>
-                  <span className="text-sm font-medium text-right">{value}</span>
+                <div key={label} className="wizard-review-row">
+                  <span className="wizard-review-label">{label}</span>
+                  <span className="wizard-review-value">{value}</span>
                 </div>
               ))}
             </div>
@@ -210,19 +200,12 @@ const SetupScreen = ({ onStart, onExit }) => {
         )}
       </main>
 
-      <footer className="sticky bottom-0 bg-white border-t border-[#c6c6c6]/40 px-8 py-4 flex items-center justify-between">
-        <button
-          onClick={goBack}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm uppercase tracking-normal text-[#474747] hover:bg-[#e8e8e8] transition-all"
-        >
-          <span className="material-symbols-outlined text-base">arrow_back</span>
+      <footer className="wizard-footer">
+        <button onClick={goBack} className="wizard-back-btn">
+          <span className="material-symbols-outlined wizard-icon-16">arrow_back</span>
           {stepIndex === 0 ? 'Cancel' : 'Back'}
         </button>
-        <button
-          onClick={goNext}
-          disabled={!canAdvance}
-          className="px-8 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 active:scale-95 disabled:opacity-40 disabled:active:scale-100 transition-all"
-        >
+        <button onClick={goNext} disabled={!canAdvance} className="wizard-next-btn">
           {step === 'review' ? 'Start Test' : 'Continue'}
         </button>
       </footer>

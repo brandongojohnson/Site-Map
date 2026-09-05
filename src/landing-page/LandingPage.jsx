@@ -13,13 +13,14 @@ import FAQ from './FAQ';
 import FinalCTA from './FinalCTA';
 import Contact from './Contact';
 import Footer from './Footer';
+import './LandingPage.css';
 
 const LandingPage = ({ onGetStarted }) => {
   const [theme, toggleTheme] = useTheme();
 
   return (
     <div className={theme === 'dark' ? 'dark' : ''}>
-      <div className="font-sans bg-white text-[#131313] dark:bg-[#131313] dark:text-[#F5F3F0] antialiased">
+      <div className="landing-page">
         <Nav onGetStarted={onGetStarted} theme={theme} onToggleTheme={toggleTheme} />
         <Hero onGetStarted={onGetStarted} />
         <Capabilities />

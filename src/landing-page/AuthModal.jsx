@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth, signInWithGoogle } from '../card-sort/useAuth';
+import './AuthModal.css';
 
 const GoogleIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
@@ -39,65 +40,45 @@ const AuthModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-      <button
-        aria-label="Close"
-        onClick={onClose}
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-      />
-      <div className="relative w-full max-w-sm rounded-2xl bg-[#0A0A0C]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] p-8">
-        <button
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-colors"
-        >
-          <span className="material-symbols-outlined text-[18px]">close</span>
+    <div className="auth-modal-overlay-wrap">
+      <button aria-label="Close" onClick={onClose} className="auth-modal-overlay" />
+      <div className="auth-modal-card">
+        <button onClick={onClose} aria-label="Close" className="auth-modal-close">
+          <span className="material-symbols-outlined auth-modal-close-icon">close</span>
         </button>
 
-        <div className="flex items-center gap-1 mb-8 rounded-full bg-white/5 border border-white/10 p-1">
+        <div className="auth-modal-tabs">
           <button
             onClick={() => setMode('login')}
-            className={`flex-1 rounded-full py-2 text-[13px] font-semibold transition-colors ${
-              mode === 'login' ? 'bg-white text-[#131313]' : 'text-white/50 hover:text-white'
-            }`}
+            className={`auth-modal-tab ${mode === 'login' ? 'is-active' : ''}`}
           >
             Log in
           </button>
           <button
             onClick={() => setMode('signup')}
-            className={`flex-1 rounded-full py-2 text-[13px] font-semibold transition-colors ${
-              mode === 'signup' ? 'bg-white text-[#131313]' : 'text-white/50 hover:text-white'
-            }`}
+            className={`auth-modal-tab ${mode === 'signup' ? 'is-active' : ''}`}
           >
             Sign up
           </button>
         </div>
 
-        <h2 className="text-[20px] font-bold tracking-tight text-[#F5F3F0] mb-2">
+        <h2 className="auth-modal-title">
           {mode === 'login' ? 'Welcome back' : 'Create your account'}
         </h2>
-        <p className="text-[13px] font-normal text-white/50 mb-7 leading-relaxed">
+        <p className="auth-modal-subtitle">
           {mode === 'login'
             ? 'Log in to access your studies and sitemaps.'
             : 'Start free — no credit card required.'}
         </p>
 
-        {error && (
-          <p className="text-[12px] font-normal text-[#F58787] bg-[#F58787]/10 rounded-lg px-3 py-2.5 mb-4">
-            {error}
-          </p>
-        )}
+        {error && <p className="auth-modal-error">{error}</p>}
 
-        <button
-          onClick={handleGoogleSignIn}
-          disabled={signing}
-          className="w-full flex items-center justify-center gap-2.5 rounded-full bg-white text-[#131313] py-3 text-[14px] font-semibold hover:opacity-90 active:scale-95 transition-all disabled:opacity-60"
-        >
+        <button onClick={handleGoogleSignIn} disabled={signing} className="auth-modal-google-btn">
           <GoogleIcon />
           {signing ? 'Signing in…' : 'Continue with Google'}
         </button>
 
-        <p className="text-[11px] font-normal text-white/35 text-center mt-6 leading-relaxed">
+        <p className="auth-modal-legal">
           By continuing, you agree to Sortly's Terms of Service and Privacy Policy.
         </p>
       </div>

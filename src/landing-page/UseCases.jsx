@@ -1,4 +1,6 @@
 import React from 'react';
+import './sharedStyles.css';
+import './UseCases.css';
 
 const ROLES = [
   {
@@ -34,35 +36,22 @@ const ROLES = [
 ];
 
 const UseCases = () => (
-  <section className="relative py-24 md:py-32 border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#131313]">
-    <div className="max-w-6xl mx-auto px-6">
-      <div className="max-w-xl mb-14">
-        <p className="text-[12px] font-semibold uppercase tracking-normal text-[#7161EF] dark:text-[#9B8FF5] mb-3">
-          Who it's for
-        </p>
-        <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] leading-tight">
-          Made for whoever owns the structure.
-        </h2>
+  <section className="section-band">
+    <div className="section-band-inner">
+      <div className="usecases-header">
+        <p className="section-eyebrow">Who it's for</p>
+        <h2 className="section-heading usecases-section-title">Made for whoever owns the structure.</h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+      <div className="usecases-grid">
         {ROLES.map((role) => (
-          <div
-            key={role.title}
-            className="rounded-2xl p-6 bg-[#FAFAFA] border border-black/10 hover:bg-white hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-20px_rgba(23,21,18,0.15)] dark:bg-white/[0.03] dark:border-white/10 dark:hover:bg-white/[0.06] dark:hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)] transition-all duration-300"
-          >
-            <span className="w-11 h-11 rounded-xl flex items-center justify-center mb-4">
-              <span className="material-symbols-outlined text-[22px] text-[#131313] dark:text-[#F5F3F0]">{role.icon}</span>
+          <div key={role.title} className="usecases-card">
+            <span className="usecases-icon-wrap">
+              <span className="material-symbols-outlined usecases-icon">{role.icon}</span>
             </span>
-            <h3 className="text-[15px] font-semibold text-[#131313] dark:text-[#F5F3F0] mb-1.5">
-              {role.title}
-            </h3>
-            <p className="text-[13px] font-normal text-black/55 dark:text-white/55 leading-relaxed mb-3">
-              {role.desc}
-            </p>
-            <p className="text-[11px] font-normal text-black/35 dark:text-white/35 leading-relaxed italic">
-              {role.example}
-            </p>
+            <h3 className="usecases-title">{role.title}</h3>
+            <p className="usecases-desc">{role.desc}</p>
+            <p className="usecases-example">{role.example}</p>
           </div>
         ))}
       </div>

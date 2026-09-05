@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { clusterHierarchical } from './analysisUtils';
+import './CardSortCharts.css';
 
 const ROW_H = 26;
 const LABEL_W = 200;
@@ -72,11 +73,11 @@ const Dendrogram = ({ labels, matrix }) => {
 
   return (
     <div>
-      <p className="text-xs text-[#474747] mb-3">
+      <p className="chart-caption-sm">
         Cards that join close to their labels (right) were sorted together often; joins pulled
         further left happened only because every card has to merge eventually.
       </p>
-      <div className="overflow-auto rounded-lg border border-[#e1e0d9] bg-[#fcfcfb]" style={{ maxHeight: 560 }}>
+      <div className="dendrogram-scroll" style={{ maxHeight: 560 }}>
         <svg width={width} height={height} role="img" aria-label="Card sort dendrogram">
           <g>
             {segments.map((s, i) => (

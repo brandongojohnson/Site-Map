@@ -1,0 +1,91 @@
+.get-started-menu {
+  position: relative;
+}
+
+.get-started-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  background: #7161ef;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.get-started-menu-btn:hover {
+  opacity: 0.9;
+}
+
+.get-started-menu-btn-icon {
+  font-size: 16px;
+  transition: transform 0.15s;
+}
+.get-started-menu-btn-icon.is-open {
+  transform: rotate(180deg);
+}
+
+.get-started-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  cursor: default;
+}
+
+.get-started-menu-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 16px);
+  z-index: 50;
+  width: 256px;
+  border-radius: 16px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #e6e6e9;
+  box-shadow: 0 20px 50px -15px rgba(23, 21, 18, 0.25);
+}
+
+.get-started-menu-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 12px;
+  padding: 10px 12px;
+  text-align: left;
+  transition: background-color 0.15s;
+}
+.get-started-menu-item:hover {
+  background: #f3f3f4;
+}
+
+.get-started-menu-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #eeecfd;
+}
+
+.get-started-menu-item-icon .material-symbols-outlined {
+  font-size: 16px;
+  color: #7161ef;
+}
+
+.get-started-menu-item-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #000;
+}
+
+.get-started-menu-item-desc {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: #8a8a8a;
+}

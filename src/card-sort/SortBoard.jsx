@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { catUid, SORT_TYPES } from './sortUtils';
 import SortlyLogo from '../shared/components/SortlyLogo';
+import './SortBoard.css';
 
 const UNSORTED = '__unsorted__';
 
@@ -107,101 +108,82 @@ const SortBoard = ({ study, onFinish, onExit }) => {
         e.stopPropagation();
         onCardClick(card.id, zoneId);
       }}
-      className={`px-4 py-2.5 rounded-lg bg-white text-sm font-medium shadow-sm border cursor-grab active:cursor-grabbing select-none transition-all hover:shadow-md ${
-        selectedCardId === card.id ? 'border-[#7161EF] ring-2 ring-[#7161EF]/20' : 'border-[#c6c6c6]/50'
-      }`}
+      className={`sort-board-card ${selectedCardId === card.id ? 'is-selected' : ''}`}
     >
-      <span className="material-symbols-outlined text-sm align-middle mr-2 text-[#8a8a8a]">
-        drag_indicator
-      </span>
+      <span className="material-symbols-outlined sort-board-card-drag-icon">drag_indicator</span>
       {card.label}
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex flex-col">
-      <header className="flex items-center justify-between px-8 py-4 border-b border-[#c6c6c6]/40 bg-white sticky top-0 z-30">
-        <div className="flex items-center gap-3">
-          <SortlyLogo iconClassName="text-base text-black" textClassName="text-black" />
-          <span className="w-px h-8 bg-[#e6e6e9]" />
+    <div className="sort-board">
+      <header className="sort-board-header">
+        <div className="sort-board-header-left">
+          <SortlyLogo iconClassName="sort-board-logo-icon" textClassName="sort-board-logo-text" />
+          <span className="sort-board-divider" />
           <div>
-            <h1 className="text-lg font-black leading-tight">{studyName}</h1>
-            <p className="text-[10px] uppercase tracking-normal text-[#474747]">
-              {SORT_TYPES[type].label}
-            </p>
+            <h1 className="sort-board-title">{studyName}</h1>
+            <p className="sort-board-subtitle">{SORT_TYPES[type].label}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-40 h-2 rounded-full bg-[#e8e8e8] overflow-hidden">
+        <div className="sort-board-header-right">
+          <div className="sort-board-progress">
+            <div className="sort-board-progress-track">
               <div
-                className="h-full bg-[#7161EF] transition-all"
+                className="sort-board-progress-fill"
                 style={{ width: `${(sortedCount / cards.length) * 100}%` }}
               />
             </div>
-            <span className="text-xs font-bold tabular-nums">
+            <span className="sort-board-progress-count">
               {sortedCount}/{cards.length}
             </span>
           </div>
-          <button
-            onClick={onExit}
-            className="px-4 py-2 rounded-lg text-xs uppercase tracking-normal text-[#474747] hover:bg-[#e8e8e8] transition-all"
-          >
+          <button onClick={onExit} className="sort-board-quit-btn">
             Quit
           </button>
           <button
             onClick={() => onFinish(categories, assignments)}
             disabled={sortedCount === 0}
-            className="px-6 py-2.5 bg-[#7161EF] text-white rounded-lg font-bold text-xs uppercase tracking-normal hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all"
+            className="sort-board-finish-btn"
           >
             {allSorted ? 'Finish' : `Finish (${unsortedCards.length} left)`}
           </button>
         </div>
       </header>
 
-      <div className="flex flex-grow overflow-hidden">
+      <div className="sort-board-body">
         {/* Unsorted tray */}
         <aside
           {...dropProps(UNSORTED)}
           onClick={() => onZoneClick(UNSORTED)}
-          className={`w-72 flex-shrink-0 border-r border-[#c6c6c6]/40 p-5 overflow-y-auto transition-colors ${
-            dragOverId === UNSORTED ? 'bg-[#e8e8e8]' : ''
-          }`}
+          className={`sort-board-tray ${dragOverId === UNSORTED ? 'is-drag-over' : ''}`}
         >
-          <h2 className="text-[10px] uppercase tracking-normal font-bold text-[#474747] mb-4">
-            Unsorted Cards ({unsortedCards.length})
-          </h2>
+          <h2 className="sort-board-tray-title">Unsorted Cards ({unsortedCards.length})</h2>
           {unsortedCards.length === 0 ? (
-            <p className="text-xs text-[#8a8a8a]">
-              All cards sorted. Drag a card back here to unsort it.
-            </p>
+            <p className="sort-board-tray-empty">All cards sorted. Drag a card back here to unsort it.</p>
           ) : (
-            <div className="space-y-2">
+            <div className="sort-board-card-list">
               {unsortedCards.map((card) => (
                 <Card key={card.id} card={card} zoneId={UNSORTED} />
               ))}
             </div>
           )}
           {selectedCardId && (
-            <p className="mt-4 text-[11px] text-[#8a8a8a]">
-              Card selected — click a group to place it.
-            </p>
+            <p className="sort-board-tray-hint">Card selected — click a group to place it.</p>
           )}
         </aside>
 
         {/* Category columns */}
-        <main className="flex-grow p-6 overflow-auto">
+        <main className="sort-board-main">
           {categories.length === 0 && (
-            <div className="text-center py-16">
-              <span className="material-symbols-outlined text-5xl text-[#c6c6c6]">category</span>
-              <p className="mt-3 text-sm text-[#474747]">
-                No groups yet. Create one, or drag a card onto “New Group”.
-              </p>
+            <div className="sort-board-empty-state">
+              <span className="material-symbols-outlined sort-board-empty-icon">category</span>
+              <p className="sort-board-empty-text">No groups yet. Create one, or drag a card onto “New Group”.</p>
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-start">
+          <div className="sort-board-grid">
             {categories.map((cat) => {
               const catCards = cards.filter((c) => assignments[c.id] === cat.id);
               return (
@@ -209,15 +191,11 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                   key={cat.id}
                   {...dropProps(cat.id)}
                   onClick={() => onZoneClick(cat.id)}
-                  className={`rounded-xl border-2 bg-white/70 p-4 min-h-[10rem] transition-all ${
-                    dragOverId === cat.id
-                      ? 'border-[#7161EF] bg-white shadow-md'
-                      : selectedCardId
-                      ? 'border-dashed border-[#8a8a8a] cursor-pointer'
-                      : 'border-transparent shadow-sm'
+                  className={`sort-board-category ${
+                    dragOverId === cat.id ? 'is-drag-over' : selectedCardId ? 'is-drop-target' : ''
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-3 gap-2">
+                  <div className="sort-board-cat-header">
                     {editingCatId === cat.id ? (
                       <input
                         autoFocus
@@ -231,11 +209,11 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                           if (e.key === 'Enter') e.target.blur();
                           if (e.key === 'Escape') setEditingCatId(null);
                         }}
-                        className="flex-grow rounded-md border border-[#7161EF] px-2 py-1 text-sm font-bold focus:ring-0"
+                        className="sort-board-cat-rename-input"
                       />
                     ) : (
                       <h3
-                        className={`font-black text-sm truncate ${canRename(cat) ? 'cursor-text' : ''}`}
+                        className={`sort-board-cat-title ${canRename(cat) ? 'can-rename' : ''}`}
                         title={canRename(cat) ? 'Click to rename' : cat.name}
                         onClick={(e) => {
                           if (!canRename(cat)) return;
@@ -245,16 +223,12 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                       >
                         {cat.name}
                         {cat.locked && (
-                          <span className="material-symbols-outlined text-xs ml-1 text-[#8a8a8a] align-middle">
-                            lock
-                          </span>
+                          <span className="material-symbols-outlined sort-board-cat-lock-icon">lock</span>
                         )}
                       </h3>
                     )}
-                    <div className="flex items-center gap-1 flex-shrink-0">
-                      <span className="text-[10px] font-bold text-[#8a8a8a] tabular-nums">
-                        {catCards.length}
-                      </span>
+                    <div className="sort-board-cat-header-right">
+                      <span className="sort-board-cat-count">{catCards.length}</span>
                       {!cat.locked && canCreateGroups && (
                         <button
                           onClick={(e) => {
@@ -262,18 +236,18 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                             removeCategory(cat.id);
                           }}
                           title="Delete group (cards return to unsorted)"
-                          className="w-6 h-6 rounded flex items-center justify-center text-[#8a8a8a] hover:bg-[#e8e8e8] hover:text-[#7161EF] transition-all"
+                          className="sort-board-cat-delete"
                         >
-                          <span className="material-symbols-outlined text-base">close</span>
+                          <span className="material-symbols-outlined sort-board-cat-delete-icon">close</span>
                         </button>
                       )}
                     </div>
                   </div>
 
                   {catCards.length === 0 ? (
-                    <p className="text-xs text-[#c6c6c6] py-4 text-center">Drop cards here</p>
+                    <p className="sort-board-cat-empty">Drop cards here</p>
                   ) : (
-                    <div className="space-y-2">
+                    <div className="sort-board-card-list">
                       {catCards.map((card) => (
                         <Card key={card.id} card={card} zoneId={cat.id} />
                       ))}
@@ -291,15 +265,11 @@ const SortBoard = ({ study, onFinish, onExit }) => {
                   if (selectedCardId) onZoneClick('__new__');
                   else addCategory();
                 }}
-                className={`rounded-xl border-2 border-dashed min-h-[10rem] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] transition-all ${
-                  dragOverId === '__new__'
-                    ? 'border-[#7161EF] text-black bg-white'
-                    : 'border-[#c6c6c6]/70 hover:border-[#7161EF] hover:text-[#7161EF]'
-                }`}
+                className={`sort-board-new-group-btn ${dragOverId === '__new__' ? 'is-drag-over' : ''}`}
               >
-                <span className="material-symbols-outlined text-3xl">add_circle</span>
-                <span className="text-xs uppercase tracking-normal font-bold">New Group</span>
-                <span className="text-[10px]">Click, or drop a card here</span>
+                <span className="material-symbols-outlined sort-board-new-group-icon">add_circle</span>
+                <span className="sort-board-new-group-label">New Group</span>
+                <span className="sort-board-new-group-hint">Click, or drop a card here</span>
               </button>
             )}
           </div>

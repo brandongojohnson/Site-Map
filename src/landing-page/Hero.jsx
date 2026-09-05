@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { PILL_PRIMARY, PILL_OUTLINE } from './buttonStyles';
 import { GLASS_PILL } from './glassStyles';
 import HeroMockup from './mockups/HeroMockup';
 import { useHeroBackground } from './useHeroBackground';
 import HeroBackgroundPicker from './HeroBackgroundPicker';
 import HeroCanvas from './HeroCanvas';
+import Grainient from './Grainient';
+import Galaxy from './Galaxy';
 import { useAuth } from '../card-sort/useAuth';
+import './Hero.css';
 
 // The hero background is a shared, site-wide setting (see
 // useHeroBackground) — only this account can change it for everyone else.
@@ -56,9 +58,17 @@ const Hero = ({ onGetStarted }) => {
 
   const isImage = heroBg?.type === 'image';
   // "Animated" is its own opt-in choice in the picker (see
-  // HeroBackgroundPicker) rather than the default — the default stays the
-  // plain CSS aurora below, same as before HeroCanvas existed.
+  // HeroBackgroundPicker) — the older hand-rolled shader, kept for whoever
+  // already picked it.
   const isAnimated = heroBg?.type === 'animated';
+  // Another opt-in WebGL option alongside "animated" — a starfield rather
+  // than the older ribbon shader.
+  const isGalaxy = heroBg?.type === 'galaxy';
+  // No admin override at all (not even a preset) — Grainient is what every
+  // visitor sees unless the admin has explicitly chosen something else. The
+  // CSS aurora below stays in the section's own background regardless, as a
+  // fallback if WebGL is unavailable and Grainient can't render.
+  const isDefault = !heroBg;
 
   // object-fit/object-position/opacity are properties of a rendered <img>,
   // not of a CSS background-image — a custom photo renders as an actual img
@@ -75,19 +85,44 @@ const Hero = ({ onGetStarted }) => {
     };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-visible pt-24 md:pt-28 pb-40 md:pb-56"
-      style={sectionStyle}
-    >
-      {isAnimated && <HeroCanvas className="absolute inset-0 w-full h-full" />}
+    <section ref={sectionRef} className="hero-section" style={sectionStyle}>
+      {isDefault && (
+        <div className="hero-bg-layer">
+          <Grainient
+            color1="#25055e"
+            color3="#5e3088"
+            timeSpeed={0.8}
+            colorBalance={-0.01}
+            warpSpeed={1.6}
+            blendAngle={118}
+            blendSoftness={0.18}
+            rotationAmount={1070}
+            grainAmount={0.19}
+          />
+        </div>
+      )}
+
+      {isAnimated && <HeroCanvas className="hero-bg-layer" />}
+
+      {isGalaxy && (
+        <div className="hero-bg-layer">
+          <Galaxy
+            starSpeed={0.9}
+            hueShift={155}
+            saturation={0.3}
+            twinkleIntensity={0.6}
+            mouseRepulsion={false}
+            transparent={false}
+          />
+        </div>
+      )}
 
       {isImage && (
         <img
           src={heroBg.src}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full"
+          className="hero-bg-layer"
           style={{
             objectFit: heroBg.fit,
             objectPosition: `${heroBg.posX}% ${heroBg.posY}%`,
@@ -102,37 +137,25 @@ const Hero = ({ onGetStarted }) => {
 
       {/* relative+z so the copy paints above the background layers — an
           absolutely positioned canvas/photo would otherwise cover it. */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        <div
-          className={`transition-all duration-700 ease-out ${mounted
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 translate-y-6'
-            }`}
-        >
-          <div
-            className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[12px] font-normal text-white/60 mb-8 ${GLASS_PILL}`}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#9B8FF5]" />
+      <div className="hero-content-wrap">
+        <div className={`hero-fade-in ${mounted ? 'is-mounted' : ''}`}>
+          <div className={`hero-badge ${GLASS_PILL}`}>
+            <span className="hero-badge-dot" />
             New: Auto-generated sitemaps from any card sort
           </div>
 
-          <h1 className="font-sans font-bold tracking-tight text-[#F5F3F0] text-[44px] leading-[1.05] sm:text-[64px] md:text-[84px] lg:text-[96px] mb-6">
-            Not just another
+          <h1 className="hero-title">
+            Navigate Your
             <br />
-            sitemap tool.
+             Digital Universe
           </h1>
 
-          <p className="max-w-2xl mx-auto text-[17px] md:text-[19px] font-normal leading-relaxed text-white/65 mb-10">
-            Turn card sorts and stakeholder input into a clear, shareable
-            sitemap — without switching between five different tools to get
-            there.
+          <p className="hero-subtitle">
+            Ensure users find what they need. Optimize your site structure with card sorting and tree testing.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={onGetStarted}
-              className="rounded-full font-semibold transition-all duration-200 active:scale-95 bg-[#F5F3F0] text-[#131313] hover:opacity-90 px-8 py-4 text-[15px]"
-            >
+          <div className="hero-cta-row">
+            <button onClick={onGetStarted} className="hero-btn-primary">
               Start for free
             </button>
 
@@ -142,7 +165,7 @@ const Hero = ({ onGetStarted }) => {
                   .querySelector('#capabilities')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="rounded-full font-semibold transition-all duration-200 active:scale-95 border-[1.5px] border-white/20 text-[#F5F3F0] hover:bg-white/10 px-8 py-4 text-[15px]"
+              className="hero-btn-outline"
             >
               Book a demo
             </button>
@@ -150,34 +173,15 @@ const Hero = ({ onGetStarted }) => {
         </div>
       </div>
 
-      <div
-        className={`relative z-20 max-w-5xl mx-auto px-4 sm:px-6 mt-16 md:mt-20 transition-all duration-700 delay-150 ease-out ${mounted
-          ? 'opacity-100 translate-y-0'
-          : 'opacity-0 translate-y-8'
-          }`}
-      >
-        <div className="relative z-20 -mb-24 md:-mb-40">
-          <HeroMockup className="shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]" />
+      <div className={`hero-mockup-wrap hero-fade-in ${mounted ? 'is-mounted' : ''}`}>
+        <div className="hero-mockup-inner">
+          <HeroMockup className="hero-mockup-shadow" />
         </div>
       </div>
 
       {/* Blend hero into the next section. Half the gradient stays inside
           the Hero, half extends below it. The mockup floats above it. */}
-      <div
-        className="
-          absolute
-          inset-x-0
-          bottom-0
-          h-[60%]
-          z-10
-          pointer-events-none
-          bg-gradient-to-t
-          from-white
-          from-[55%]
-          to-transparent
-          dark:from-[#131313]
-        "
-      />
+      <div className="hero-blend-gradient" />
     </section>
   );
 };

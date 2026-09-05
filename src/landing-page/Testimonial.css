@@ -1,0 +1,36 @@
+.testimonial-inner {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.testimonial-eyebrow {
+  margin-bottom: 32px;
+}
+
+.testimonial-quote {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: #131313;
+  line-height: 1.375;
+  margin-bottom: 32px;
+}
+@media (min-width: 768px) {
+  .testimonial-quote {
+    font-size: 28px;
+  }
+}
+.dark .testimonial-quote {
+  color: #f5f3f0;
+}
+
+.testimonial-attribution {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+}
+.dark .testimonial-attribution {
+  color: rgba(255, 255, 255, 0.5);
+}

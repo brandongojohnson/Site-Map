@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { buildTaskRecord } from './treeTestUtils';
 import TreeNav from './TreeNav';
 import SortlyLogo from '../shared/components/SortlyLogo';
+import './TreeTestShared.css';
 
 // Steps a participant through every task in order, one TreeNav at a time,
 // then hands the full set of scored records back to the caller. Shared by
@@ -25,44 +26,41 @@ const TestRunner = ({ studyName, tree, tasks, onFinish, onExit }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex flex-col">
-      <header className="flex items-center justify-between px-8 py-4 border-b border-[#c6c6c6]/40 bg-white sticky top-0 z-30">
-        <div className="flex items-center gap-3">
-          <SortlyLogo iconClassName="text-base text-black" textClassName="text-black" />
-          <span className="w-px h-8 bg-[#e6e6e9]" />
+    <div className="test-runner">
+      <header className="test-runner-header">
+        <div className="test-runner-header-left">
+          <SortlyLogo iconClassName="results-logo-icon" textClassName="results-logo-text" />
+          <span className="results-divider" />
           <div>
-            <h1 className="text-lg font-black leading-tight">{studyName}</h1>
-            <p className="text-[10px] uppercase tracking-normal text-[#474747]">Tree Test</p>
+            <h1 className="test-runner-title">{studyName}</h1>
+            <p className="results-subtitle">Tree Test</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-40 h-2 rounded-full bg-[#e8e8e8] overflow-hidden">
+        <div className="test-runner-header-right">
+          <div className="test-runner-progress">
+            <div className="test-runner-progress-track">
               <div
-                className="h-full bg-[#7161EF] transition-all"
+                className="test-runner-progress-fill"
                 style={{ width: `${(taskIndex / tasks.length) * 100}%` }}
               />
             </div>
-            <span className="text-xs font-bold tabular-nums">
+            <span className="test-runner-progress-count">
               {taskIndex + 1}/{tasks.length}
             </span>
           </div>
-          <button
-            onClick={onExit}
-            className="px-4 py-2 rounded-lg text-xs uppercase tracking-normal text-[#474747] hover:bg-[#e8e8e8] transition-all"
-          >
+          <button onClick={onExit} className="test-runner-quit-btn">
             Quit
           </button>
         </div>
       </header>
 
-      <main className="flex-grow flex flex-col items-center justify-start px-8 pt-10 pb-16">
-        <div className="w-full max-w-xl mb-6">
-          <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] font-bold mb-2">
+      <main className="test-runner-main">
+        <div className="test-runner-task-header">
+          <p className="test-runner-task-label">
             Task {taskIndex + 1} of {tasks.length}
           </p>
-          <h2 className="text-xl font-black leading-snug">{task.prompt}</h2>
+          <h2 className="test-runner-task-prompt">{task.prompt}</h2>
         </div>
         <TreeNav key={task.id} tree={tree} onSubmit={handleSubmit} />
       </main>

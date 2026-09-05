@@ -1,70 +1,68 @@
 import React from 'react';
+import './RightSidebar.css';
 
 const RightSidebar = ({ node, onUpdate, onDelete, onClose }) => {
   if (!node) return null;
 
   return (
-    <aside className="fixed right-0 top-0 h-full w-80 bg-white border-l border-[#c6c6c6]/15 z-40 p-8 overflow-auto">
-      <div className="flex justify-between items-center mb-10">
-        <h2 className="text-sm font-bold uppercase tracking-normal text-black">Page Properties</h2>
-        <button onClick={onClose} className="material-symbols-outlined text-on-surface-variant hover:text-[#7161EF] transition-colors">close</button>
+    <aside className="right-sidebar">
+      <div className="right-sidebar-header">
+        <h2 className="right-sidebar-title">Page Properties</h2>
+        <button onClick={onClose} className="material-symbols-outlined right-sidebar-close">close</button>
       </div>
 
-      <div className="space-y-8">
-        <div className="space-y-3">
-          <label className="text-[10px] uppercase tracking-normal text-on-surface-variant block">Page Title</label>
+      <div className="right-sidebar-body">
+        <div className="right-sidebar-field">
+          <label className="right-sidebar-label">Page Title</label>
           <input
             type="text"
             value={node.title}
             onChange={e => onUpdate({ title: e.target.value })}
-            className="w-full bg-[#f3f3f4] border-none rounded-lg p-4 font-bold text-black focus:ring-1 focus:ring-[#7161EF] focus:bg-white transition-all"
+            className="right-sidebar-input"
           />
         </div>
 
-        <div className="space-y-3">
-          <label className="text-[10px] uppercase tracking-normal text-on-surface-variant block">URL Slug</label>
-          <div className="flex items-center bg-[#f3f3f4] rounded-lg overflow-hidden">
-            <span className="pl-4 text-xs text-[#777777] font-mono">/</span>
+        <div className="right-sidebar-field">
+          <label className="right-sidebar-label">URL Slug</label>
+          <div className="right-sidebar-slug-wrap">
+            <span className="right-sidebar-slug-prefix">/</span>
             <input
               type="text"
               value={node.slug}
               onChange={e => onUpdate({ slug: e.target.value })}
-              className="w-full bg-transparent border-none p-4 pl-1 font-mono text-xs focus:ring-0"
+              className="right-sidebar-slug-input"
             />
           </div>
         </div>
 
-        <div className="space-y-3">
-          <label className="text-[10px] uppercase tracking-normal text-on-surface-variant block">Description</label>
+        <div className="right-sidebar-field">
+          <label className="right-sidebar-label">Description</label>
           <textarea
             rows={4}
             value={node.description}
             onChange={e => onUpdate({ description: e.target.value })}
-            className="w-full bg-[#f3f3f4] border-none rounded-lg p-4 text-sm text-on-surface-variant focus:ring-1 focus:ring-[#7161EF] focus:bg-white transition-all resize-none"
+            className="right-sidebar-textarea"
             placeholder="Enter meta description for SEO..."
           />
         </div>
 
-        <div className="space-y-3">
-          <label className="text-[10px] uppercase tracking-normal text-on-surface-variant block">Navigation Status</label>
-          <div className="flex gap-2">
+        <div className="right-sidebar-field">
+          <label className="right-sidebar-label">Navigation Status</label>
+          <div className="right-sidebar-status-row">
             <button
               onClick={() => onUpdate({ status: 'public' })}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-normal transition-colors ${node.status === 'public' ? 'bg-[#7161EF] text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
+              className={`right-sidebar-status-btn ${node.status === 'public' ? 'is-active' : 'is-inactive'}`}
             >Public</button>
             <button
               onClick={() => onUpdate({ status: 'draft' })}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-normal transition-colors ${node.status === 'draft' ? 'bg-[#7161EF] text-white' : 'bg-[#f3f3f4] text-on-surface-variant hover:bg-[#e8e8e8]'}`}
+              className={`right-sidebar-status-btn ${node.status === 'draft' ? 'is-active' : 'is-inactive'}`}
             >Draft</button>
           </div>
         </div>
 
-        <div className="pt-8 mt-8 border-t border-[#c6c6c6]/15">
-          <button
-            onClick={onDelete}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-lg border border-red-500/20 text-red-600 hover:bg-red-50 transition-colors text-xs font-bold uppercase tracking-normal"
-          >
-            <span className="material-symbols-outlined text-sm">delete</span>
+        <div className="right-sidebar-delete-section">
+          <button onClick={onDelete} className="right-sidebar-delete-btn">
+            <span className="material-symbols-outlined right-sidebar-delete-icon">delete</span>
             Delete Page
           </button>
         </div>

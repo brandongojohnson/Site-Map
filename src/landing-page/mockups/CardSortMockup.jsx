@@ -1,5 +1,6 @@
 import React from 'react';
 import { WindowChrome, CardChip, GroupColumn } from './primitives';
+import './CardSortMockup.css';
 
 const CardSortMockup = ({ className = '', light = false }) => (
   <WindowChrome
@@ -7,16 +8,16 @@ const CardSortMockup = ({ className = '', light = false }) => (
     className={className}
     light={light}
     right={
-      <div className="flex items-center gap-2">
-        <div className={`w-16 h-1.5 rounded-full overflow-hidden ${light ? 'bg-[#E4E4E7]' : 'bg-white/10'}`}>
-          <div className="h-full w-4/5 bg-[#7161EF]" />
+      <div className="csm-progress-row">
+        <div className={`csm-progress-track ${light ? 'is-light' : ''}`}>
+          <div className="csm-progress-fill" />
         </div>
-        <span className={`text-[10px] font-semibold ${light ? 'text-[#9C9CA3]' : 'text-white/35'}`}>8/10</span>
+        <span className={`csm-progress-count ${light ? 'is-light' : ''}`}>8/10</span>
       </div>
     }
   >
-    <div className={`p-4 backdrop-blur-sm ${light ? 'bg-[#F3F3F4]' : 'bg-white/[0.03]'}`}>
-      <div className="flex gap-3">
+    <div className={`csm-body ${light ? 'is-light' : ''}`}>
+      <div className="csm-groups-row">
         <GroupColumn title="Unsorted" count={2} light={light}>
           <CardChip label="Billing FAQ" faded light={light} />
           <CardChip label="Data Export" faded light={light} />
@@ -32,17 +33,13 @@ const CardSortMockup = ({ className = '', light = false }) => (
           <CardChip label="Permissions" light={light} />
         </GroupColumn>
       </div>
-      <div className="flex items-center gap-1.5 mt-3">
-        <div className="flex -space-x-1.5">
+      <div className="csm-avatars-row">
+        <div className="csm-avatars">
           {['#7161EF', '#F5F3F0', '#86868C'].map((c) => (
-            <span
-              key={c}
-              className={`w-4 h-4 rounded-full border-2 ${light ? 'border-white' : 'border-[#1C1C1F]'}`}
-              style={{ background: c }}
-            />
+            <span key={c} className={`csm-avatar ${light ? 'is-light' : ''}`} style={{ background: c }} />
           ))}
         </div>
-        <span className={`text-[10px] ${light ? 'text-[#9C9CA3]' : 'text-white/35'}`}>3 participants sorting live</span>
+        <span className={`csm-live-text ${light ? 'is-light' : ''}`}>3 participants sorting live</span>
       </div>
     </div>
   </WindowChrome>

@@ -3,16 +3,14 @@ import { ref, get } from 'firebase/database';
 import { db } from '../config/firebase';
 import { SORT_TYPES, SAMPLE_CARDS, SAMPLE_CATEGORIES, treeToCardLabels } from './sortUtils';
 import SortlyLogo from '../shared/components/SortlyLogo';
-
-const inputCls =
-  'w-full rounded-lg border border-[#c6c6c6]/60 bg-white px-4 py-3 text-sm text-black focus:border-[#7161EF] focus:ring-0';
+import './WizardShell.css';
 
 const StepShell = ({ eyebrow, title, subtitle, children }) => (
-  <div className="w-full max-w-2xl">
-    <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] font-bold mb-2">{eyebrow}</p>
-    <h2 className="text-2xl font-black mb-2">{title}</h2>
-    {subtitle && <p className="text-sm text-[#474747] mb-8">{subtitle}</p>}
-    {!subtitle && <div className="mb-8" />}
+  <div className="wizard-step">
+    <p className="wizard-step-eyebrow">{eyebrow}</p>
+    <h2 className="wizard-step-title">{title}</h2>
+    {subtitle && <p className="wizard-step-subtitle">{subtitle}</p>}
+    {!subtitle && <div className="wizard-step-spacer" />}
     {children}
   </div>
 );
@@ -97,40 +95,32 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f3f4] font-body text-black flex flex-col">
-      <header className="flex items-center justify-between px-8 py-5 border-b border-[#c6c6c6]/40 bg-white">
-        <div className="flex items-center gap-3">
-          <SortlyLogo iconClassName="text-base text-black" textClassName="text-black" />
-          <span className="w-px h-8 bg-[#e6e6e9]" />
+    <div className="wizard-shell">
+      <header className="wizard-header">
+        <div className="wizard-header-left">
+          <SortlyLogo iconClassName="wizard-header-logo-icon" textClassName="wizard-header-logo-text" />
+          <span className="wizard-header-divider" />
           <div>
-            <h1 className="text-xl font-black leading-tight">Create a Study to Send</h1>
-            <p className="text-[10px] uppercase tracking-normal text-[#474747]">Setup</p>
+            <h1 className="wizard-header-title">Create a Study to Send</h1>
+            <p className="wizard-header-subtitle">Setup</p>
           </div>
         </div>
-        <button
-          onClick={onExit}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm uppercase tracking-normal text-[#474747] hover:bg-[#e8e8e8] transition-all"
-        >
-          <span className="material-symbols-outlined text-base">close</span>
+        <button onClick={onExit} className="wizard-cancel-btn">
+          <span className="material-symbols-outlined wizard-icon-16">close</span>
           Cancel
         </button>
       </header>
 
-      <div className="flex items-center gap-2 px-8 py-4">
+      <div className="wizard-progress">
         {steps.map((s, i) => (
-          <div
-            key={s}
-            className={`h-1.5 rounded-full flex-grow transition-all ${
-              i <= stepIndex ? 'bg-[#7161EF]' : 'bg-[#dcdcdc]'
-            }`}
-          />
+          <div key={s} className={`wizard-progress-bar ${i <= stepIndex ? 'is-done' : 'is-pending'}`} />
         ))}
       </div>
 
-      <main className="flex-grow flex items-start justify-center px-8 pt-6 pb-16">
+      <main className="wizard-main">
         {step === 'type' && (
           <StepShell eyebrow={`Step ${stepIndex + 1} of ${steps.length}`} title="Choose a sort type">
-            <div className="grid grid-cols-1 gap-4">
+            <div className="wizard-type-grid">
               {Object.entries(SORT_TYPES).map(([key, meta]) => (
                 <button
                   key={key}
@@ -138,23 +128,17 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
                     setType(key);
                     setStepIndex((i) => i + 1);
                   }}
-                  className={`text-left rounded-xl p-5 border-2 transition-all ${
-                    type === key
-                      ? 'border-[#7161EF] bg-white shadow-md'
-                      : 'border-transparent bg-white/60 hover:bg-white hover:shadow-sm'
-                  }`}
+                  className={`wizard-type-card ${type === key ? 'is-selected' : ''}`}
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="material-symbols-outlined text-2xl">{meta.icon}</span>
+                  <div className="wizard-type-card-header">
+                    <span className="material-symbols-outlined wizard-type-card-icon">{meta.icon}</span>
                     {type === key && (
-                      <span className="material-symbols-outlined text-xl">check_circle</span>
+                      <span className="material-symbols-outlined wizard-type-card-check">check_circle</span>
                     )}
                   </div>
-                  <h3 className="font-black text-base mb-1">{meta.label}</h3>
-                  <p className="text-sm text-[#474747] mb-2">{meta.tagline}</p>
-                  <p className="text-[11px] uppercase tracking-normal text-[#8a8a8a]">
-                    Best for: {meta.bestFor}
-                  </p>
+                  <h3 className="wizard-type-card-title">{meta.label}</h3>
+                  <p className="wizard-type-card-tagline">{meta.tagline}</p>
+                  <p className="wizard-type-card-bestfor">Best for: {meta.bestFor}</p>
                 </button>
               ))}
             </div>
@@ -169,7 +153,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
           >
             <input
               autoFocus
-              className={inputCls}
+              className="wizard-input"
               value={studyName}
               onChange={(e) => setStudyName(e.target.value)}
               onKeyDown={onEnterAdvance}
@@ -186,7 +170,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
           >
             <textarea
               autoFocus
-              className={`${inputCls} h-40 resize-none leading-6`}
+              className="wizard-input wizard-textarea-intention"
               value={intention}
               onChange={(e) => setIntention(e.target.value)}
               placeholder="e.g. We're redesigning our site navigation and want to understand how you'd naturally group these pages. There are no right or wrong answers — sort the cards however makes sense to you."
@@ -200,34 +184,27 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
             title="Add your cards"
             subtitle="One card per line. Add at least 2 to continue."
           >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] uppercase tracking-normal text-[#474747] font-bold">
+            <div className="wizard-field-row">
+              <span className="wizard-field-label">
                 {cardLines.length} card{cardLines.length === 1 ? '' : 's'}
               </span>
-              <div className="flex gap-2">
-                <button
-                  onClick={importFromSitemap}
-                  disabled={importing}
-                  className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-normal bg-[#7161EF] text-white hover:opacity-90 disabled:opacity-50 transition-all"
-                >
+              <div className="wizard-btn-group">
+                <button onClick={importFromSitemap} disabled={importing} className="wizard-btn-primary-sm">
                   {importing ? 'Importing…' : 'Import Sitemap Pages'}
                 </button>
-                <button
-                  onClick={() => setCardsText(SAMPLE_CARDS.join('\n'))}
-                  className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-normal bg-white border border-[#c6c6c6]/60 hover:bg-[#e8e8e8] transition-all"
-                >
+                <button onClick={() => setCardsText(SAMPLE_CARDS.join('\n'))} className="wizard-btn-outline-sm">
                   Sample Deck
                 </button>
               </div>
             </div>
             <textarea
               autoFocus
-              className={`${inputCls} h-64 resize-none font-mono text-xs leading-6`}
+              className="wizard-input wizard-textarea-list"
               value={cardsText}
               onChange={(e) => setCardsText(e.target.value)}
               placeholder={'One card per line, e.g.\nPricing\nContact Us\nBlog'}
             />
-            {notice && <p className="mt-2 text-xs text-[#474747]">{notice}</p>}
+            {notice && <p className="wizard-notice">{notice}</p>}
           </StepShell>
         )}
 
@@ -241,20 +218,17 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
                 : 'Participants start with these but can add their own.'
             }
           >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] uppercase tracking-normal text-[#474747] font-bold">
+            <div className="wizard-field-row">
+              <span className="wizard-field-label">
                 {categoryLines.length} categor{categoryLines.length === 1 ? 'y' : 'ies'}
               </span>
-              <button
-                onClick={() => setCategoriesText(SAMPLE_CATEGORIES.join('\n'))}
-                className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-normal bg-white border border-[#c6c6c6]/60 hover:bg-[#e8e8e8] transition-all"
-              >
+              <button onClick={() => setCategoriesText(SAMPLE_CATEGORIES.join('\n'))} className="wizard-btn-outline-sm">
                 Sample Categories
               </button>
             </div>
             <textarea
               autoFocus
-              className={`${inputCls} h-64 resize-none font-mono text-xs leading-6`}
+              className="wizard-input wizard-textarea-list"
               value={categoriesText}
               onChange={(e) => setCategoriesText(e.target.value)}
               placeholder={'One category per line, e.g.\nCompany\nProduct\nSupport'}
@@ -268,7 +242,7 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
             title="Ready to create"
             subtitle="You'll get a shareable link on the next screen."
           >
-            <div className="rounded-xl bg-white shadow-sm divide-y divide-[#e8e8e8]">
+            <div className="wizard-review-card">
               {[
                 ['Sort type', SORT_TYPES[type]?.label],
                 ['Study name', studyName.trim() || 'Untitled Study'],
@@ -281,11 +255,9 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
                     : 'Participant-defined (open sort)',
                 ],
               ].map(([label, value]) => (
-                <div key={label} className="flex items-start justify-between px-5 py-3.5 gap-6">
-                  <span className="text-[10px] uppercase tracking-normal text-[#8a8a8a] font-bold flex-shrink-0 pt-0.5">
-                    {label}
-                  </span>
-                  <span className="text-sm font-medium text-right">{value}</span>
+                <div key={label} className="wizard-review-row is-align-start">
+                  <span className="wizard-review-label is-shrink">{label}</span>
+                  <span className="wizard-review-value">{value}</span>
                 </div>
               ))}
             </div>
@@ -293,19 +265,12 @@ const CreateStudyForm = ({ onCreate, onExit, creating }) => {
         )}
       </main>
 
-      <footer className="sticky bottom-0 bg-white border-t border-[#c6c6c6]/40 px-8 py-4 flex items-center justify-between">
-        <button
-          onClick={goBack}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm uppercase tracking-normal text-[#474747] hover:bg-[#e8e8e8] transition-all"
-        >
-          <span className="material-symbols-outlined text-base">arrow_back</span>
+      <footer className="wizard-footer">
+        <button onClick={goBack} className="wizard-back-btn">
+          <span className="material-symbols-outlined wizard-icon-16">arrow_back</span>
           {stepIndex === 0 ? 'Cancel' : 'Back'}
         </button>
-        <button
-          onClick={goNext}
-          disabled={!canAdvance || creating}
-          className="px-8 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 active:scale-95 disabled:opacity-40 disabled:active:scale-100 transition-all"
-        >
+        <button onClick={goNext} disabled={!canAdvance || creating} className="wizard-next-btn">
           {step === 'review' ? (creating ? 'Creating…' : 'Create Study & Get Link') : 'Continue'}
         </button>
       </footer>

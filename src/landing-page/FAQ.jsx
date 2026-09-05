@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Reveal from './Reveal';
+import './sharedStyles.css';
+import './FAQ.css';
 
 const QUESTIONS = [
   {
@@ -27,36 +29,27 @@ const QUESTIONS = [
 const FAQItem = ({ q, a }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-black/10 dark:border-white/10 py-5">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between gap-4 text-left"
-      >
-        <span className="text-[15px] font-semibold text-[#131313] dark:text-[#F5F3F0]">{q}</span>
-        <span className={`material-symbols-outlined text-[20px] text-black/40 dark:text-white/40 flex-shrink-0 transition-transform ${open ? 'rotate-45' : ''}`}>
-          add
-        </span>
+    <div className="faq-item">
+      <button onClick={() => setOpen((o) => !o)} className="faq-item-btn">
+        <span className="faq-item-question">{q}</span>
+        <span className={`material-symbols-outlined faq-item-icon ${open ? 'is-open' : ''}`}>add</span>
       </button>
-      {open && (
-        <p className="text-[14px] font-normal text-black/55 dark:text-white/55 leading-relaxed mt-4 max-w-2xl">{a}</p>
-      )}
+      {open && <p className="faq-item-answer">{a}</p>}
     </div>
   );
 };
 
 const FAQ = () => (
-  <section className="relative py-24 md:py-32 border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#131313]">
-    <div className="max-w-6xl mx-auto px-6">
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12">
+  <section className="section-band">
+    <div className="section-band-inner">
+      <div className="faq-grid">
         <Reveal>
           <div>
-            <p className="text-[12px] font-semibold uppercase tracking-normal text-[#7161EF] dark:text-[#9B8FF5] mb-3">FAQ</p>
-            <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] leading-tight mb-4">
-              Common questions.
-            </h2>
-            <p className="text-[14px] font-normal text-black/50 dark:text-white/50">
+            <p className="section-eyebrow">FAQ</p>
+            <h2 className="section-heading faq-title">Common questions.</h2>
+            <p className="faq-contact-line">
               Still have a question?{' '}
-              <a href="#top" className="text-[#7161EF] dark:text-[#9B8FF5] hover:text-[#131313] dark:hover:text-[#F5F3F0] transition-colors">
+              <a href="#top" className="faq-contact-link">
                 Ask us directly →
               </a>
             </p>

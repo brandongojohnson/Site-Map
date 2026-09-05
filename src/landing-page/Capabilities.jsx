@@ -1,5 +1,6 @@
 import React from 'react';
 import Reveal from './Reveal';
+import './Capabilities.css';
 
 const ITEMS = [
   {
@@ -35,28 +36,22 @@ const ITEMS = [
 ];
 
 const Capabilities = () => (
-  <section id="capabilities" className="relative py-24 md:py-32 border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#131313]">
-    <div className="max-w-6xl mx-auto px-6">
+  <section id="capabilities" className="capabilities-section">
+    <div className="capabilities-inner">
       <Reveal>
-        <div className="mb-14 md:mb-20">
-          <p className="text-[12px] font-semibold uppercase tracking-normal text-[#7161EF] dark:text-[#9B8FF5] mb-3">
-            Capabilities
-          </p>
-          <h2 className="text-[40px] md:text-[60px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] leading-tight">
-            Research, end to end.
-          </h2>
+        <div className="capabilities-header">
+          <p className="capabilities-eyebrow">Capabilities</p>
+          <h2 className="capabilities-title">Research, end to end.</h2>
         </div>
       </Reveal>
 
       <Reveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10 dark:bg-white/10 rounded-2xl overflow-hidden border border-black/10 dark:border-white/10">
+        <div className="capabilities-grid">
           {ITEMS.map((item) => (
-            <div key={item.title} className="group bg-white hover:bg-black/[0.02] dark:bg-[#131313] dark:hover:bg-white/[0.04] p-8 transition-colors duration-300">
-              <span className="material-symbols-outlined text-[22px] text-black/60 dark:text-white/70 mb-5 block transition-all duration-300 group-hover:text-black dark:group-hover:text-white group-hover:-translate-y-0.5">
-                {item.icon}
-              </span>
-              <h3 className="text-[15px] font-semibold text-[#131313] dark:text-[#F5F3F0] mb-2">{item.title}</h3>
-              <p className="text-[13.5px] font-normal text-black/55 dark:text-white/55 leading-relaxed">{item.desc}</p>
+            <div key={item.title} className="capabilities-card">
+              <span className="material-symbols-outlined capabilities-card-icon">{item.icon}</span>
+              <h3 className="capabilities-card-title">{item.title}</h3>
+              <p className="capabilities-card-desc">{item.desc}</p>
             </div>
           ))}
         </div>

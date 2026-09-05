@@ -1,0 +1,88 @@
+.sm-pages-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.35);
+}
+.sm-pages-badge.is-light {
+  color: #86868c;
+}
+
+.sm-pages-badge-icon {
+  font-size: 13px;
+}
+
+.sm-canvas {
+  position: relative;
+  width: 100%;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.03);
+}
+.sm-canvas.is-light {
+  background: #f3f3f4;
+}
+
+.sm-toolbar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  border-width: 1px;
+  border-style: solid;
+  padding: 4px 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.3);
+}
+.sm-toolbar.is-light {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 14px -6px rgba(23, 21, 18, 0.2);
+}
+
+.sm-toolbar-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.sm-toolbar-icon.is-light {
+  color: #47474d;
+}
+
+.sm-toolbar-divider {
+  width: 1px;
+  height: 16px;
+  margin: 0 2px;
+  background: rgba(255, 255, 255, 0.15);
+}
+.sm-toolbar-divider.is-light {
+  background: #e4e4e7;
+}
+
+.sm-toolbar-pct {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 0 2px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.sm-toolbar-pct.is-light {
+  color: #47474d;
+}
+
+.sm-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,40 @@
+.sortly-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sortly-logo-icon {
+  flex-shrink: 0;
+}
+
+.sortly-logo-text {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.sortly-logo-divider {
+  width: 1px;
+  height: 20px;
+  background: #e6e6e9;
+}
+.dark .sortly-logo-divider {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sortly-logo-meta {
+  min-width: 0;
+}
+
+.sortly-logo-context {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.sortly-logo-subtitle {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}

@@ -5,6 +5,7 @@ import MiniTree from './MiniTree';
 import { TEMPLATES } from '../data/templates';
 import { createBoard, blankTree } from './boardStore';
 import { countNodes } from '../utils/treeUtils';
+import './TemplatesPage.css';
 
 const TemplatesPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
   const [creatingId, setCreatingId] = useState(null);
@@ -28,7 +29,7 @@ const TemplatesPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
   };
 
   return (
-    <div className="light font-body text-on-surface bg-[#fafafa] min-h-screen">
+    <div className="light templates-page">
       <LeftSidebar
         activeView="templates"
         onNavigate={onNavigate}
@@ -39,61 +40,47 @@ const TemplatesPage = ({ onNavigate, onOpenBoard, hideDashboard = false }) => {
 
       <TopBar onNavigate={onNavigate} />
 
-      <main className="ml-64 min-h-screen p-10 pt-24">
-        <header className="mb-10">
-          <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] mb-2">Workspace</p>
-          <h1 className="text-3xl font-black tracking-tight text-black mb-1">Templates</h1>
-          <p className="text-sm text-[#6b6b70]">
+      <main className="templates-main">
+        <header className="templates-header">
+          <p className="templates-eyebrow">Workspace</p>
+          <h1 className="templates-title">Templates</h1>
+          <p className="templates-subtitle">
             Common website structures to start from — each becomes a new board you can reshape
             freely.
           </p>
         </header>
 
-        {error && (
-          <p className="text-sm text-red-600 bg-red-50 rounded-lg px-4 py-3 mb-8">{error}</p>
-        )}
+        {error && <p className="templates-error">{error}</p>}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-          <button
-            onClick={() => onNavigate('import')}
-            className="min-h-[220px] rounded-xl border-2 border-dashed border-[#d8d8dd] flex flex-col items-center justify-center gap-2 text-[#8a8a8a] hover:border-[#7161EF] hover:text-[#7161EF] transition-all"
-          >
-            <span className="material-symbols-outlined text-3xl">upload_file</span>
-            <span className="text-xs font-bold uppercase tracking-normal">Import Sitemap</span>
-            <span className="text-[11px] normal-case tracking-normal px-6 text-center">
-              Paste a structure or upload a JSON file instead
-            </span>
+        <div className="templates-grid">
+          <button onClick={() => onNavigate('import')} className="templates-import-tile">
+            <span className="material-symbols-outlined templates-import-tile-icon">upload_file</span>
+            <span className="templates-import-tile-label">Import Sitemap</span>
+            <span className="templates-import-tile-desc">Paste a structure or upload a JSON file instead</span>
           </button>
 
           {TEMPLATES.map((template) => (
-            <div
-              key={template.id}
-              className="group bg-white rounded-xl border border-[#e6e6e9] p-5 hover:shadow-[0_16px_40px_-16px_rgba(23,21,18,0.18)] hover:border-[#7161EF]/30 transition-all flex flex-col"
-            >
-              <div className="h-32 rounded-lg bg-[#fafafa] border border-[#efeff2] mb-4 p-2 overflow-hidden">
-                <MiniTree tree={template.tree} className="w-full h-full" />
+            <div key={template.id} className="templates-card">
+              <div className="templates-card-thumb">
+                <MiniTree tree={template.tree} className="templates-card-thumb-svg" />
               </div>
 
-              <div className="flex items-center gap-2.5 mb-1.5">
-                <span className="w-8 h-8 rounded-lg bg-[#EEECFD] flex items-center justify-center flex-shrink-0">
-                  <span className="material-symbols-outlined text-[17px] text-[#7161EF]">
-                    {template.icon}
-                  </span>
+              <div className="templates-card-header">
+                <span className="templates-card-icon">
+                  <span className="material-symbols-outlined">{template.icon}</span>
                 </span>
-                <div className="min-w-0">
-                  <h3 className="font-bold text-sm text-black truncate">{template.name}</h3>
-                  <p className="text-[11px] text-[#8a8a8a]">{countNodes(template.tree)} pages</p>
+                <div className="templates-card-meta">
+                  <h3 className="templates-card-name">{template.name}</h3>
+                  <p className="templates-card-count">{countNodes(template.tree)} pages</p>
                 </div>
               </div>
 
-              <p className="text-xs text-[#6b6b70] leading-relaxed mb-4 flex-1">
-                {template.description}
-              </p>
+              <p className="templates-card-desc">{template.description}</p>
 
               <button
                 onClick={() => useTemplate(template)}
                 disabled={!!creatingId}
-                className="w-full py-2.5 rounded-lg bg-[#f3f3f4] group-hover:bg-[#7161EF] group-hover:text-white text-black text-xs font-bold uppercase tracking-normal transition-all disabled:opacity-50"
+                className="templates-card-btn"
               >
                 {creatingId === template.id ? 'Creating…' : 'Use Template'}
               </button>

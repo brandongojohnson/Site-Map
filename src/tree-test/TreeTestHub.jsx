@@ -10,6 +10,7 @@ import StudyResults from './StudyResults';
 import AccountBadge from '../shared/components/AccountBadge';
 import GetStartedMenu from '../shared/components/GetStartedMenu';
 import SortlyLogo from '../shared/components/SortlyLogo';
+import './TreeTestHub.css';
 
 const StudyRow = ({ study, onViewResults, onDelete }) => {
   const [copied, setCopied] = useState(false);
@@ -37,22 +38,16 @@ const StudyRow = ({ study, onViewResults, onDelete }) => {
   };
 
   return (
-    <div
-      onClick={() => onViewResults(study.id)}
-      className="flex items-center justify-between bg-white rounded-xl shadow-sm px-5 py-4 cursor-pointer hover:shadow-md transition-all"
-    >
-      <div className="min-w-0">
-        <h3 className="font-bold text-sm truncate">{study.studyName}</h3>
-        <p className="text-[10px] uppercase tracking-normal text-[#8a8a8a] mt-1">
+    <div onClick={() => onViewResults(study.id)} className="card-sort-study-row">
+      <div className="card-sort-study-row-info">
+        <h3 className="card-sort-study-row-name">{study.studyName}</h3>
+        <p className="card-sort-study-row-meta">
           {study.tasks?.length ?? 0} task{study.tasks?.length === 1 ? '' : 's'} ·{' '}
           {sessionCount === null ? '…' : sessionCount} response{sessionCount === 1 ? '' : 's'}
         </p>
       </div>
-      <div className="flex items-center gap-2 flex-shrink-0">
-        <button
-          onClick={copyLink}
-          className="px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-normal bg-[#f3f3f4] hover:bg-[#e8e8e8] transition-all"
-        >
+      <div className="card-sort-study-row-actions">
+        <button onClick={copyLink} className="card-sort-copy-btn">
           {copied ? 'Copied' : 'Copy Link'}
         </button>
         <button
@@ -61,9 +56,9 @@ const StudyRow = ({ study, onViewResults, onDelete }) => {
             onDelete(study.id);
           }}
           title="Delete study"
-          className="w-8 h-8 rounded-lg flex items-center justify-center text-[#8a8a8a] hover:bg-[#f3f3f4] hover:text-[#7161EF] transition-all"
+          className="card-sort-delete-btn"
         >
-          <span className="material-symbols-outlined text-base">delete</span>
+          <span className="material-symbols-outlined card-sort-delete-icon">delete</span>
         </button>
       </div>
     </div>
@@ -182,61 +177,57 @@ const TreeTestHub = ({ onNavigate }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f3f3f4] font-body text-black">
-      <header className="flex items-center justify-between px-8 py-5">
-        <SortlyLogo subtitle="Tree Test Studies" iconClassName="text-base text-black" textClassName="text-black" />
-        <div className="flex items-center gap-3">
+    <div className="card-sort-hub">
+      <header className="card-sort-hub-header">
+        <SortlyLogo
+          subtitle="Tree Test Studies"
+          iconClassName="card-sort-hub-logo-icon"
+          textClassName="card-sort-hub-logo-text"
+        />
+        <div className="card-sort-hub-header-actions">
           <GetStartedMenu onNavigate={onNavigate} />
           <AccountBadge />
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-8 py-10">
-        {authError && (
-          <p className="text-xs text-red-600 bg-red-50 rounded-lg px-4 py-2.5 mb-6">{authError}</p>
-        )}
+      <main className="card-sort-hub-main">
+        {authError && <p className="card-sort-hub-error">{authError}</p>}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-          <button
-            onClick={startCreateFlow}
-            className="text-left rounded-xl p-6 bg-[#7161EF] text-white hover:opacity-90 transition-all"
-          >
-            <span className="material-symbols-outlined text-2xl mb-3 block">
+        <div className="card-sort-hub-cta-grid">
+          <button onClick={startCreateFlow} className="card-sort-hub-cta-primary">
+            <span className="material-symbols-outlined card-sort-hub-cta-icon">
               {user ? 'send' : 'login'}
             </span>
-            <h2 className="font-black text-base mb-1">
+            <h2 className="card-sort-hub-cta-title">
               {user ? 'Create a Test to Send' : 'Sign In to Create a Test'}
             </h2>
-            <p className="text-sm text-white/70">
+            <p className="card-sort-hub-cta-desc">
               {user
                 ? 'Build a hierarchy, write your tasks, and get a link to send to participants. Collects success rate, directness, time on task, and where wrong turns lead as responses come in.'
                 : 'Studies and their responses are saved to your Google account, so you can come back to results from any device. Click to sign in and get started.'}
             </p>
           </button>
-          <button
-            onClick={() => setMode('quick')}
-            className="text-left rounded-xl p-6 bg-white hover:shadow-md transition-all"
-          >
-            <span className="material-symbols-outlined text-2xl mb-3 block">bolt</span>
-            <h2 className="font-black text-base mb-1">Quick Test (This Device)</h2>
-            <p className="text-sm text-[#474747]">
+          <button onClick={() => setMode('quick')} className="card-sort-hub-cta-secondary">
+            <span className="material-symbols-outlined card-sort-hub-cta-icon">bolt</span>
+            <h2 className="card-sort-hub-cta-title">Quick Test (This Device)</h2>
+            <p className="card-sort-hub-cta-desc-secondary">
               Build a tree, attempt your own tasks, and see your results immediately. No sign-in
               needed.
             </p>
           </button>
         </div>
 
-        <h2 className="text-sm uppercase tracking-normal font-bold mb-4">My Studies</h2>
+        <h2 className="card-sort-hub-section-title">My Studies</h2>
         {!user ? (
-          <p className="text-sm text-[#8a8a8a]">Sign in to see the studies you've created.</p>
+          <p className="card-sort-hub-empty-text">Sign in to see the studies you've created.</p>
         ) : loadingStudies ? (
-          <p className="text-sm text-[#8a8a8a]">Loading…</p>
+          <p className="card-sort-hub-empty-text">Loading…</p>
         ) : studies.length === 0 ? (
-          <p className="text-sm text-[#8a8a8a]">
+          <p className="card-sort-hub-empty-text">
             You haven't created a test yet. Create one above to get a shareable link.
           </p>
         ) : (
-          <div className="space-y-3">
+          <div className="card-sort-hub-list">
             {studies.map((study) => (
               <StudyRow
                 key={study.id}

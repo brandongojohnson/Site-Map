@@ -1,5 +1,6 @@
 import React from 'react';
 import NodeCard from './NodeCard';
+import './SitemapCanvas.css';
 
 const SitemapCanvas = ({
   svgRef, pan, zoom, minX, nodes, edges, selectedId, setSelectedId,
@@ -12,7 +13,7 @@ const SitemapCanvas = ({
 
   return (
     <main
-      className="ml-64 min-h-screen relative overflow-hidden"
+      className="sitemap-canvas"
       style={{
         background: '#fafafa',
         backgroundImage: 'radial-gradient(circle, #d0d0d0 1px, transparent 1px)',
@@ -59,13 +60,13 @@ const SitemapCanvas = ({
       </svg>
 
       {/* Zoom Controls */}
-      <div className="fixed bottom-8 left-72 bg-white/80 backdrop-blur-md rounded-full shadow-lg p-1 flex items-center gap-1 border border-[#c6c6c6]/10 z-30">
-        <button onClick={() => setZoom(z => Math.min(2, z + 0.1))} className="p-2 hover:bg-[#f3f3f4] rounded-full transition-colors material-symbols-outlined">zoom_in</button>
-        <div className="h-4 w-[1px] bg-[#c6c6c6]/30 mx-1" />
-        <span className="text-xs font-bold px-2">{Math.round(zoom * 100)}%</span>
-        <div className="h-4 w-[1px] bg-[#c6c6c6]/30 mx-1" />
-        <button onClick={() => setZoom(z => Math.max(0.3, z - 0.1))} className="p-2 hover:bg-[#f3f3f4] rounded-full transition-colors material-symbols-outlined">zoom_out</button>
-        <button onClick={() => { setZoom(0.85); setPan({ x: 80, y: 40 }); }} className="p-2 hover:bg-[#f3f3f4] rounded-full transition-colors material-symbols-outlined">center_focus_strong</button>
+      <div className="sitemap-canvas-zoom-controls">
+        <button onClick={() => setZoom(z => Math.min(2, z + 0.1))} className="material-symbols-outlined sitemap-canvas-zoom-btn">zoom_in</button>
+        <div className="sitemap-canvas-zoom-divider" />
+        <span className="sitemap-canvas-zoom-pct">{Math.round(zoom * 100)}%</span>
+        <div className="sitemap-canvas-zoom-divider" />
+        <button onClick={() => setZoom(z => Math.max(0.3, z - 0.1))} className="material-symbols-outlined sitemap-canvas-zoom-btn">zoom_out</button>
+        <button onClick={() => { setZoom(0.85); setPan({ x: 80, y: 40 }); }} className="material-symbols-outlined sitemap-canvas-zoom-btn">center_focus_strong</button>
       </div>
     </main>
   );

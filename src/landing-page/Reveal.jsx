@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import './Reveal.css';
 
 // Fades + slides a section into place the first time it scrolls into view.
 // Fires once (observer disconnects after), and respects reduced-motion by
@@ -28,12 +29,7 @@ const Reveal = ({ children, className = '' }) => {
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
-    >
+    <div ref={ref} className={`reveal ${visible ? 'is-visible' : ''} ${className}`}>
       {children}
     </div>
   );

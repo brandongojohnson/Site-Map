@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import './SitemapEditor.css';
 
 import LeftSidebar from '../dashboard/LeftSidebar';
 import TopBar from '../dashboard/TopBar';
@@ -319,16 +320,16 @@ const SitemapEditor = ({ boardId, onNavigate, hideDashboard = false }) => {
 
   // ====================== Render ======================
   if (loading) {
-    return <div className="flex items-center justify-center min-h-screen text-xl">Loading board…</div>;
+    return <div className="sitemap-editor-loading">Loading board…</div>;
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-8 text-center">
-        <p className="text-red-600">{error}</p>
+      <div className="sitemap-editor-error">
+        <p className="sitemap-editor-error-text">{error}</p>
         <button
           onClick={() => onNavigate(hideDashboard ? 'templates' : 'dashboard')}
-          className="px-6 py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 transition-all"
+          className="sitemap-editor-error-btn"
         >
           {hideDashboard ? 'Back to Templates' : 'Back to Dashboard'}
         </button>
@@ -337,7 +338,7 @@ const SitemapEditor = ({ boardId, onNavigate, hideDashboard = false }) => {
   }
 
   return (
-    <div className="light font-body text-on-surface bg-background min-h-screen overflow-hidden">
+    <div className="light sitemap-editor-shell">
       <LeftSidebar
         title={boardName}
         subtitle="Sitemap Editor"

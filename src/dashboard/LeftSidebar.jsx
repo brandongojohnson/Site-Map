@@ -1,5 +1,6 @@
 import React from 'react';
 import SortlyLogo from '../shared/components/SortlyLogo';
+import './LeftSidebar.css';
 
 const NAV_ITEMS = [
   { icon: 'dashboard', label: 'Dashboard', view: 'dashboard' },
@@ -19,22 +20,18 @@ const LeftSidebar = ({
   hideDashboard = false,
   onExport,
 }) => (
-  <aside className="h-screen w-64 fixed left-0 top-0 bg-[#f3f3f4] flex flex-col p-6 space-y-8 z-40">
-    <div className="mb-6">
-      <SortlyLogo subtitle={subtitle} iconClassName="text-base text-black" textClassName="text-black" />
+  <aside className="left-sidebar">
+    <div className="left-sidebar-logo">
+      <SortlyLogo subtitle={subtitle} iconClassName="left-sidebar-logo-icon" textClassName="left-sidebar-logo-text" />
     </div>
 
     {primaryLabel && (
-      <button
-        style = {{borderRadius:"10px"}}
-        onClick={onPrimary}
-        className="w-full py-3 bg-[#7161EF] text-white rounded-lg font-bold text-sm uppercase tracking-normal hover:opacity-90 active:scale-95 transition-all mb-8"
-      >
+      <button onClick={onPrimary} className="left-sidebar-primary-btn">
         {primaryLabel}
       </button>
     )}
 
-    <nav className="flex-grow space-y-2">
+    <nav className="left-sidebar-nav">
       {NAV_ITEMS.filter((item) => !(hideDashboard && item.view === 'dashboard')).map(({ icon, label, view, action }) => {
         const active = view && view === activeView;
         const clickable = !!view || (action === 'export' && !!onExport);
@@ -47,15 +44,9 @@ const LeftSidebar = ({
               if (action === 'export') onExport?.();
               else if (view) onNavigate(view);
             }}
-            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all ${
-              active
-                ? 'bg-white text-black font-bold shadow-sm'
-                : clickable
-                ? 'text-[#474747] hover:bg-[#e8e8e8] hover:translate-x-1'
-                : 'text-[#a0a0a5] cursor-default'
-            }`}
+            className={`left-sidebar-nav-item ${active ? 'is-active' : clickable ? 'is-clickable' : 'is-disabled'}`}
           >
-            <span className="material-symbols-outlined text-[18px]">{icon}</span>
+            <span className="material-symbols-outlined left-sidebar-nav-item-icon">{icon}</span>
             <span>{label}</span>
           </a>
         );

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Footer.css';
 
 const COLUMNS = [
   {
@@ -23,14 +24,14 @@ const SOCIALS = [
 ];
 
 const Footer = () => (
-  <footer id="footer" className="border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#131313] pt-24 pb-14">
-    <div className="max-w-6xl mx-auto px-6">
-      <div className="grid grid-cols-1 md:grid-cols-[1.4fr_repeat(3,1fr)] gap-12 mb-14">
+  <footer id="footer" className="landing-footer">
+    <div className="landing-footer-inner">
+      <div className="footer-grid">
         <div>
-          <a href="#top" className="inline-block text-[17px] font-bold tracking-tight text-[#131313] dark:text-[#F5F3F0] mb-4">
+          <a href="#top" className="footer-brand-link">
             Sortly
           </a>
-          <p className="text-[14px] font-normal text-black/45 dark:text-white/45 leading-relaxed max-w-xs">
+          <p className="footer-brand-desc">
             Card sorting and sitemap design for teams who'd rather agree on structure once, in
             one place.
           </p>
@@ -38,13 +39,11 @@ const Footer = () => (
 
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <h4 className="text-[12px] font-semibold uppercase tracking-normal text-[#131313] dark:text-[#F5F3F0] mb-4">
-              {col.title}
-            </h4>
-            <ul className="space-y-3">
+            <h4 className="footer-col-title">{col.title}</h4>
+            <ul className="footer-col-links">
               {col.links.map((link) => (
                 <li key={link}>
-                  <a href="#top" className="text-[14px] font-normal text-black/45 dark:text-white/45 hover:text-[#131313] dark:hover:text-[#F5F3F0] transition-colors">
+                  <a href="#top" className="footer-link">
                     {link}
                   </a>
                 </li>
@@ -54,17 +53,12 @@ const Footer = () => (
         ))}
       </div>
 
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-black/10 dark:border-white/10">
-        <p className="text-[13px] font-normal text-black/35 dark:text-white/35">© {new Date().getFullYear()} Sortly, Inc. All rights reserved.</p>
-        <div className="flex items-center gap-2">
+      <div className="footer-bottom">
+        <p className="footer-copyright">© {new Date().getFullYear()} Sortly, Inc. All rights reserved.</p>
+        <div className="footer-socials">
           {SOCIALS.map((s) => (
-            <a
-              key={s.label}
-              href="#top"
-              aria-label={s.label}
-              className="w-9 h-9 rounded-full bg-[#FAFAFA] border border-black/10 dark:bg-white/[0.03] dark:border-white/10 flex items-center justify-center text-black/45 dark:text-white/45 hover:text-[#131313] dark:hover:text-[#F5F3F0] hover:border-black/25 dark:hover:border-white/25 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[16px]">{s.icon}</span>
+            <a key={s.label} href="#top" aria-label={s.label} className="footer-social-btn">
+              <span className="material-symbols-outlined footer-social-icon">{s.icon}</span>
             </a>
           ))}
         </div>

@@ -1,0 +1,171 @@
+/* Backs the class-name constants exported from buttonStyles.js and
+   glassStyles.js — every landing-page component that imports one of those
+   constants and drops it into className gets these rules. Dark-mode
+   variants are scoped under .dark (see LandingPage.jsx, which wraps its
+   content in that class when the theme toggle is set to dark). */
+
+/* Repeated section-wrapper pattern used across most landing-page sections
+   (Capabilities, Features, Process, UseCases, Testimonial, Pricing, FAQ,
+   Contact): a top-bordered band, alternating light/dark background. */
+.section-band {
+  position: relative;
+  padding: 96px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+@media (min-width: 768px) {
+  .section-band {
+    padding: 128px 0;
+  }
+}
+.dark .section-band {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  background: #131313;
+}
+
+.section-band-inner {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-band-inner.is-narrow {
+  max-width: 768px;
+}
+
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: #7161ef;
+  margin-bottom: 12px;
+}
+.dark .section-eyebrow {
+  color: #9b8ff5;
+}
+
+.section-heading {
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: #131313;
+  line-height: 1.25;
+}
+.dark .section-heading {
+  color: #f5f3f0;
+}
+
+.pill-base {
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.pill-base:active {
+  transform: scale(0.95);
+}
+
+.pill-primary {
+  background: #7161ef;
+  color: #fff;
+}
+.pill-primary:hover {
+  opacity: 0.9;
+}
+.dark .pill-primary {
+  background: #f5f3f0;
+  color: #131313;
+}
+.dark .pill-primary:hover {
+  opacity: 0.9;
+}
+
+.pill-outline {
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  color: #131313;
+}
+.pill-outline:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.dark .pill-outline {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #f5f3f0;
+}
+.dark .pill-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.surface-card {
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.dark .surface-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.surface-card-hover:hover {
+  background: #fff;
+  border-color: rgba(113, 97, 239, 0.3);
+}
+.dark .surface-card-hover:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.surface-panel {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.dark .surface-panel {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.surface-pill {
+  background: #f3f3f4;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.dark .surface-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.dark .glass-panel {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-glass {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 50px -15px rgba(23, 21, 18, 0.25);
+}
+.dark .dropdown-glass {
+  background: rgba(10, 10, 12, 0.85);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
+}
+
+.glass-nav-top {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.glass-nav-scrolled {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.dark .glass-nav-scrolled {
+  background: rgba(19, 19, 19, 0.5);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}

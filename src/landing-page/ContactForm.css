@@ -1,0 +1,115 @@
+.contact-field {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fafafa;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #131313;
+  transition: border-color 0.15s;
+}
+.contact-field::placeholder {
+  color: rgba(0, 0, 0, 0.35);
+}
+.contact-field:focus {
+  outline: none;
+  border-color: #7161ef;
+}
+.dark .contact-field {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: #f5f3f0;
+}
+.dark .contact-field::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.contact-field-textarea {
+  resize: none;
+}
+
+.contact-sent-card {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fafafa;
+  padding: 32px;
+  text-align: center;
+}
+.dark .contact-sent-card {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.contact-sent-icon {
+  font-size: 28px;
+  color: #7161ef;
+  margin-bottom: 12px;
+  display: block;
+}
+.dark .contact-sent-icon {
+  color: #9b8ff5;
+}
+
+.contact-sent-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #131313;
+  margin-bottom: 6px;
+}
+.dark .contact-sent-title {
+  color: #f5f3f0;
+}
+
+.contact-sent-desc {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+}
+.dark .contact-sent-desc {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-form {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fafafa;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  .contact-form {
+    padding: 32px;
+  }
+}
+.dark .contact-form {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  .contact-form-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.contact-form-error {
+  font-size: 12px;
+  font-weight: 400;
+  color: #f58787;
+}
+
+.contact-submit-btn {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 14px;
+}
+.contact-submit-btn:disabled {
+  opacity: 0.6;
+}

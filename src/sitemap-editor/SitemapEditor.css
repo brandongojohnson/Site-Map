@@ -1,0 +1,44 @@
+.sitemap-editor-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 20px;
+}
+
+.sitemap-editor-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 24px;
+  padding: 32px;
+  text-align: center;
+}
+
+.sitemap-editor-error-text {
+  color: #dc2626;
+}
+
+.sitemap-editor-error-btn {
+  padding: 12px 24px;
+  background: #7161ef;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  transition: opacity 0.15s;
+}
+.sitemap-editor-error-btn:hover {
+  opacity: 0.9;
+}
+
+.sitemap-editor-shell {
+  color: #1a1c1c;
+  background: #f9f9f9;
+  min-height: 100vh;
+  overflow: hidden;
+}

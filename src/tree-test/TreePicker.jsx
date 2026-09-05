@@ -1,5 +1,6 @@
 import React from 'react';
 import { flattenTree } from './treeTestUtils';
+import './TreeComponents.css';
 
 // Researcher-facing tree browser used while defining a task's correct
 // answer(s). Shown fully expanded and flat (indented by depth) rather than
@@ -9,28 +10,26 @@ const TreePicker = ({ tree, selectedIds, onToggle }) => {
   const rows = flattenTree(tree);
 
   return (
-    <div className="rounded-lg border border-[#c6c6c6]/60 bg-[#f3f3f4] max-h-72 overflow-y-auto p-2">
-      <div className="space-y-1.5">
+    <div className="tree-picker">
+      <div className="tree-picker-list">
         {rows.map((row) => {
           const checked = selectedIds.has(row.id);
           return (
             <label
               key={row.id}
               style={{ marginLeft: `${row.depth * 20}px` }}
-              className={`flex items-center gap-2.5 rounded-lg border px-3 py-2 cursor-pointer text-sm shadow-sm transition-colors ${
-                checked ? 'bg-[#EEECFD] border-[#7161EF]/40' : 'bg-white border-[#e8e8e8] hover:bg-[#fafafa]'
-              }`}
+              className={`tree-picker-row ${checked ? 'is-checked' : ''}`}
             >
               <input
                 type="checkbox"
                 checked={checked}
                 onChange={() => onToggle(row.id)}
-                className="rounded border-[#c6c6c6] text-[#7161EF] focus:ring-[#7161EF]"
+                className="tree-picker-checkbox"
               />
-              <span className="material-symbols-outlined text-[14px] text-[#8a8a8a] flex-shrink-0">
+              <span className="material-symbols-outlined tree-picker-row-icon">
                 {row.depth === 0 ? 'home' : 'description'}
               </span>
-              <span className={checked ? 'font-semibold text-black' : 'text-[#474747]'}>{row.title}</span>
+              <span className={`tree-picker-row-label ${checked ? 'is-checked' : ''}`}>{row.title}</span>
             </label>
           );
         })}
