@@ -128,7 +128,7 @@ const SitemapEditor = ({ boardId, onNavigate, hideDashboard = false }) => {
       children: [],
     };
 
-    const newTree = normalizeTree(addChild(tree, parentId || 'root', newNode));
+    const newTree = normalizeTree(addChild(tree, parentId || tree.id, newNode));
     setTree(newTree);
     queueSave(newTree);
     setSelectedId(newNode.id);
@@ -142,7 +142,7 @@ const SitemapEditor = ({ boardId, onNavigate, hideDashboard = false }) => {
   }, [tree, selectedId, queueSave]);
 
   const handleDelete = useCallback(() => {
-    if (!tree || !selectedId || selectedId === 'root') return;
+    if (!tree || !selectedId || selectedId === tree.id) return;
     const newTree = normalizeTree(deleteNode(tree, selectedId));
     setTree(newTree);
     queueSave(newTree);
@@ -345,8 +345,9 @@ const SitemapEditor = ({ boardId, onNavigate, hideDashboard = false }) => {
         activeView="editor"
         onNavigate={onNavigate}
         primaryLabel="New Page"
-        onPrimary={() => handleAddChild(selectedId || 'root')}
+        onPrimary={() => handleAddChild(selectedId)}
         hideDashboard={hideDashboard}
+        showPages
         onExport={handleExportJSON}
       />
 

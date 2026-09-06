@@ -9,7 +9,9 @@ const V_GAP = 14;
 // Read-only thumbnail of a sitemap tree, reusing the editor's real layout
 // algorithm so previews match what the canvas will actually show.
 const MiniTree = ({ tree, className = '' }) => {
-  const laid = layoutTree(normalizeTree(tree), 0, NW, NH, H_GAP, V_GAP);
+  const normalized = normalizeTree(tree);
+  const rootId = normalized.id;
+  const laid = layoutTree(normalized, 0, NW, NH, H_GAP, V_GAP);
   const nodes = collectNodes(laid);
   const edges = collectEdges(laid, NW, NH);
 
@@ -46,8 +48,8 @@ const MiniTree = ({ tree, className = '' }) => {
           height={NH}
           rx={4}
           fill="white"
-          stroke={n.id === 'root' ? '#7161EF' : '#e0e0e3'}
-          strokeWidth={n.id === 'root' ? 1.5 : 1}
+          stroke={n.id === rootId ? '#7161EF' : '#e0e0e3'}
+          strokeWidth={n.id === rootId ? 1.5 : 1}
         />
       ))}
     </svg>

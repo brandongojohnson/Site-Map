@@ -18,6 +18,7 @@ const LeftSidebar = ({
   primaryLabel,
   onPrimary,
   hideDashboard = false,
+  showPages = false,
   onExport,
 }) => (
   <aside className="left-sidebar">
@@ -32,7 +33,7 @@ const LeftSidebar = ({
     )}
 
     <nav className="left-sidebar-nav">
-      {NAV_ITEMS.filter((item) => !(hideDashboard && item.view === 'dashboard')).map(({ icon, label, view, action }) => {
+      {NAV_ITEMS.filter((item) => !(hideDashboard && item.view === 'dashboard') && !(item.view === 'editor' && !showPages)).map(({ icon, label, view, action }) => {
         const active = view && view === activeView;
         const clickable = !!view || (action === 'export' && !!onExport);
         return (

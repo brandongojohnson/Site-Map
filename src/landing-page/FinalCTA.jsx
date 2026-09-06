@@ -1,15 +1,20 @@
 import React from 'react';
 import { PILL_PRIMARY, PILL_OUTLINE } from './buttonStyles';
+import PrismaticBurst from './PrismaticBurst';
 import './sharedStyles.css';
 import './FinalCTA.css';
 
 const FinalCTA = ({ onGetStarted }) => (
   <section className="final-cta-section">
     <div className="final-cta-card">
-      {/* Abstract organic texture */}
-      <div className="final-cta-texture">
-        <div className="final-cta-blob-a" />
-        <div className="final-cta-blob-b" />
+      <div className="final-cta-bg-layer">
+        <PrismaticBurst
+          colors={['#21604b']}
+          speed={0.6}
+          intensity={0.8}
+          animationType="hover"
+          distort={4.3}
+        />
       </div>
 
       <div className="final-cta-content">
