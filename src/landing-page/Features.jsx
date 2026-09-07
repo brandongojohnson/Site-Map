@@ -12,9 +12,9 @@ const SECTIONS = [
     title: 'Run open, closed, or hybrid card sorts.',
     desc: 'Set up a study in minutes, send participants a link, and watch responses roll in — no spreadsheets required.',
     bullets: [
-      'Real-time collaboration with teammates or remote participants',
-      'Open, closed, and hybrid sort types out of the box',
-      'Every card and every group tracked automatically',
+      { text: 'Real-time collaboration with teammates or remote participants', icon: 'groups' },
+      { text: 'Open, closed, and hybrid sort types out of the box', icon: 'sort' },
+      { text: 'Every card and every group tracked automatically', icon: 'track_changes' },
     ],
     Mockup: CardSortMockup,
     reverse: false,
@@ -25,9 +25,9 @@ const SECTIONS = [
     title: 'From sorted cards to a living sitemap.',
     desc: 'Sorted categories become draggable page nodes on a canvas your whole team can edit together.',
     bullets: [
-      'Every group becomes a page node, instantly',
-      'Drag, nest, and relabel without losing history',
-      'Share a read-only link for stakeholder sign-off',
+      { text: 'Every group becomes a page node, instantly', icon: 'account_tree' },
+      { text: 'Drag, nest, and relabel without losing history', icon: 'drag_indicator' },
+      { text: 'Share a read-only link for stakeholder sign-off', icon: 'link' },
     ],
     Mockup: SitemapMockup,
     reverse: true,
@@ -38,9 +38,9 @@ const SECTIONS = [
     title: "See where people agree — and where they don't.",
     desc: 'Sortly runs the statistics for you, so you can spend your time interpreting results, not calculating them.',
     bullets: [
-      'Similarity matrices show which cards belong together',
-      'Dendrograms reveal natural category clusters',
-      'Category frequency highlights your strongest labels',
+      { text: 'Similarity matrices show which cards belong together', icon: 'grid_on' },
+      { text: 'Dendrograms reveal natural category clusters', icon: 'schema' },
+      { text: 'Category frequency highlights your strongest labels', icon: 'bar_chart' },
     ],
     Mockup: ReportsMockup,
     reverse: false,
@@ -56,11 +56,9 @@ const FeatureBlock = ({ id, eyebrow, title, desc, bullets, Mockup, reverse, ligh
         <p className="feature-desc">{desc}</p>
         <ul className="feature-bullets">
           {bullets.map((b) => (
-            <li key={b} className="feature-bullet">
-              <span className="feature-bullet-icon-wrap">
-                <span className="material-symbols-outlined feature-bullet-icon">check</span>
-              </span>
-              <span className="feature-bullet-text">{b}</span>
+            <li key={b.text} className="feature-bullet">
+              <span className="material-symbols-outlined feature-bullet-icon">{b.icon}</span>
+              <span className="feature-bullet-text">{b.text}</span>
             </li>
           ))}
         </ul>

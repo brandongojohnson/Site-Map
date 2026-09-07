@@ -105,23 +105,10 @@
   gap: 12px;
 }
 
-.feature-bullet-icon-wrap {
-  margin-top: 2px;
-  width: 20px;
-  height: 20px;
-  border-radius: 9999px;
-  background: #eeecfd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.dark .feature-bullet-icon-wrap {
-  background: #241f3d;
-}
-
 .feature-bullet-icon {
-  font-size: 13px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  font-size: 18px;
   color: #7161ef;
 }
 .dark .feature-bullet-icon {

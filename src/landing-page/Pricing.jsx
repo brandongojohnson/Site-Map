@@ -11,7 +11,12 @@ const TIERS = [
     monthly: 0,
     yearly: 0,
     cta: 'Start for free',
-    features: ['1 active study', 'Open & closed card sorts', 'Up to 15 cards per study', 'Community support'],
+    features: [
+      { text: '1 active study', icon: 'description' },
+      { text: 'Open & closed card sorts', icon: 'sort' },
+      { text: 'Up to 15 cards per study', icon: 'view_carousel' },
+      { text: 'Community support', icon: 'forum' },
+    ],
   },
   {
     name: 'Pro',
@@ -21,11 +26,11 @@ const TIERS = [
     cta: 'Start free trial',
     popular: true,
     features: [
-      'Unlimited studies',
-      'Sitemap export (PNG & PDF)',
-      'Real-time collaboration',
-      'Remote testing links',
-      'Priority support',
+      { text: 'Unlimited studies', icon: 'all_inclusive' },
+      { text: 'Sitemap export (PNG & PDF)', icon: 'ios_share' },
+      { text: 'Real-time collaboration', icon: 'groups' },
+      { text: 'Remote testing links', icon: 'link' },
+      { text: 'Priority support', icon: 'support_agent' },
     ],
   },
   {
@@ -35,11 +40,11 @@ const TIERS = [
     yearly: 39,
     cta: 'Talk to sales',
     features: [
-      'Everything in Pro',
-      'Multi-project workspaces',
-      'Admin & permission controls',
-      'Export to Figma & CSV',
-      'Dedicated onboarding',
+      { text: 'Everything in Pro', icon: 'workspace_premium' },
+      { text: 'Multi-project workspaces', icon: 'dashboard' },
+      { text: 'Admin & permission controls', icon: 'admin_panel_settings' },
+      { text: 'Export to Figma & CSV', icon: 'ios_share' },
+      { text: 'Dedicated onboarding', icon: 'rocket_launch' },
     ],
   },
 ];
@@ -93,9 +98,9 @@ const Pricing = ({ onGetStarted }) => {
 
                 <ul className="pricing-features">
                   {t.features.map((f) => (
-                    <li key={f} className="pricing-feature">
-                      <span className="material-symbols-outlined pricing-feature-icon">check</span>
-                      <span className="pricing-feature-text">{f}</span>
+                    <li key={f.text} className="pricing-feature">
+                      <span className="material-symbols-outlined pricing-feature-icon">{f.icon}</span>
+                      <span className="pricing-feature-text">{f.text}</span>
                     </li>
                   ))}
                 </ul>
