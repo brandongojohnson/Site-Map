@@ -16,7 +16,7 @@ const CardSortMockup = ({ className = '', light = false }) => (
       </div>
     }
   >
-    <div className={`csm-body ${light ? 'is-light' : ''}`}>
+    <div className={`csm-body wc-canvas ${light ? 'is-light' : ''}`}>
       <div className="csm-groups-row">
         <GroupColumn title="Unsorted" count={2} light={light}>
           <CardChip label="Billing FAQ" faded light={light} />

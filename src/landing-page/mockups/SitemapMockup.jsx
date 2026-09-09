@@ -66,7 +66,7 @@ const SitemapMockup = ({ className = '', light = false }) => (
       </div>
     }
   >
-    <div className={`sm-canvas ${light ? 'is-light' : ''}`} style={{ aspectRatio: `${W} / ${H}` }}>
+    <div className={`sm-canvas wc-canvas ${light ? 'is-light' : ''}`} style={{ aspectRatio: `${W} / ${H}` }}>
       <div className={`sm-toolbar ${light ? 'is-light' : ''}`}>
         {['undo', 'redo'].map((icon) => (
           <span key={icon} className={`material-symbols-outlined sm-toolbar-icon ${light ? 'is-light' : ''}`}>

@@ -4,7 +4,7 @@ import './sharedStyles.css';
 import './Contact.css';
 
 const Contact = () => (
-  <section className="section-band">
+  <section className="section-band contact-section">
     <div className="section-band-inner">
       <div className="contact-grid">
         <div>

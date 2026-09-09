@@ -34,7 +34,7 @@ const ReportsMockup = ({ className = '', light = false }) => (
       </div>
     }
   >
-    <div className={`rm-body ${light ? 'is-light' : ''}`}>
+    <div className={`rm-body wc-canvas ${light ? 'is-light' : ''}`}>
       <div>
         <p className={`rm-col-title ${light ? 'is-light' : ''}`}>Similarity Matrix</p>
         <div className="rm-matrix" style={{ gridTemplateColumns: 'repeat(6, 1fr)' }}>

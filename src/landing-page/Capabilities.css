@@ -46,7 +46,7 @@
   font-weight: 400;
   letter-spacing: -0.025em;
   color: #131313;
-  line-height: 1.25;
+  line-height: 1.00;
 }
 @media (min-width: 768px) {
   .capabilities-title {
@@ -65,6 +65,7 @@
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top:-2em;
 }
 @media (min-width: 640px) {
   .capabilities-grid {

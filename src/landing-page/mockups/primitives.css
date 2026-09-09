@@ -43,6 +43,19 @@
   border-color: rgba(113, 97, 239, 0.15);
 }
 
+/* Shared content-area background for every mockup's canvas/body element
+   (SitemapMockup's .sm-canvas, CardSortMockup's .csm-body, ReportsMockup's
+   .rm-body) — one place to change so all three stay in sync instead of
+   three copies of the same two rules. */
+.wc-canvas {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.03);
+}
+.wc-canvas.is-light {
+  background: #ffffff;
+}
+
 .wc-titlebar-left {
   display: flex;
   align-items: center;
@@ -251,7 +264,7 @@
   color: rgba(255, 255, 255, 0.35);
 }
 .group-col-count.is-light {
-  color: #9c9ca3;
+  color: red;
 }
 
 .group-col-children {

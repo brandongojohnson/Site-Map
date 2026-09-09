@@ -16,11 +16,6 @@
 .sm-canvas {
   position: relative;
   width: 100%;
-  backdrop-filter: blur(4px);
-  background: rgba(255, 255, 255, 0.03);
-}
-.sm-canvas.is-light {
-  background: #f3f3f4;
 }
 
 .sm-toolbar {

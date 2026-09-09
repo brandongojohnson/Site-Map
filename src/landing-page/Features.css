@@ -18,13 +18,171 @@
   max-width: 1152px;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+.features-tabs {
   display: flex;
-  flex-direction: column;
-  gap: 96px;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+.features-tab {
+  padding: 10px 20px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.45);
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+.features-tab:hover {
+  color: #131313;
+}
+.features-tab.is-active {
+  color: #7161ef;
+  background: #eeecfd;
+  border-color: rgba(113, 97, 239, 0.2);
+}
+.dark .features-tab {
+  color: rgba(255, 255, 255, 0.45);
+}
+.dark .features-tab:hover {
+  color: #f5f3f0;
+}
+.dark .features-tab.is-active {
+  color: #9b8ff5;
+  background: #241f3d;
+  border-color: rgba(155, 143, 245, 0.3);
+}
+
+.features-slide {
+  animation: features-slide-in 0.4s ease both;
+}
+@keyframes features-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .features-slide {
+    animation: none;
+  }
+}
+
+.features-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 56px;
 }
 @media (min-width: 768px) {
-  .features-inner {
-    gap: 128px;
+  .features-controls {
+    margin-top: 72px;
+  }
+}
+
+.features-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #131313;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.features-arrow:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+.dark .features-arrow {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #f5f3f0;
+}
+.dark .features-arrow:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.features-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.features-dot {
+  position: relative;
+  overflow: hidden;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.15);
+  transition: width 0.2s, background-color 0.2s;
+}
+.features-dot:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+.features-dot.is-active {
+  width: 28px;
+  background: rgba(113, 97, 239, 0.2);
+}
+.dark .features-dot {
+  background: rgba(255, 255, 255, 0.2);
+}
+.dark .features-dot:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+.dark .features-dot.is-active {
+  background: rgba(155, 143, 245, 0.25);
+}
+
+/* The active dot doubles as the autoplay countdown — this fill grows to
+   match the same timer that advances the slide (see Features.jsx), so the
+   dot itself shows time-until-next instead of a separate progress bar. */
+.features-dot-progress {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #7161ef;
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation-name: features-dot-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+.features-dot-progress.is-paused {
+  animation-play-state: paused;
+}
+.dark .features-dot-progress {
+  background: #9b8ff5;
+}
+@keyframes features-dot-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .features-dot-progress {
+    display: none;
+  }
+  .features-dot.is-active {
+    background: #7161ef;
+  }
+  .dark .features-dot.is-active {
+    background: #9b8ff5;
   }
 }
 
@@ -37,19 +195,6 @@
 @media (min-width: 768px) {
   .feature-block-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.feature-block-copy.is-reversed {
-  order: 2;
-}
-.feature-block-mockup.is-reversed {
-  order: 1;
-}
-@media (max-width: 767.98px) {
-  .feature-block-copy.is-reversed,
-  .feature-block-mockup.is-reversed {
-    order: 0;
   }
 }
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GLASS_PILL } from './glassStyles';
 import HeroMockup from './mockups/HeroMockup';
 import { useHeroBackground } from './useHeroBackground';
 import HeroBackgroundPicker from './HeroBackgroundPicker';
@@ -139,7 +138,7 @@ const Hero = ({ onGetStarted }) => {
           absolutely positioned canvas/photo would otherwise cover it. */}
       <div className="hero-content-wrap">
         <div className={`hero-fade-in ${mounted ? 'is-mounted' : ''}`}>
-          <div className={`hero-badge ${GLASS_PILL}`}>
+          <div className="hero-badge">
             <span className="hero-badge-dot" />
             New: Auto-generated sitemaps from any card sort
           </div>

@@ -6,7 +6,7 @@ import './Testimonial.css';
 // to attribute one to. Left generic (role, not a fabricated name/company)
 // rather than inventing a specific person or client.
 const Testimonial = () => (
-  <section className="section-band">
+  <section className="section-band testimonial-section">
     <div className="testimonial-inner">
       <p className="section-eyebrow testimonial-eyebrow">Research at Product Speed</p>
       <blockquote className="testimonial-quote">
