@@ -1,0 +1,21 @@
+/* design.md §2 color tokens — the Contiq dark/monochrome palette, applied
+   to this preview copy of the Sitemap Editor (see src/sitemap-editor for
+   the untouched original). Self-contained on purpose: this folder doesn't
+   reach into the landing page's sharedStyles.css, so the preview stays a
+   true standalone copy. One edit here re-themes the whole preview.
+
+   Naming matches the landing page's token system (see sharedStyles.css) —
+   this preview is always-dark, so it only needs one set of values rather
+   than the light/dark split used there. */
+:root {
+  --bg-primary: #0a0a0b;
+  --bg-surface: #141416;
+  --bg-surface-raised: #1c1d20;
+  --border-subtle: #2a2b2e;
+  --text-primary: #f5f5f7;
+  --text-secondary: #9b9ba1;
+  --text-muted: #6b6c72;
+  --accent: #4f46e5;
+  --accent-rgb: 79, 70, 229;
+  --accent-foreground: #ffffff;
+}

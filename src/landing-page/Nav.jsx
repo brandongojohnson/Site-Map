@@ -14,8 +14,8 @@ const START_OPTIONS = [
 
 const LINKS = [
   { label: 'Capabilities', href: '#capabilities' },
-  { label: 'Process', href: '#process' },
   { label: 'Pricing', href: '#pricing' },
+  { label: 'Process', href: '#process' },
 ];
 
 const scrollTo = (href) => {
@@ -50,17 +50,16 @@ const Nav = ({ onGetStarted, theme, onToggleTheme }) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // The Hero section keeps its own dark background in both themes, so while
-  // the nav floats transparently over it (pre-scroll) its content always
-  // needs light-on-dark colors — only once scrolled onto themed content
-  // beneath does it switch to following the page theme.
-  const navDark = !scrolled || theme === 'dark';
-  const darkCls = navDark ? 'is-dark' : '';
+  // Dark mode keeps its own always-dark nav look. Light mode gets a proper
+  // light treatment (dark-neutral text on a white glass pill) — the hero is
+  // now a flat off-white in light theme, so this reads cleanly on it — see
+  // sharedStyles.css's glass-nav-* rules.
+  const darkCls = theme === 'dark' ? 'is-dark' : '';
 
   return (
     <>
-    <header className={`nav-header ${scrolled ? GLASS_NAV_SCROLLED : GLASS_NAV_TOP}`}>
-      <nav className="nav-inner">
+    <header className="nav-header">
+      <nav className={`nav-inner ${scrolled ? GLASS_NAV_SCROLLED : GLASS_NAV_TOP}`}>
         <a href="#top" className={`nav-logo-link ${darkCls}`}>
           <SortlyLogo iconClassName="nav-logo-icon" textClassName="" />
         </a>

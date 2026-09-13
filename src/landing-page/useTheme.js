@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 
 const STORAGE_KEY = 'sortly-landing-theme';
 
-// Dark is the page's original, established look — light is the opt-in, so
-// an unset preference falls back to dark rather than the browser's OS-level
-// color scheme.
+// Light is the page's default look — dark is the opt-in, so an unset
+// preference falls back to light rather than the browser's OS-level color
+// scheme.
 const read = () => {
   const stored = localStorage.getItem(STORAGE_KEY);
-  return stored === 'light' ? 'light' : 'dark';
+  return stored === 'dark' ? 'dark' : 'light';
 };
 
 export const useTheme = () => {

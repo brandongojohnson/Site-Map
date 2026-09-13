@@ -1,17 +1,17 @@
 .process-section {
   position: relative;
-  padding: 96px 0;
+  padding: 112px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background: #fff;
 }
 @media (min-width: 768px) {
   .process-section {
-    padding: 128px 0;
+    padding: 144px 0;
   }
 }
 .dark .process-section {
-  border-top-color: rgba(255, 255, 255, 0.1);
-  background: #131313;
+  border-top-color: var(--border-subtle);
+  background: var(--bg-primary);
 }
 
 .process-inner {
@@ -34,11 +34,11 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: normal;
-  color: #7161ef;
+  color: var(--accent);
   margin-bottom: 12px;
 }
 .dark .process-eyebrow {
-  color: #9b8ff5;
+  color: var(--accent);
 }
 
 .process-title {
@@ -54,7 +54,7 @@
   }
 }
 .dark .process-title {
-  color: #f5f3f0;
+  color: var(--text-primary);
 }
 
 .process-grid {
@@ -83,7 +83,7 @@
     padding-left: 24px;
   }
   .dark .process-step {
-    border-left-color: rgba(255, 255, 255, 0.1);
+    border-left-color: var(--border-subtle);
   }
   .process-step:first-child {
     border-left: 0;
@@ -103,7 +103,7 @@
   color: rgba(0, 0, 0, 0.5);
 }
 .dark .process-step-icon {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-secondary);
 }
 
 .process-step-number {
@@ -112,7 +112,7 @@
   color: rgba(0, 0, 0, 0.35);
 }
 .dark .process-step-number {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--text-muted);
 }
 
 .process-step-title {
@@ -122,7 +122,7 @@
   margin-bottom: 8px;
 }
 .dark .process-step-title {
-  color: #f5f3f0;
+  color: var(--text-primary);
 }
 
 .process-step-desc {
@@ -132,5 +132,5 @@
   line-height: 1.625;
 }
 .dark .process-step-desc {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-secondary);
 }

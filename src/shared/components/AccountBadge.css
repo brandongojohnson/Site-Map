@@ -22,7 +22,7 @@
   flex-shrink: 0;
 }
 .account-badge-avatar-btn:hover {
-  border-color: rgba(113, 97, 239, 0.4);
+  border-color: rgba(var(--accent-rgb), 0.4);
 }
 
 .account-badge-avatar-img {
@@ -40,7 +40,7 @@
   background: #eeecfd;
   font-size: 13px;
   font-weight: 600;
-  color: #7161ef;
+  color: var(--accent);
 }
 
 .account-badge-menu-overlay {

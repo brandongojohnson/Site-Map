@@ -243,23 +243,6 @@ const HeroBackgroundPicker = ({ bg, setBg, previewAspectRatio = 16 / 9 }) => {
                 >
                   <span className="material-symbols-outlined hbp-animated-icon">animation</span>
                 </button>
-                {/* Live WebGL starfield (see Galaxy.jsx) — same icon-tile
-                    treatment as Animated, since there's no static frame that
-                    represents it either. */}
-                <button
-                  onClick={() => {
-                    setBg({ type: 'galaxy' });
-                    setOpen(false);
-                  }}
-                  title="Galaxy"
-                  className={`hbp-animated-swatch ${bg?.type === 'galaxy' ? 'is-active' : ''}`}
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(135deg, #050510 0%, #131836 45%, #2E4E8F 80%, #6EC7C2 100%)',
-                  }}
-                >
-                  <span className="material-symbols-outlined hbp-animated-icon">auto_awesome</span>
-                </button>
               </div>
 
               <button

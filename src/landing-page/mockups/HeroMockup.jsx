@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { WindowChrome, NodeChip, CardChip, GroupColumn } from './primitives';
 import './HeroMockup.css';
 
@@ -63,100 +63,179 @@ const curvePath = (a, b) => {
 
 const pathFor = (fromId, toId) => curvePath(byId[fromId], byId[toId]);
 
+const PROGRESS_TARGET = 7;
+const PROGRESS_TOTAL = 9;
+
 // The single "floating dashboard" screenshot for the hero: a sitemap canvas
 // with a card-sort board as a side panel, inside one window frame, tinted
 // with the brand accent so it reads as on-brand at a glance. Shown in light
 // mode deliberately — a bright focal point against the dark hero, while the
 // deep-dive screenshots further down stay dark to match the page.
-const HeroMockup = ({ className = '' }) => (
-  <WindowChrome
-    label="Sortly · Homepage Redesign"
-    accent
-    light
-    className={className}
-    right={
-      <div className="hero-mockup-collab">
-        <span className="material-symbols-outlined hero-mockup-collab-icon">groups</span>
-        4 collaborators
-      </div>
-    }
-  >
-    <div className="hero-mockup-body">
-      <div className="hero-mockup-sidebar">
-        {MENU_ITEMS.map((item, i) => (
-          <span key={i} className={`material-symbols-outlined hero-mockup-menu-icon ${item.active ? 'is-active' : ''}`}>
-            {item.icon}
-          </span>
-        ))}
-      </div>
+//
+// "Live" on first entry into view (fires once, like Reveal.jsx elsewhere on
+// this page): nodes fade in with a stagger, the connectors between them draw
+// on afterward, and the card-sort progress bar/counter animate up from zero
+// — so the hero reads as a live product view rather than a static image.
+// Falls back to everything-already-in-place for prefers-reduced-motion.
+const HeroMockup = ({ className = '' }) => {
+  const containerRef = useRef(null);
+  const [live, setLive] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  const [count, setCount] = useState(0);
 
-      <div className="hero-mockup-canvas" style={{ aspectRatio: `${W} / ${H}` }}>
-        <div className="hero-mockup-toolbar">
-          {['undo', 'redo'].map((icon) => (
-            <span key={icon} className="material-symbols-outlined hero-mockup-toolbar-icon">
-              {icon}
+  useEffect(() => {
+    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLive(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reduced) {
+      setCount(PROGRESS_TARGET);
+      return undefined;
+    }
+    if (!live) return undefined;
+    let raf;
+    const start = performance.now() + 700; // wait for nodes/edges to settle first
+    const tick = (now) => {
+      const elapsed = now - start;
+      if (elapsed < 0) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+      const progress = Math.min(1, elapsed / 600);
+      setCount(Math.round(progress * PROGRESS_TARGET));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [live, reduced]);
+
+  const revealed = reduced || live;
+
+  return (
+    <WindowChrome
+      label="Sortly · Homepage Redesign"
+      accent
+      light
+      className={className}
+      right={
+        <div className="hero-mockup-collab">
+          <span className="material-symbols-outlined hero-mockup-collab-icon">groups</span>
+          4 collaborators
+        </div>
+      }
+    >
+      <div className="hero-mockup-body" ref={containerRef}>
+        <div className="hero-mockup-sidebar">
+          {MENU_ITEMS.map((item, i) => (
+            <span key={i} className={`material-symbols-outlined hero-mockup-menu-icon ${item.active ? 'is-active' : ''}`}>
+              {item.icon}
             </span>
           ))}
-          <span className="hero-mockup-toolbar-divider" />
-          <span className="material-symbols-outlined hero-mockup-toolbar-icon">remove</span>
-          <span className="hero-mockup-zoom-pct">100%</span>
-          <span className="material-symbols-outlined hero-mockup-toolbar-icon">add</span>
-          <span className="hero-mockup-toolbar-divider" />
-          <span className="material-symbols-outlined hero-mockup-toolbar-icon">add_box</span>
         </div>
 
-        <svg viewBox={`0 0 ${W} ${H}`} className="hero-mockup-svg" preserveAspectRatio="none">
-          {edges.map(([from, to]) => {
-            const accented = ACCENT_EDGES.has(`${from}-${to}`);
-            return (
-              <path
-                key={`${from}-${to}`}
-                d={pathFor(from, to)}
-                fill="none"
-                stroke={accented ? '#7161EF' : '#E4E4E7'}
-                strokeOpacity={accented ? 0.4 : 1}
-                strokeWidth={2}
-              />
-            );
-          })}
-        </svg>
-        {nodes.map((n) => (
-          <NodeChip
-            key={n.id}
-            icon={n.icon}
-            title={n.title}
-            sub={n.sub}
-            accent={n.accent}
-            light
-            style={{ left: `${(n.x / W) * 100}%`, top: `${(n.y / H) * 100}%` }}
-          />
-        ))}
-      </div>
+        <div className="hero-mockup-canvas" style={{ aspectRatio: `${W} / ${H}` }}>
+          <div className="hero-mockup-toolbar">
+            {['undo', 'redo'].map((icon) => (
+              <span key={icon} className="material-symbols-outlined hero-mockup-toolbar-icon">
+                {icon}
+              </span>
+            ))}
+            <span className="hero-mockup-toolbar-divider" />
+            <span className="material-symbols-outlined hero-mockup-toolbar-icon">remove</span>
+            <span className="hero-mockup-zoom-pct">100%</span>
+            <span className="material-symbols-outlined hero-mockup-toolbar-icon">add</span>
+            <span className="hero-mockup-toolbar-divider" />
+            <span className="material-symbols-outlined hero-mockup-toolbar-icon">add_box</span>
+          </div>
 
-      <div className="hero-mockup-panel">
-        <div className="hero-mockup-panel-header">
-          <span className="hero-mockup-panel-title">Card Sort</span>
-          <div className="hero-mockup-progress-row">
-            <div className="hero-mockup-progress-track">
-              <div className="hero-mockup-progress-fill" />
+          <svg viewBox={`0 0 ${W} ${H}`} className="hero-mockup-svg" preserveAspectRatio="none">
+            {edges.map(([from, to], i) => {
+              const accented = ACCENT_EDGES.has(`${from}-${to}`);
+              return (
+                <path
+                  key={`${from}-${to}`}
+                  d={pathFor(from, to)}
+                  fill="none"
+                  stroke={accented ? '#000000' : '#E4E4E7'}
+                  strokeOpacity={accented ? 0.4 : 1}
+                  strokeWidth={2}
+                  className="hero-mockup-edge"
+                  style={
+                    reduced
+                      ? undefined
+                      : {
+                        strokeDasharray: 260,
+                        strokeDashoffset: revealed ? 0 : 260,
+                        transitionDelay: `${280 + i * 70}ms`,
+                      }
+                  }
+                />
+              );
+            })}
+          </svg>
+          {nodes.map((n, i) => (
+            <NodeChip
+              key={n.id}
+              icon={n.icon}
+              title={n.title}
+              sub={n.sub}
+              accent={n.accent}
+              light
+              className="hero-mockup-node"
+              style={{
+                left: `${(n.x / W) * 100}%`,
+                top: `${(n.y / H) * 100}%`,
+                opacity: revealed ? 1 : 0,
+                transitionDelay: reduced ? undefined : `${i * 60}ms`,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="hero-mockup-panel">
+          <div className="hero-mockup-panel-header">
+            <span className="hero-mockup-panel-title">Card Sort</span>
+            <div className="hero-mockup-progress-row">
+              <div className="hero-mockup-progress-track">
+                <div
+                  className="hero-mockup-progress-fill"
+                  style={{ width: `${(count / PROGRESS_TOTAL) * 100}%` }}
+                />
+              </div>
+              <span className="hero-mockup-progress-count">{count}/{PROGRESS_TOTAL}</span>
             </div>
-            <span className="hero-mockup-progress-count">7/9</span>
+          </div>
+          <div className="hero-mockup-groups">
+            <GroupColumn title="Navigation" count={3} light>
+              <CardChip label="Products" light />
+              <CardChip label="Solutions" light />
+              <CardChip label="Pricing" light />
+            </GroupColumn>
+            <GroupColumn title="Footer" count={2} light>
+              <CardChip label="About" light />
+              <CardChip label="Contact" light />
+            </GroupColumn>
           </div>
         </div>
-        <div className="hero-mockup-groups">
-          <GroupColumn title="Navigation" count={3} light>
-            <CardChip label="Products" light />
-            <CardChip label="Solutions" light />
-            <CardChip label="Pricing" light />
-          </GroupColumn>
-          <GroupColumn title="Footer" count={2} light>
-            <CardChip label="About" light />
-            <CardChip label="Contact" light />
-          </GroupColumn>
-        </div>
       </div>
-    </div>
-  </WindowChrome>
-);
+    </WindowChrome>
+  );
+};
 
 export default HeroMockup;

@@ -3,12 +3,24 @@
   overflow: visible;
   padding-top: 96px;
   padding-bottom: 160px;
+  /* Light mode: an off-white surface with two soft, blurred accent blobs
+     (per the "flat white heroes feel flat — add a subtle blob or 3-5% tint"
+     heuristic) rather than a flat single color. Dark mode overrides to the
+     flat solid color it's always used. */
+  background-color: #fafafa;
+  background-image:
+    radial-gradient(ellipse 900px 560px at 15% -15%, rgba(0, 0, 0, 0.05), transparent 60%),
+    radial-gradient(ellipse 700px 460px at 90% 20%, rgba(0, 0, 0, 0.035), transparent 60%);
 }
 @media (min-width: 768px) {
   .hero-section {
     padding-top: 112px;
     padding-bottom: 224px;
   }
+}
+.dark .hero-section {
+  background-color: var(--dark-bg-primary);
+  background-image: none;
 }
 
 .hero-bg-layer {
@@ -28,13 +40,20 @@
 }
 
 .hero-fade-in {
-  transition: all 0.7s ease-out;
+  transition: opacity 0.7s var(--ease-snappy), transform 0.7s var(--ease-snappy), filter 0.7s var(--ease-snappy);
   opacity: 0;
   transform: translateY(24px);
+  filter: blur(12px);
 }
 .hero-fade-in.is-mounted {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-in {
+    filter: none;
+  }
 }
 
 .hero-badge {
@@ -45,23 +64,28 @@
   padding: 6px 16px;
   font-size: 12px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
   margin-bottom: 32px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.dark .hero-badge {
+  color: rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .hero-badge-dot {
   width: 6px;
   height: 6px;
   border-radius: 9999px;
-  background: #9b8ff5;
+  background: var(--accent);
 }
 
 .hero-title {
   font-weight: 400;
   letter-spacing: -0.04em;
-  color: #f5f3f0;
+  color: var(--text-primary);
   font-size: 30px;
   line-height: 1.05;
   margin-bottom: 24px;
@@ -89,7 +113,7 @@
   font-weight: 400;
   letter-spacing: normal;
   line-height: 1.4;
-  color: rgba(255, 255, 255, 1);
+  color: var(--text-secondary);
   margin-bottom: 40px;
 }
 @media (min-width: 768px) {
@@ -115,7 +139,7 @@
 .hero-btn-outline {
   border-radius: 9999px;
   font-weight: 600;
-  transition: all 0.2s;
+  transition: all 0.2s ease-out;
   padding: 16px 32px;
   font-size: 15px;
 }
@@ -125,38 +149,33 @@
 }
 
 .hero-btn-primary {
-  background: #f5f3f0;
-  color: #131313;
+  background: var(--accent);
+  color: var(--accent-foreground);
 }
 .hero-btn-primary:hover {
   opacity: 0.9;
 }
 
 .hero-btn-outline {
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  color: #f5f3f0;
+  border: 1.5px solid var(--border-subtle);
+  color: var(--text-primary);
 }
 .hero-btn-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-surface-raised);
 }
 
 .hero-mockup-wrap {
   position: relative;
   z-index: 20;
-  max-width: 1024px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 20px;
   margin-top: 64px;
-  transition: all 0.7s ease-out 0.15s;
+  transition: all 0.7s var(--ease-snappy) 0.32s;
   transform: translateY(32px);
 }
 .hero-mockup-wrap.is-mounted {
   transform: translateY(0);
-}
-@media (min-width: 640px) {
-  .hero-mockup-wrap {
-    padding: 0 24px;
-  }
 }
 @media (min-width: 768px) {
   .hero-mockup-wrap {
@@ -168,15 +187,35 @@
   position: relative;
   z-index: 20;
   margin-bottom: -96px;
+  /* Slow ambient float once settled — makes the hero image read as alive
+     without being distracting. */
+  animation: hero-mockup-float 6s ease-in-out infinite;
 }
 @media (min-width: 768px) {
   .hero-mockup-inner {
     margin-bottom: -160px;
   }
 }
+@keyframes hero-mockup-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-mockup-inner {
+    animation: none;
+  }
+}
 
 .hero-mockup-shadow {
-  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 12px 24px rgba(0, 0, 0, 0.3),
+    0 40px 80px -16px rgba(0, 0, 0, 0.5);
 }
 
 .hero-blend-gradient {
@@ -190,5 +229,5 @@
   background: linear-gradient(to top, #fff 55%, transparent);
 }
 .dark .hero-blend-gradient {
-  background: linear-gradient(to top, #131313 55%, transparent);
+  background: linear-gradient(to top, var(--dark-bg-primary) 55%, transparent);
 }

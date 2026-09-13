@@ -35,7 +35,7 @@ const CardSortMockup = ({ className = '', light = false }) => (
       </div>
       <div className="csm-avatars-row">
         <div className="csm-avatars">
-          {['#7161EF', '#F5F3F0', '#86868C'].map((c) => (
+          {['var(--dark-accent)', '#F5F3F0', '#86868C'].map((c) => (
             <span key={c} className={`csm-avatar ${light ? 'is-light' : ''}`} style={{ background: c }} />
           ))}
         </div>

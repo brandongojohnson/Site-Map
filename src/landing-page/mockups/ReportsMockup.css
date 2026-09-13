@@ -3,7 +3,7 @@
   align-items: center;
   gap: 6px;
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--dark-text-muted);
 }
 .rm-badge.is-light {
   color: #86868c;
@@ -26,7 +26,7 @@
   text-transform: uppercase;
   letter-spacing: normal;
   margin-bottom: 10px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--dark-text-muted);
 }
 .rm-col-title.is-light {
   color: #86868c;
@@ -59,7 +59,7 @@
 .rm-bar-label {
   font-size: 10px;
   font-weight: 500;
-  color: #f5f3f0;
+  color: var(--dark-text-primary);
 }
 .rm-bar-label.is-light {
   color: #18181b;
@@ -67,7 +67,7 @@
 
 .rm-bar-value {
   font-size: 9px;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--dark-text-muted);
 }
 .rm-bar-value.is-light {
   color: #9c9ca3;
@@ -77,7 +77,7 @@
   height: 6px;
   border-radius: 9999px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--dark-border-subtle);
 }
 .rm-bar-track.is-light {
   background: #e4e4e7;
@@ -86,5 +86,5 @@
 .rm-bar-fill {
   height: 100%;
   border-radius: 9999px;
-  background: #7161ef;
+  background: var(--dark-accent);
 }

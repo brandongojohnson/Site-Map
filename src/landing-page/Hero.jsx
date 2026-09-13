@@ -1,22 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
+import WordReveal from './WordReveal';
 import HeroMockup from './mockups/HeroMockup';
 import { useHeroBackground } from './useHeroBackground';
 import HeroBackgroundPicker from './HeroBackgroundPicker';
 import HeroCanvas from './HeroCanvas';
-import Grainient from './Grainient';
-import Galaxy from './Galaxy';
 import { useAuth } from '../card-sort/useAuth';
 import './Hero.css';
 
 // The hero background is a shared, site-wide setting (see
 // useHeroBackground) — only this account can change it for everyone else.
 const BACKGROUND_ADMIN_EMAIL = 'brandon.johnson0416@gmail.com';
-
-// background-image can't mix gradient functions with a plain color in one
-// value list (invalid CSS drops the whole property) — the solid base comes
-// from backgroundColor below instead.
-const DEFAULT_AURORA =
-  'radial-gradient(circle at 18% 15%, rgba(113,97,239,0.55) 0%, transparent 42%), radial-gradient(circle at 82% 12%, rgba(94,110,239,0.4) 0%, transparent 48%), radial-gradient(circle at 55% 92%, rgba(70,58,140,0.45) 0%, transparent 55%)';
 
 // Stacked hero: centered text, screenshot floating below. Both fade + slide
 // into place on mount (staggered) rather than waiting for scroll — this is
@@ -60,61 +53,33 @@ const Hero = ({ onGetStarted }) => {
   // HeroBackgroundPicker) — the older hand-rolled shader, kept for whoever
   // already picked it.
   const isAnimated = heroBg?.type === 'animated';
-  // Another opt-in WebGL option alongside "animated" — a starfield rather
-  // than the older ribbon shader.
-  const isGalaxy = heroBg?.type === 'galaxy';
-  // No admin override at all (not even a preset) — Grainient is what every
-  // visitor sees unless the admin has explicitly chosen something else. The
-  // CSS aurora below stays in the section's own background regardless, as a
-  // fallback if WebGL is unavailable and Grainient can't render.
-  const isDefault = !heroBg;
+  // A CSS-gradient preset needs a `value` to actually paint anything — this
+  // also guards against stale/unrecognized shapes left in the shared
+  // Firebase setting from since-removed background options (e.g. an old
+  // `{ type: 'galaxy' }` record), which would otherwise render as nothing.
+  const isPreset = Boolean(heroBg) && !isImage && !isAnimated && Boolean(heroBg.value);
 
   // object-fit/object-position/opacity are properties of a rendered <img>,
   // not of a CSS background-image — a custom photo renders as an actual img
-  // element so those controls have something real to act on. Presets (and
-  // the default) stay CSS gradients, which have no such element to adjust.
-  const sectionStyle = isImage
-    ? { backgroundColor: '#131313' }
-    : {
-      backgroundImage:
-        heroBg?.type === 'preset' ? heroBg.value : DEFAULT_AURORA,
+  // element so those controls have something real to act on. No admin
+  // override at all (not even a preset) means a flat solid color — the
+  // monochrome default every visitor sees unless the admin explicitly picks
+  // a preset/animated/image background instead.
+  // No override: fall through to .hero-section's own CSS background (a flat
+  // dark color in dark theme, an off-white with a soft accent blob in light
+  // theme — see Hero.css) rather than forcing one here.
+  const sectionStyle = isPreset
+    ? {
+      backgroundImage: heroBg.value,
       backgroundSize: 'cover',
       backgroundPosition: 'top',
-      backgroundColor: '#131313',
-    };
+      backgroundColor: 'var(--dark-bg-primary)',
+    }
+    : undefined;
 
   return (
     <section ref={sectionRef} className="hero-section" style={sectionStyle}>
-      {isDefault && (
-        <div className="hero-bg-layer">
-          <Grainient
-            color1="#25055e"
-            color3="#5e3088"
-            timeSpeed={0.8}
-            colorBalance={-0.01}
-            warpSpeed={1.6}
-            blendAngle={118}
-            blendSoftness={0.18}
-            rotationAmount={1070}
-            grainAmount={0.19}
-          />
-        </div>
-      )}
-
       {isAnimated && <HeroCanvas className="hero-bg-layer" />}
-
-      {isGalaxy && (
-        <div className="hero-bg-layer">
-          <Galaxy
-            starSpeed={0.9}
-            hueShift={155}
-            saturation={0.3}
-            twinkleIntensity={0.6}
-            mouseRepulsion={false}
-            transparent={false}
-          />
-        </div>
-      )}
 
       {isImage && (
         <img
@@ -135,40 +100,46 @@ const Hero = ({ onGetStarted }) => {
       )}
 
       {/* relative+z so the copy paints above the background layers — an
-          absolutely positioned canvas/photo would otherwise cover it. */}
+          absolutely positioned canvas/photo would otherwise cover it.
+          Headline → subtext → CTA cascade in on separate delays (100ms
+          apart) rather than as one block, so entry reads as a sequence. */}
       <div className="hero-content-wrap">
-        <div className={`hero-fade-in ${mounted ? 'is-mounted' : ''}`}>
+        <div className={`hero-fade-in ${mounted ? 'is-mounted' : ''}`} style={{ transitionDelay: '0ms' }}>
           <div className="hero-badge">
             <span className="hero-badge-dot" />
             New: Auto-generated sitemaps from any card sort
           </div>
 
           <h1 className="hero-title">
-            Navigate Your
-            <br />
-             Digital Universe
+            <WordReveal lines={['Navigate Your', 'Digital Universe']} />
           </h1>
+        </div>
 
-          <p className="hero-subtitle">
-            Ensure users find what they need. Optimize your site structure with card sorting and tree testing.
-          </p>
+        <p
+          className={`hero-subtitle hero-fade-in ${mounted ? 'is-mounted' : ''}`}
+          style={{ transitionDelay: '100ms' }}
+        >
+          Ensure users find what they need. Optimize your site structure with card sorting and tree testing.
+        </p>
 
-          <div className="hero-cta-row">
-            <button onClick={onGetStarted} className="hero-btn-primary">
-              Start for free
-            </button>
+        <div
+          className={`hero-cta-row hero-fade-in ${mounted ? 'is-mounted' : ''}`}
+          style={{ transitionDelay: '200ms' }}
+        >
+          <button onClick={onGetStarted} className="hero-btn-primary">
+            Start for free
+          </button>
 
-            <button
-              onClick={() =>
-                document
-                  .querySelector('#capabilities')
-                  ?.scrollIntoView({ behavior: 'smooth' })
-              }
-              className="hero-btn-outline"
-            >
-              Book a demo
-            </button>
-          </div>
+          <button
+            onClick={() =>
+              document
+                .querySelector('#capabilities')
+                ?.scrollIntoView({ behavior: 'smooth' })
+            }
+            className="hero-btn-outline"
+          >
+            Book a demo
+          </button>
         </div>
       </div>
 

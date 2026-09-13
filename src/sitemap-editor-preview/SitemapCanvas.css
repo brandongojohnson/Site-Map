@@ -1,0 +1,47 @@
+.sitemap-canvas {
+  margin-left: 256px;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.sitemap-canvas-zoom-controls {
+  position: fixed;
+  bottom: 32px;
+  left: 288px;
+  background: var(--bg-surface);
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--border-subtle);
+  z-index: 30;
+}
+
+.sitemap-canvas-zoom-btn {
+  padding: 8px;
+  border-radius: 9999px;
+  color: var(--text-secondary);
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+.sitemap-canvas-zoom-btn:hover {
+  background: var(--bg-surface-raised);
+  color: var(--text-primary);
+}
+
+.sitemap-canvas-zoom-divider {
+  height: 16px;
+  width: 1px;
+  background: var(--border-subtle);
+  margin: 0 4px;
+}
+
+.sitemap-canvas-zoom-pct {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0 8px;
+  color: var(--text-primary);
+}

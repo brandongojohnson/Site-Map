@@ -26,21 +26,21 @@
   color: rgba(0, 0, 0, 0.5);
 }
 .dark .faq-contact-line {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-secondary);
 }
 
 .faq-contact-link {
-  color: #7161ef;
-  transition: color 0.15s;
+  color: var(--accent);
+  transition: color 0.2s ease-out;
 }
 .faq-contact-link:hover {
   color: #131313;
 }
 .dark .faq-contact-link {
-  color: #9b8ff5;
+  color: var(--accent);
 }
 .dark .faq-contact-link:hover {
-  color: #f5f3f0;
+  color: var(--text-primary);
 }
 
 .faq-item {
@@ -48,7 +48,7 @@
   padding: 20px 0;
 }
 .dark .faq-item {
-  border-bottom-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: var(--border-subtle);
 }
 
 .faq-item-btn {
@@ -66,20 +66,20 @@
   color: #131313;
 }
 .dark .faq-item-question {
-  color: #f5f3f0;
+  color: var(--text-primary);
 }
 
 .faq-item-icon {
   font-size: 20px;
   color: rgba(0, 0, 0, 0.4);
   flex-shrink: 0;
-  transition: transform 0.15s;
+  transition: transform 0.2s ease-out;
 }
 .faq-item-icon.is-open {
   transform: rotate(45deg);
 }
 .dark .faq-item-icon {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
 }
 
 .faq-item-answer {
@@ -91,5 +91,5 @@
   max-width: 672px;
 }
 .dark .faq-item-answer {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-secondary);
 }

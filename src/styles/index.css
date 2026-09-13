@@ -4,6 +4,13 @@
    margins, etc.), so removing Tailwind without keeping this would break
    layouts throughout the whole app. */
 
+:root {
+  /* Apple/Vercel-style snappy deceleration — used for larger UI motion
+     (reveals, fades, slide-ins) rather than quick hover micro-interactions,
+     which use a plain 200ms ease-out instead. */
+  --ease-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 *,
 ::before,
 ::after {

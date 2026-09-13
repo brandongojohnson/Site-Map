@@ -1,0 +1,33 @@
+.word-reveal {
+  display: inline;
+}
+.word-reveal.is-reduced {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-snappy);
+}
+.word-reveal.is-reduced.is-visible {
+  opacity: 1;
+}
+
+.word-reveal-word-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* Descenders (g, y, p, j) can sit lower than a tight line-height's box,
+     so the overflow:hidden clip needed for the slide-up animation cuts
+     them off. This bottom padding gives them room without affecting the
+     visible line spacing (every word gets the same padding). */
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+
+.word-reveal-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.5s var(--ease-snappy), transform 0.5s var(--ease-snappy);
+}
+.word-reveal-word.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

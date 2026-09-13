@@ -4,23 +4,80 @@
    variants are scoped under .dark (see LandingPage.jsx, which wraps its
    content in that class when the theme toggle is set to dark). */
 
+/* Design-system color tokens (light-first, single-accent — see
+   PRD-landing-redesign.md). Theme-aware tokens are defined at :root with
+   their LIGHT values (the site's default) and overridden under .dark with
+   dark values, so any rule referencing var(--text-primary) etc. auto-flips
+   with the theme toggle — no per-rule .dark duplication needed.
+
+   Sections that are permanently dark regardless of the toggle (Hero,
+   Footer, FinalCTA, Contact, mockup chrome) use the separate --dark-*
+   constants below instead, since they must NOT flip to light. */
+:root {
+  --bg-primary: #ffffff;
+  --bg-surface: #f5f5f6;
+  --bg-surface-raised: #ffffff;
+  --border-subtle: #e7e7e9;
+  --text-primary: #111114;
+  --text-secondary: #71717a;
+  --text-muted: #8a8a91;
+  /* Monochrome accent — no brand hue. Black in light mode, white in dark
+     mode, so "accent" always means "highest-contrast ink" for the theme. */
+  --accent: #000000;
+  --accent-rgb: 0, 0, 0;
+  --accent-foreground: #ffffff;
+
+  --status-neutral-bg: #f0f0f1;
+  --status-neutral-text: #5c5c63;
+  --status-progress-bg: #fff4e5;
+  --status-progress-text: #b7791f;
+  --status-success-bg: #e6f6ec;
+  --status-success-text: #1e7a44;
+  --status-info-bg: #eaf0fe;
+  --status-info-text: #3355c7;
+
+  /* Fixed-dark constants — always this value, independent of the toggle.
+     Used by permanently-dark sections (Hero, Footer, FinalCTA, Contact,
+     mockup chrome), including their own accent — those sections are always
+     visually "dark mode", so their accent is always white, never black. */
+  --dark-bg-primary: #0a0a0b;
+  --dark-bg-surface: #141416;
+  --dark-bg-surface-raised: #1c1d20;
+  --dark-border-subtle: #2a2b2e;
+  --dark-text-primary: #f5f5f7;
+  --dark-text-secondary: #9b9ba1;
+  --dark-text-muted: #6b6c72;
+  --dark-accent: #ffffff;
+  --dark-accent-rgb: 255, 255, 255;
+  --dark-accent-foreground: #0a0a0b;
+}
+
+.dark {
+  --bg-primary: #0a0a0b;
+  --bg-surface: #141416;
+  --bg-surface-raised: #1c1d20;
+  --border-subtle: #2a2b2e;
+  --text-primary: #f5f5f7;
+  --text-secondary: #9b9ba1;
+  --text-muted: #6b6c72;
+  --accent: #ffffff;
+  --accent-rgb: 255, 255, 255;
+  --accent-foreground: #0a0a0b;
+}
+
 /* Repeated section-wrapper pattern used across most landing-page sections
    (Capabilities, Features, Process, UseCases, Testimonial, Pricing, FAQ,
    Contact): a top-bordered band, alternating light/dark background. */
 .section-band {
   position: relative;
-  padding: 96px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background: #fff;
+  padding: 112px 0;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-primary);
 }
 @media (min-width: 768px) {
   .section-band {
-    padding: 128px 0;
+    padding: 144px 0;
   }
-}
-.dark .section-band {
-  border-top-color: rgba(255, 255, 255, 0.1);
-  background: #131313;
 }
 
 .section-band-inner {
@@ -38,96 +95,66 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: normal;
-  color: #7161ef;
+  color: var(--accent);
   margin-bottom: 12px;
-}
-.dark .section-eyebrow {
-  color: #9b8ff5;
 }
 
 .section-heading {
   font-weight: 400;
   letter-spacing: -0.025em;
-  color: #131313;
+  color: var(--text-primary);
   line-height: 1.25;
-}
-.dark .section-heading {
-  color: #f5f3f0;
 }
 
 .pill-base {
   border-radius: 9999px;
   font-weight: 600;
-  transition: all 0.2s;
+  transition: all 0.2s ease-out;
 }
 .pill-base:active {
   transform: scale(0.95);
 }
 
 .pill-primary {
-  background: #7161ef;
-  color: #fff;
+  background: var(--accent);
+  color: var(--accent-foreground);
 }
 .pill-primary:hover {
   opacity: 0.9;
 }
-.dark .pill-primary {
-  background: #f5f3f0;
-  color: #131313;
-}
-.dark .pill-primary:hover {
-  opacity: 0.9;
-}
 
 .pill-outline {
-  border: 1.5px solid rgba(0, 0, 0, 0.15);
-  color: #131313;
+  border: 1.5px solid var(--border-subtle);
+  color: var(--text-primary);
 }
 .pill-outline:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-.dark .pill-outline {
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #f5f3f0;
+  background: rgba(17, 17, 20, 0.05);
 }
 .dark .pill-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-surface-raised);
 }
 
 .surface-card {
-  background: #fafafa;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.dark .surface-card {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
 }
 
 .surface-card-hover:hover {
-  background: #fff;
-  border-color: rgba(113, 97, 239, 0.3);
+  background: var(--bg-surface-raised);
+  border-color: rgba(var(--accent-rgb), 0.3);
 }
 .dark .surface-card-hover:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: #3a3b3f;
 }
 
 .surface-panel {
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.dark .surface-panel {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
 }
 
 .surface-pill {
-  background: #f3f3f4;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.dark .surface-pill {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
 }
 
 .glass-panel {
@@ -150,22 +177,38 @@
 }
 .dark .dropdown-glass {
   background: rgba(10, 10, 12, 0.85);
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-subtle);
   box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
 }
 
+/* Light-mode nav: a barely-there white glass, hairline border — reads as
+   "floating over the page" rather than a stark white bar. Dark mode keeps
+   its own always-dark treatment (see Nav.jsx for how darkCls is derived). */
 .glass-nav-top {
-  background: transparent;
-  border-bottom: 1px solid transparent;
+  background: rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.dark .glass-nav-top {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .glass-nav-scrolled {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 8px 30px -12px rgba(0, 0, 0, 0.12);
 }
 .dark .glass-nav-scrolled {
-  background: rgba(19, 19, 19, 0.5);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
+  background: rgba(19, 19, 19, 0.6);
+  border-color: var(--dark-border-subtle);
+  box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.4);
+}
+.dark .glass-nav-scrolled {
+  background: rgba(19, 19, 19, 0.6);
+  border-color: var(--dark-border-subtle);
+  box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.4);
 }

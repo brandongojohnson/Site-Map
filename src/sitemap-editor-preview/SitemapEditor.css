@@ -1,0 +1,47 @@
+.sitemap-editor-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 20px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.sitemap-editor-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 24px;
+  padding: 32px;
+  text-align: center;
+  background: var(--bg-primary);
+}
+
+.sitemap-editor-error-text {
+  color: #f87171;
+}
+
+.sitemap-editor-error-btn {
+  padding: 12px 24px;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s ease-out;
+}
+.sitemap-editor-error-btn:hover {
+  opacity: 0.9;
+}
+
+.sitemap-editor-shell {
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  min-height: 100vh;
+  overflow: hidden;
+}

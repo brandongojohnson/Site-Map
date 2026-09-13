@@ -33,20 +33,26 @@
   padding: 24px;
   background: #fafafa;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  transition: all 0.3s;
+  transition: all 0.2s ease-out;
 }
 .usecases-card:hover {
   background: #fff;
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px -20px rgba(23, 21, 18, 0.15);
+  box-shadow:
+    0 2px 4px rgba(17, 17, 20, 0.03),
+    0 8px 16px rgba(17, 17, 20, 0.05),
+    0 24px 48px -16px rgba(17, 17, 20, 0.1);
 }
 .dark .usecases-card {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--bg-surface);
+  border-color: var(--border-subtle);
 }
 .dark .usecases-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+  background: var(--bg-surface-raised);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.12),
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    0 24px 55px -16px rgba(0, 0, 0, 0.35);
 }
 
 .usecases-icon-wrap {
@@ -64,7 +70,7 @@
   color: #131313;
 }
 .dark .usecases-icon {
-  color: #f5f3f0;
+  color: var(--text-primary);
 }
 
 .usecases-title {
@@ -74,7 +80,7 @@
   margin-bottom: 6px;
 }
 .dark .usecases-title {
-  color: #f5f3f0;
+  color: var(--text-primary);
 }
 
 .usecases-desc {
@@ -85,7 +91,7 @@
   margin-bottom: 12px;
 }
 .dark .usecases-desc {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-secondary);
 }
 
 .usecases-example {
@@ -96,5 +102,5 @@
   font-style: italic;
 }
 .dark .usecases-example {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--text-muted);
 }

@@ -3,7 +3,7 @@
   align-items: center;
   gap: 6px;
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--dark-text-muted);
 }
 .sm-pages-badge.is-light {
   color: #86868c;
@@ -27,16 +27,16 @@
   align-items: center;
   gap: 2px;
   border-radius: 9999px;
-  backdrop-filter: blur(12px);
   border-width: 1px;
   border-style: solid;
   padding: 4px 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--dark-bg-surface-raised);
+  border-color: var(--dark-border-subtle);
   box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.3);
 }
 .sm-toolbar.is-light {
   background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
   border-color: rgba(255, 255, 255, 0.6);
   box-shadow: 0 4px 14px -6px rgba(23, 21, 18, 0.2);
 }
@@ -49,7 +49,7 @@
   align-items: center;
   justify-content: center;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--dark-text-secondary);
 }
 .sm-toolbar-icon.is-light {
   color: #47474d;
@@ -59,7 +59,7 @@
   width: 1px;
   height: 16px;
   margin: 0 2px;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--dark-border-subtle);
 }
 .sm-toolbar-divider.is-light {
   background: #e4e4e7;
@@ -69,7 +69,7 @@
   font-size: 9px;
   font-weight: 600;
   padding: 0 2px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--dark-text-secondary);
 }
 .sm-toolbar-pct.is-light {
   color: #47474d;

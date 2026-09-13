@@ -13,7 +13,7 @@ const matrix = [
   [0.08, 0.11, 0.2, 0.17, 0.64, 1],
 ];
 
-const shade = (v) => `rgba(113, 97, 239, ${0.08 + v * 0.85})`;
+const shade = (v) => `rgba(var(--dark-accent-rgb), ${0.08 + v * 0.85})`;
 
 const bars = [
   { label: 'Getting Started', value: 92 },

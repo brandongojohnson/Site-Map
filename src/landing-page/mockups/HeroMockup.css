@@ -114,6 +114,14 @@
   height: 100%;
 }
 
+.hero-mockup-edge {
+  transition: stroke-dashoffset 0.5s var(--ease-snappy);
+}
+
+.hero-mockup-node {
+  transition: opacity 0.4s var(--ease-snappy);
+}
+
 .hero-mockup-panel {
   width: 100%;
   flex-shrink: 0;
@@ -161,8 +169,8 @@
 
 .hero-mockup-progress-fill {
   height: 100%;
-  width: 80%;
-  background: #7161ef;
+  background: #000000;
+  transition: width 0.2s linear;
 }
 
 .hero-mockup-progress-count {

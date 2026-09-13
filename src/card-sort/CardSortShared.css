@@ -242,7 +242,7 @@
 
 .results-action-primary {
   padding: 12px 24px;
-  background: #7161ef;
+  background: #dc2626;
   color: #fff;
   border-radius: 4px;
   font-weight: 700;
@@ -334,11 +334,11 @@
   background: #e8e8e8;
 }
 .results-tab.is-active {
-  background: #7161ef;
+  background: #dc2626;
   color: #fff;
 }
 .results-tab.is-active:hover {
-  background: #7161ef;
+  background: #dc2626;
 }
 
 .results-toolbar-actions {
@@ -453,7 +453,7 @@
 .centered-copy-btn {
   flex-shrink: 0;
   padding: 8px 16px;
-  background: #7161ef;
+  background: #dc2626;
   color: #fff;
   border-radius: 4px;
   font-weight: 700;
@@ -567,7 +567,7 @@
 .take-study-begin-btn {
   width: 100%;
   padding: 12px 0;
-  background: #7161ef;
+  background: #dc2626;
   color: #fff;
   border-radius: 4px;
   font-weight: 700;

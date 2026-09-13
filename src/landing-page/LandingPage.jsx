@@ -25,10 +25,6 @@ const LandingPage = ({ onGetStarted }) => {
         <Hero onGetStarted={onGetStarted} />
         <Capabilities />
         <Features light={theme === 'light'} />
-        <Process />
-        <Reveal>
-          <UseCases />
-        </Reveal>
         <Reveal>
           <Testimonial />
         </Reveal>
@@ -38,11 +34,15 @@ const LandingPage = ({ onGetStarted }) => {
         <Reveal>
           <FAQ />
         </Reveal>
+        <Process />
         <Reveal>
-          <FinalCTA onGetStarted={onGetStarted} />
+          <UseCases />
         </Reveal>
         <Reveal>
           <Contact />
+        </Reveal>
+        <Reveal>
+          <FinalCTA onGetStarted={onGetStarted} />
         </Reveal>
         <Footer />
       </div>

@@ -51,7 +51,7 @@
   height: 12px;
   border-radius: 9999px;
   background: #fff;
-  border: 2px solid #7161ef;
+  border: 2px solid var(--dark-accent);
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.4);
   pointer-events: none;
   transform: translate(-50%, -50%);
@@ -86,7 +86,7 @@
   font-weight: 600;
   text-transform: capitalize;
   border: 1px solid transparent;
-  transition: all 0.15s;
+  transition: all 0.2s ease-out;
   color: rgba(255, 255, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.15);
 }
@@ -121,7 +121,7 @@
 .hbp-range {
   width: 100%;
   margin-bottom: 20px;
-  accent-color: #7161ef;
+  accent-color: var(--dark-accent);
 }
 
 .hbp-actions-row {
@@ -138,7 +138,7 @@
   font-size: 12px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.6);
-  transition: background-color 0.15s;
+  transition: background-color 0.2s ease-out;
 }
 .hbp-cancel-btn:hover {
   background: rgba(255, 255, 255, 0.1);
@@ -152,7 +152,7 @@
   padding: 8px 0;
   font-size: 12px;
   font-weight: 600;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s ease-out;
 }
 .hbp-apply-btn:hover {
   opacity: 0.9;
@@ -171,7 +171,7 @@
   font-size: 12px;
   font-weight: 600;
   color: #f5f3f0;
-  transition: background-color 0.15s;
+  transition: background-color 0.2s ease-out;
   margin-bottom: 12px;
 }
 .hbp-option-btn:hover {
@@ -208,7 +208,7 @@
 }
 .hbp-url-input:focus {
   outline: none;
-  border-color: #7161ef;
+  border-color: var(--dark-accent);
 }
 
 .hbp-url-submit {
@@ -222,7 +222,7 @@
   color: #f5f3f0;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: background-color 0.15s;
+  transition: background-color 0.2s ease-out;
 }
 .hbp-url-submit:hover {
   background: rgba(255, 255, 255, 0.1);
@@ -242,11 +242,11 @@
   height: 40px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: all 0.15s;
+  transition: all 0.2s ease-out;
 }
 .hbp-preset-swatch.is-active {
-  border-color: #7161ef;
-  box-shadow: 0 0 0 2px rgba(113, 97, 239, 0.3);
+  border-color: var(--dark-accent);
+  box-shadow: 0 0 0 2px rgba(var(--dark-accent-rgb), 0.3);
 }
 
 .hbp-animated-swatch {
@@ -256,14 +256,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.15s;
+  transition: all 0.2s ease-out;
 }
 .hbp-animated-swatch:hover {
   background: rgba(255, 255, 255, 0.05);
 }
 .hbp-animated-swatch.is-active {
-  border-color: #7161ef;
-  box-shadow: 0 0 0 2px rgba(113, 97, 239, 0.3);
+  border-color: var(--dark-accent);
+  box-shadow: 0 0 0 2px rgba(var(--dark-accent-rgb), 0.3);
 }
 
 .hbp-animated-icon {
@@ -277,7 +277,7 @@
   font-size: 11px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.45);
-  transition: color 0.15s;
+  transition: color 0.2s ease-out;
 }
 .hbp-reset-btn:hover {
   color: #f5f3f0;
@@ -294,7 +294,7 @@
   align-items: center;
   justify-content: center;
   color: rgba(255, 255, 255, 0.6);
-  transition: color 0.15s;
+  transition: color 0.2s ease-out;
 }
 .hbp-toggle-btn:hover {
   color: #f5f3f0;

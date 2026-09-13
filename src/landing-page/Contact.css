@@ -1,17 +1,14 @@
-.section-band.contact-section,
-.dark .section-band.contact-section {
-  background: #131313;
-  border-top-color: rgba(255, 255, 255, 0.1);
+.section-band.contact-section {
+  background: var(--bg-primary);
+  border-top-color: var(--border-subtle);
 }
 
-.contact-section .section-eyebrow,
-.dark .contact-section .section-eyebrow {
-  color: #9b8ff5;
+.contact-section .section-eyebrow {
+  color: var(--accent);
 }
 
-.contact-section .section-heading,
-.dark .contact-section .section-heading {
-  color: #f5f3f0;
+.contact-section .section-heading {
+  color: var(--text-primary);
 }
 
 .contact-grid {
@@ -39,7 +36,7 @@
 .contact-desc {
   font-size: 16px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-secondary);
   line-height: 1.625;
   max-width: 448px;
 }

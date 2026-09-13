@@ -1,10 +1,11 @@
 .landing-page {
   background: #fff;
   color: #131313;
+  font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 .dark .landing-page {
-  background: #131313;
-  color: #f5f3f0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }

@@ -9,7 +9,7 @@
   height: 6px;
   border-radius: 9999px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--dark-border-subtle);
 }
 .csm-progress-track.is-light {
   background: #e4e4e7;
@@ -18,13 +18,13 @@
 .csm-progress-fill {
   height: 100%;
   width: 80%;
-  background: #7161ef;
+  background: var(--dark-accent);
 }
 
 .csm-progress-count {
   font-size: 10px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--dark-text-muted);
 }
 .csm-progress-count.is-light {
   color: #9c9ca3;
@@ -32,11 +32,6 @@
 
 .csm-body {
   padding: 16px;
-  backdrop-filter: blur(4px);
-  background: rgba(211, 211, 211, 0.03);
-}
-.csm-body.is-light {
-  background: #fff;
 }
 
 .csm-groups-row {
@@ -64,7 +59,7 @@
   border-radius: 9999px;
   border-width: 2px;
   border-style: solid;
-  border-color: #1c1c1f;
+  border-color: var(--dark-bg-surface-raised);
 }
 .csm-avatar.is-light {
   border-color: #fff;
@@ -72,7 +67,7 @@
 
 .csm-live-text {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--dark-text-muted);
 }
 .csm-live-text.is-light {
   color: #9c9ca3;

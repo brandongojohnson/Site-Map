@@ -16,18 +16,18 @@
   }
 }
 .dark .final-cta-section {
-  border-top-color: rgba(255, 255, 255, 0.1);
-  background: #131313;
+  border-top-color: var(--dark-border-subtle);
+  background: var(--dark-bg-primary);
 }
 
 .final-cta-card {
   position: relative;
   max-width: 1152px;
   margin: 0 auto;
-  border-radius: 28px;
+  border-radius: 20px;
   overflow: hidden;
-  background: #131313;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--dark-bg-primary);
+  border: 1px solid var(--dark-border-subtle);
   padding: 96px 32px;
   text-align: center;
 }
@@ -51,14 +51,14 @@
 
 .final-cta-eyebrow {
   margin-bottom: 24px;
-  color: #9b8ff5;
+  color: var(--dark-accent);
 }
 
 .final-cta-title {
   font-size: 32px;
   font-weight: 400;
   letter-spacing: -0.025em;
-  color: #f5f3f0;
+  color: var(--dark-text-primary);
   line-height: 1.25;
   max-width: 672px;
   margin: 0 auto 24px;
@@ -72,7 +72,7 @@
 .final-cta-subtitle {
   font-size: 16px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--dark-text-secondary);
   max-width: 512px;
   margin: 0 auto 40px;
 }
@@ -100,9 +100,9 @@
   font-size: 15px;
 }
 .final-cta-btn.pill-outline {
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #f5f3f0;
+  border-color: var(--dark-border-subtle);
+  color: var(--dark-text-primary);
 }
 .final-cta-btn.pill-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--dark-bg-surface-raised);
 }

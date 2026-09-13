@@ -1,17 +1,17 @@
 .capabilities-section {
   position: relative;
-  padding: 96px 0;
+  padding: 112px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background: #fff;
 }
 @media (min-width: 768px) {
   .capabilities-section {
-    padding: 128px 0;
+    padding: 144px 0;
   }
 }
 .dark .capabilities-section {
-  border-top-color: rgba(255, 255, 255, 0.1);
-  background: #131313;
+  border-top-color: var(--border-subtle);
+  background: var(--bg-primary);
 }
 
 .capabilities-inner {
@@ -34,11 +34,11 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: normal;
-  color: #7161ef;
+  color: var(--accent);
   margin-bottom: 12px;
 }
 .dark .capabilities-eyebrow {
-  color: #9b8ff5;
+  color: var(--accent);
 }
 
 .capabilities-title {
@@ -54,22 +54,23 @@
   }
 }
 .dark .capabilities-title {
-  color: #f5f3f0;
+  color: var(--text-primary);
 }
 
+/* Color-blocked modular bento grid — separated blocks (visible gap, not a
+   shared hairline lattice) with large, uniformly rounded ("radial") corners
+   on every block, and every third block inverted to a solid accent fill so
+   the grid reads as distinct color blocks rather than one seamless sheet. */
 .capabilities-grid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 1px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-top:-2em;
+  gap: 16px;
+  margin-top: -2em;
 }
 @media (min-width: 640px) {
   .capabilities-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
   }
 }
 @media (min-width: 1024px) {
@@ -77,60 +78,63 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-.dark .capabilities-grid {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.1);
-}
 
 .capabilities-card {
-  background: #fff;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 32px;
   padding: 32px;
-  transition: background-color 0.3s;
+  transition: transform 0.25s var(--ease-snappy), box-shadow 0.25s var(--ease-snappy);
 }
 .capabilities-card:hover {
-  background: rgba(0, 0, 0, 0.02);
-}
-.dark .capabilities-card {
-  background: #131313;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.18);
 }
 .dark .capabilities-card:hover {
-  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.5);
+}
+
+/* Every third block: solid inverted fill (black-on-white / white-on-black)
+   as the bold "color block" among the neutral tiles. */
+.capabilities-card:nth-child(3n) {
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .capabilities-card-icon {
   font-size: 22px;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--text-secondary);
   margin-bottom: 20px;
   display: block;
-  transition: all 0.3s;
+  transition: all 0.2s ease-out;
 }
 .capabilities-card:hover .capabilities-card-icon {
-  color: #000;
+  color: var(--text-primary);
   transform: translateY(-2px);
 }
-.dark .capabilities-card-icon {
-  color: rgba(255, 255, 255, 0.7);
-}
-.dark .capabilities-card:hover .capabilities-card-icon {
-  color: #fff;
+.capabilities-card:nth-child(3n) .capabilities-card-icon,
+.capabilities-card:nth-child(3n):hover .capabilities-card-icon {
+  color: var(--accent-foreground);
+  opacity: 0.7;
 }
 
 .capabilities-card-title {
   font-size: 15px;
   font-weight: 400;
-  color: #131313;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
-.dark .capabilities-card-title {
-  color: #f5f3f0;
+.capabilities-card:nth-child(3n) .capabilities-card-title {
+  color: var(--accent-foreground);
 }
 
 .capabilities-card-desc {
   font-size: 13.5px;
   font-weight: 400;
-  color: rgba(0, 0, 0, 0.55);
+  color: var(--text-secondary);
   line-height: 1.625;
 }
-.dark .capabilities-card-desc {
-  color: rgba(255, 255, 255, 0.55);
+.capabilities-card:nth-child(3n) .capabilities-card-desc {
+  color: var(--accent-foreground);
+  opacity: 0.75;
 }

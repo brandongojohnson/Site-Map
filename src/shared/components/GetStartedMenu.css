@@ -8,7 +8,7 @@
   gap: 6px;
   padding: 10px 20px;
   border-radius: 9999px;
-  background: #7161ef;
+  background: var(--accent);
   color: #fff;
   font-size: 13px;
   font-weight: 600;
@@ -73,7 +73,7 @@
 
 .get-started-menu-item-icon .material-symbols-outlined {
   font-size: 16px;
-  color: #7161ef;
+  color: var(--accent);
 }
 
 .get-started-menu-item-label {
