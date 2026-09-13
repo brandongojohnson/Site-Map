@@ -89,8 +89,8 @@ const SitemapMockup = ({ className = '', light = false }) => (
               key={`${from}-${to}`}
               d={pathFor(from, to)}
               fill="none"
-              stroke={accented ? 'var(--dark-accent)' : light ? '#E4E4E7' : 'var(--dark-border-subtle)'}
-              strokeOpacity={accented ? 0.5 : 1}
+              stroke={accented ? (light ? '#000000' : 'var(--dark-accent)') : light ? '#E4E4E7' : 'var(--dark-border-subtle)'}
+              strokeOpacity={accented ? (light ? 0.4 : 0.5) : 1}
               strokeWidth={2}
             />
           );
