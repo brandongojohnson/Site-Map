@@ -59,8 +59,8 @@
 
 /* Color-blocked modular bento grid — separated blocks (visible gap, not a
    shared hairline lattice) with large, uniformly rounded ("radial") corners
-   on every block, and every third block inverted to a solid accent fill so
-   the grid reads as distinct color blocks rather than one seamless sheet. */
+   on every block, so the grid reads as distinct tiles rather than one
+   seamless sheet. */
 .capabilities-grid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -94,13 +94,6 @@
   box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.5);
 }
 
-/* Every third block: solid inverted fill (black-on-white / white-on-black)
-   as the bold "color block" among the neutral tiles. */
-.capabilities-card:nth-child(3n) {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
 .capabilities-card-icon {
   font-size: 22px;
   color: var(--text-secondary);
@@ -112,11 +105,6 @@
   color: var(--text-primary);
   transform: translateY(-2px);
 }
-.capabilities-card:nth-child(3n) .capabilities-card-icon,
-.capabilities-card:nth-child(3n):hover .capabilities-card-icon {
-  color: var(--accent-foreground);
-  opacity: 0.7;
-}
 
 .capabilities-card-title {
   font-size: 15px;
@@ -124,17 +112,10 @@
   color: var(--text-primary);
   margin-bottom: 8px;
 }
-.capabilities-card:nth-child(3n) .capabilities-card-title {
-  color: var(--accent-foreground);
-}
 
 .capabilities-card-desc {
   font-size: 13.5px;
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.625;
-}
-.capabilities-card:nth-child(3n) .capabilities-card-desc {
-  color: var(--accent-foreground);
-  opacity: 0.75;
 }
