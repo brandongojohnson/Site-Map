@@ -22,7 +22,7 @@ const LandingPage = ({ onGetStarted }) => {
     <div className={theme === 'dark' ? 'dark' : ''}>
       <div className="landing-page">
         <Nav onGetStarted={onGetStarted} theme={theme} onToggleTheme={toggleTheme} />
-        <Hero onGetStarted={onGetStarted} />
+        <Hero onGetStarted={onGetStarted} theme={theme} />
         <Capabilities />
         <Features light={theme === 'light'} />
         <Reveal>

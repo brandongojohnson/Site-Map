@@ -4,6 +4,8 @@ import HeroMockup from './mockups/HeroMockup';
 import { useHeroBackground } from './useHeroBackground';
 import HeroBackgroundPicker from './HeroBackgroundPicker';
 import HeroCanvas from './HeroCanvas';
+import HeroPrism from './HeroPrism';
+import { getHeroBackgroundFlags } from './heroBackgroundFlags';
 import { useAuth } from '../card-sort/useAuth';
 import './Hero.css';
 
@@ -14,7 +16,7 @@ const BACKGROUND_ADMIN_EMAIL = 'brandon.johnson0416@gmail.com';
 // Stacked hero: centered text, screenshot floating below. Both fade + slide
 // into place on mount (staggered) rather than waiting for scroll — this is
 // the first thing a visitor sees, so it should already be mid-entrance.
-const Hero = ({ onGetStarted }) => {
+const Hero = ({ onGetStarted, theme }) => {
   const [mounted, setMounted] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );
@@ -48,26 +50,16 @@ const Hero = ({ onGetStarted }) => {
     return () => observer.disconnect();
   }, []);
 
-  const isImage = heroBg?.type === 'image';
-  // "Animated" is its own opt-in choice in the picker (see
-  // HeroBackgroundPicker) — the older hand-rolled shader, kept for whoever
-  // already picked it.
-  const isAnimated = heroBg?.type === 'animated';
-  // A CSS-gradient preset needs a `value` to actually paint anything — this
-  // also guards against stale/unrecognized shapes left in the shared
-  // Firebase setting from since-removed background options (e.g. an old
-  // `{ type: 'galaxy' }` record), which would otherwise render as nothing.
-  const isPreset = Boolean(heroBg) && !isImage && !isAnimated && Boolean(heroBg.value);
+  const { isImage, isAnimated, isPreset, isDarkGradient } = getHeroBackgroundFlags(heroBg, theme);
 
   // object-fit/object-position/opacity are properties of a rendered <img>,
   // not of a CSS background-image — a custom photo renders as an actual img
-  // element so those controls have something real to act on. No admin
-  // override at all (not even a preset) means a flat solid color — the
-  // monochrome default every visitor sees unless the admin explicitly picks
-  // a preset/animated/image background instead.
+  // element so those controls have something real to act on.
   // No override: fall through to .hero-section's own CSS background (a flat
   // dark color in dark theme, an off-white with a soft accent blob in light
-  // theme — see Hero.css) rather than forcing one here.
+  // theme — see Hero.css). The prism canvas (dark theme only) layers on
+  // top of that flat color rather than replacing it, since it renders with
+  // a transparent background.
   const sectionStyle = isPreset
     ? {
       backgroundImage: heroBg.value,
@@ -80,6 +72,12 @@ const Hero = ({ onGetStarted }) => {
   return (
     <section ref={sectionRef} className="hero-section" style={sectionStyle}>
       {isAnimated && <HeroCanvas className="hero-bg-layer" />}
+
+      {isDarkGradient && (
+        <div className="hero-bg-layer">
+          <HeroPrism />
+        </div>
+      )}
 
       {isImage && (
         <img
