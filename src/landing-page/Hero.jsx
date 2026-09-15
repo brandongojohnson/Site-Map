@@ -109,13 +109,13 @@ const Hero = ({ onGetStarted, theme }) => {
           </div>
 
           <h1 className="hero-title">
-            <WordReveal lines={['Navigate Your', 'Digital Universe']} />
+            <WordReveal lines={['Turn Complexity', 'Into Clarity.']} />
           </h1>
         </div>
 
         <p
           className={`hero-subtitle hero-fade-in ${mounted ? 'is-mounted' : ''}`}
-          style={{ transitionDelay: '100ms' }}
+          style={{ transitionDelay: '100ms', color:"rgba(255,255,255,.7)", fontWeight:"100", marginVertical: "100em"}}
         >
           Ensure users find what they need. Optimize your site structure with card sorting and tree testing.
         </p>
