@@ -183,12 +183,16 @@
 
 /* The "Get started" panel specifically wants a true frosted look — lower
    opacity than the shared dropdown-glass default (0.95/0.85, which reads as
-   nearly solid) so the blurred page behind actually shows through. */
+   nearly solid), a stronger blur, and a saturation boost (the standard
+   macOS/iOS frosted-glass recipe) so it reads as glass even over fairly
+   plain backdrops, not just a flat translucent box. */
 .nav-start-panel.dropdown-glass {
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
 }
 .dark .nav-start-panel.dropdown-glass {
-  background: rgba(10, 10, 12, 0.55);
+  background: rgba(10, 10, 12, 0.45);
 }
 
 /* Light-mode nav: a barely-there white glass, hairline border — reads as
