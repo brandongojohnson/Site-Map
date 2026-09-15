@@ -181,6 +181,16 @@
   box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
 }
 
+/* The "Get started" panel specifically wants a true frosted look — lower
+   opacity than the shared dropdown-glass default (0.95/0.85, which reads as
+   nearly solid) so the blurred page behind actually shows through. */
+.nav-start-panel.dropdown-glass {
+  background: rgba(255, 255, 255, 0.55);
+}
+.dark .nav-start-panel.dropdown-glass {
+  background: rgba(10, 10, 12, 0.55);
+}
+
 /* Light-mode nav: a barely-there white glass, hairline border — reads as
    "floating over the page" rather than a stark white bar. Dark mode keeps
    its own always-dark treatment (see Nav.jsx for how darkCls is derived). */

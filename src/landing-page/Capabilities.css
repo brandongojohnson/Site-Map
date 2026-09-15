@@ -57,20 +57,22 @@
   color: var(--text-primary);
 }
 
-/* Color-blocked modular bento grid — separated blocks (visible gap, not a
-   shared hairline lattice) with large, uniformly rounded ("radial") corners
-   on every block, so the grid reads as distinct tiles rather than one
-   seamless sheet. */
+/* Non-modular grid — cells sit directly adjacent, sharing a 1px hairline
+   lattice and one outer rounded rect, rather than each being its own
+   separated, individually-rounded block. */
 .capabilities-grid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 16px;
+  gap: 1px;
+  background: var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
   margin-top: -2em;
 }
 @media (min-width: 640px) {
   .capabilities-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
   }
 }
 @media (min-width: 1024px) {
@@ -81,17 +83,11 @@
 
 .capabilities-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 32px;
   padding: 32px;
-  transition: transform 0.25s var(--ease-snappy), box-shadow 0.25s var(--ease-snappy);
+  transition: background-color 0.2s ease-out;
 }
 .capabilities-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.18);
-}
-.dark .capabilities-card:hover {
-  box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.5);
+  background: var(--bg-surface-raised);
 }
 
 .capabilities-card-icon {
