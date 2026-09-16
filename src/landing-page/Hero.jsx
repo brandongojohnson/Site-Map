@@ -50,7 +50,7 @@ const Hero = ({ onGetStarted, theme }) => {
     return () => observer.disconnect();
   }, []);
 
-  const { isImage, isAnimated, isPreset, isDarkGradient } = getHeroBackgroundFlags(heroBg, theme);
+  const { isImage, isAnimated, isPreset, isLightGradient, isDarkGradient } = getHeroBackgroundFlags(heroBg, theme);
 
   // object-fit/object-position/opacity are properties of a rendered <img>,
   // not of a CSS background-image — a custom photo renders as an actual img
@@ -75,7 +75,13 @@ const Hero = ({ onGetStarted, theme }) => {
 
       {isDarkGradient && (
         <div className="hero-bg-layer">
-          <HeroPrism />
+          <HeroPrism noise={0.025} glow={0.72} />
+        </div>
+      )}
+
+      {isLightGradient && (
+        <div className="hero-bg-layer">
+          <HeroPrism lightMode noise={0.025} glow={0.72} />
         </div>
       )}
 
@@ -115,7 +121,7 @@ const Hero = ({ onGetStarted, theme }) => {
 
         <p
           className={`hero-subtitle hero-fade-in ${mounted ? 'is-mounted' : ''}`}
-          style={{ transitionDelay: '100ms', color:"rgba(255,255,255,.7)", fontWeight:"100", marginVertical: "100em"}}
+          style={{ transitionDelay: '100ms' }}
         >
           Ensure users find what they need. Optimize your site structure with card sorting and tree testing.
         </p>

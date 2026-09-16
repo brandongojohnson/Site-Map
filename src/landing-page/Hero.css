@@ -170,8 +170,10 @@
 }
 
 .hero-btn-outline {
-  border: 1.5px solid #e7e7e9;
-  color: #858585;
+  /* Darker than the original #e7e7e9/#858585 — those were under WCAG AA's
+     4.5:1 body-text contrast minimum against the light-mode background. */
+  border: 1.5px solid #d4d4d8;
+  color: #3f3f46;
 }
 .hero-btn-outline:hover {
   background: #ffffff;

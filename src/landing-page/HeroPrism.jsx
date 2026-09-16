@@ -4,8 +4,10 @@ import './HeroPrism.css';
 
 // Rotating glass-pyramid shader, adapted from reactbits.dev's Prism
 // background (https://reactbits.dev/backgrounds/prism). Used as the hero
-// background in dark mode only — light mode keeps the flat off-white
-// default.
+// background in both themes: `lightMode` switches the shader's own output
+// mode from "colorful ink on transparent" (dark theme) to "colorful ink
+// mixed toward white, fully opaque" (light theme) — the component's own
+// built-in light/dark variant, not just a color swap.
 
 const HeroPrism = ({
   height = 3.5,
@@ -23,6 +25,7 @@ const HeroPrism = ({
   bloom = 1,
   suspendWhenOffscreen = false,
   timeScale = 0.5,
+  lightMode = false,
 }) => {
   const containerRef = useRef(null);
 
@@ -237,7 +240,7 @@ const HeroPrism = ({
           value: 1 / ((gl.drawingBufferHeight || 1) * 0.1 * SCALE),
         },
         uTimeScale: { value: TS },
-        uLightMode: { value: 0 },
+        uLightMode: { value: lightMode ? 1 : 0 },
       },
     });
     const mesh = new Mesh(gl, { geometry, program });
@@ -448,6 +451,7 @@ const HeroPrism = ({
     inertia,
     bloom,
     suspendWhenOffscreen,
+    lightMode,
   ]);
 
   return <div className="hero-prism" ref={containerRef} />;
