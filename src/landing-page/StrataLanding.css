@@ -9,7 +9,7 @@
 .strata-lp .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; line-height: 1; letter-spacing: normal; text-transform: none; white-space: nowrap; direction: ltr; }
 
 
-/* ---- default values for the --tw-* variables that the utility rules in strata/utilities.css read (gradients, transforms, filters, shadows) ---- */
+/* ---- default values for the --tw-* variables that the utility rules in StrataUtilities.css read (gradients, transforms, filters, shadows) ---- */
 .strata-lp, .strata-lp *, .strata-lp ::before, .strata-lp ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
