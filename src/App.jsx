@@ -6,6 +6,7 @@ import TakeCardSortStudy from "./card-sort/TakeStudy";
 import TreeTestHub from "./tree-test/TreeTestHub";
 import TakeTreeTestStudy from "./tree-test/TakeStudy";
 import LandingPage from "./landing-page/LandingPage";
+import Qarin from "./qarin/Qarin";
 
 export default function App() {
   const [view, setView] = useState("landing");
@@ -28,6 +29,11 @@ export default function App() {
   // live editor stays completely untouched.
   if (params.get("preview") === "sitemap") {
     return <SitemapAppPreview onNavigateApp={() => {}} />;
+  }
+
+  // Qarin recreation: reach it via ?preview=qarin (landing page untouched).
+  if (params.get("preview") === "qarin") {
+    return <Qarin />;
   }
 
   const navigate = (target) => {

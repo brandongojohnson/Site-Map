@@ -1,53 +1,9 @@
 import React from 'react';
-import { useTheme } from './useTheme';
-import Nav from './Nav';
-import Hero from './Hero';
-import Capabilities from './Capabilities';
-import Features from './Features';
-import Process from './Process';
-import Reveal from './Reveal';
-import UseCases from './UseCases';
-import Testimonial from './Testimonial';
-import Pricing from './Pricing';
-import FAQ from './FAQ';
-import FinalCTA from './FinalCTA';
-import Contact from './Contact';
-import Footer from './Footer';
-import './LandingPage.css';
+import StrataLanding from './StrataLanding';
 
-const LandingPage = ({ onGetStarted }) => {
-  const [theme, toggleTheme] = useTheme();
-
-  return (
-    <div className={theme === 'dark' ? 'dark' : ''}>
-      <div className="landing-page">
-        <Nav onGetStarted={onGetStarted} theme={theme} onToggleTheme={toggleTheme} />
-        <Hero onGetStarted={onGetStarted} theme={theme} />
-        <Capabilities />
-        <Features light={theme === 'light'} />
-        <Reveal>
-          <Testimonial />
-        </Reveal>
-        <Reveal>
-          <Pricing onGetStarted={onGetStarted} />
-        </Reveal>
-        <Reveal>
-          <FAQ />
-        </Reveal>
-        <Process />
-        <Reveal>
-          <UseCases />
-        </Reveal>
-        <Reveal>
-          <Contact />
-        </Reveal>
-        <Reveal>
-          <FinalCTA onGetStarted={onGetStarted} />
-        </Reveal>
-        <Footer />
-      </div>
-    </div>
-  );
-};
+// The landing page is the Strata/Sortly design (StrataLanding). The previous
+// section-by-section page (Hero, Capabilities, Features, ...) is no longer
+// rendered from here.
+const LandingPage = ({ onGetStarted }) => <StrataLanding onGetStarted={onGetStarted} />;
 
 export default LandingPage;

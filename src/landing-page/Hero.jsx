@@ -3,8 +3,6 @@ import WordReveal from './WordReveal';
 import HeroMockup from './mockups/HeroMockup';
 import { useHeroBackground } from './useHeroBackground';
 import HeroBackgroundPicker from './HeroBackgroundPicker';
-import HeroCanvas from './HeroCanvas';
-import HeroPrism from './HeroPrism';
 import { getHeroBackgroundFlags } from './heroBackgroundFlags';
 import { useAuth } from '../card-sort/useAuth';
 import './Hero.css';
@@ -50,7 +48,7 @@ const Hero = ({ onGetStarted, theme }) => {
     return () => observer.disconnect();
   }, []);
 
-  const { isImage, isAnimated, isPreset, isLightGradient, isDarkGradient } = getHeroBackgroundFlags(heroBg, theme);
+  const { isImage, isPreset } = getHeroBackgroundFlags(heroBg, theme);
 
   // object-fit/object-position/opacity are properties of a rendered <img>,
   // not of a CSS background-image — a custom photo renders as an actual img
@@ -71,20 +69,6 @@ const Hero = ({ onGetStarted, theme }) => {
 
   return (
     <section ref={sectionRef} className="hero-section" style={sectionStyle}>
-      {isAnimated && <HeroCanvas className="hero-bg-layer" />}
-
-      {isDarkGradient && (
-        <div className="hero-bg-layer">
-          <HeroPrism noise={0.025} glow={0.72} />
-        </div>
-      )}
-
-      {isLightGradient && (
-        <div className="hero-bg-layer">
-          <HeroPrism lightMode noise={0.025} glow={0.72} />
-        </div>
-      )}
-
       {isImage && (
         <img
           src={heroBg.src}
@@ -137,7 +121,7 @@ const Hero = ({ onGetStarted, theme }) => {
           <button
             onClick={() =>
               document
-                .querySelector('#capabilities')
+                .querySelector('#contact')
                 ?.scrollIntoView({ behavior: 'smooth' })
             }
             className="hero-btn-outline"

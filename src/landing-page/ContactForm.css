@@ -11,9 +11,12 @@
 .contact-field::placeholder {
   color: var(--text-muted);
 }
-.contact-field:focus {
+.contact-field:focus-visible {
   outline: none;
   border-color: var(--accent);
+  /* A border-color shift alone is too subtle a focus signal — pair it with
+     a visible ring, the conventional pattern for form fields. */
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.18);
 }
 
 .contact-field-textarea {

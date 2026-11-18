@@ -105,6 +105,81 @@
   font-size: 18px;
 }
 
+/* Below 768px, .nav-links (and .nav-login-btn below 640px) hide with no
+   other way to reach them — this toggle + .nav-mobile-panel is that other
+   way. Hidden again once .nav-links is back, so there's never a redundant
+   second nav. */
+.nav-mobile-toggle {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease-out, background-color 0.2s ease-out;
+}
+@media (min-width: 768px) {
+  .nav-mobile-toggle {
+    display: none;
+  }
+}
+.nav-mobile-toggle.is-dark {
+  color: var(--dark-text-secondary);
+}
+.nav-mobile-toggle.is-dark:hover {
+  color: var(--dark-text-primary);
+  background: var(--dark-bg-surface-raised);
+}
+.nav-mobile-toggle:not(.is-dark) {
+  color: rgba(0, 0, 0, 0.5);
+}
+.nav-mobile-toggle:not(.is-dark):hover {
+  color: #000;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.nav-mobile-toggle-icon {
+  font-size: 20px;
+}
+
+.nav-mobile-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 16px;
+  right: 16px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: 20px;
+  padding: 8px;
+}
+@media (min-width: 768px) {
+  .nav-mobile-panel {
+    display: none;
+  }
+}
+
+.nav-mobile-link {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: background-color 0.2s ease-out;
+}
+.nav-mobile-link:hover {
+  background: var(--bg-surface-raised);
+}
+.dark .nav-mobile-link {
+  color: var(--dark-text-primary);
+}
+.dark .nav-mobile-link:hover {
+  background: var(--dark-bg-surface-raised);
+}
+
 .nav-avatar-wrap {
   position: relative;
 }

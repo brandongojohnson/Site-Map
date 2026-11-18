@@ -26,15 +26,27 @@ const QUESTIONS = [
   },
 ];
 
-const FAQItem = ({ q, a }) => {
+const FAQItem = ({ q, a, id }) => {
   const [open, setOpen] = useState(false);
+  const panelId = `faq-panel-${id}`;
   return (
     <div className="faq-item">
-      <button onClick={() => setOpen((o) => !o)} className="faq-item-btn">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="faq-item-btn"
+        aria-expanded={open}
+        aria-controls={panelId}
+      >
         <span className="faq-item-question">{q}</span>
-        <span className={`material-symbols-outlined faq-item-icon ${open ? 'is-open' : ''}`}>add</span>
+        <span className={`material-symbols-outlined faq-item-icon ${open ? 'is-open' : ''}`} aria-hidden="true">
+          add
+        </span>
       </button>
-      {open && <p className="faq-item-answer">{a}</p>}
+      {open && (
+        <p id={panelId} className="faq-item-answer">
+          {a}
+        </p>
+      )}
     </div>
   );
 };
@@ -47,18 +59,12 @@ const FAQ = () => (
           <div>
             <p className="section-eyebrow">FAQ</p>
             <h2 className="section-heading faq-title">Common questions.</h2>
-            <p className="faq-contact-line">
-              Still have a question?{' '}
-              <a href="#top" className="faq-contact-link">
-                Ask us directly →
-              </a>
-            </p>
           </div>
         </Reveal>
         <Reveal>
           <div>
-            {QUESTIONS.map((item) => (
-              <FAQItem key={item.q} {...item} />
+            {QUESTIONS.map((item, i) => (
+              <FAQItem key={item.q} {...item} id={i} />
             ))}
           </div>
         </Reveal>

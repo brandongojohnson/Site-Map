@@ -26,7 +26,7 @@
   margin: 0 auto;
   border-radius: 20px;
   overflow: hidden;
-  background: var(--dark-bg-primary);
+  background: #141416;
   border: 1px solid var(--dark-border-subtle);
   padding: 96px 32px;
   text-align: center;
@@ -36,13 +36,6 @@
     padding-top: 128px;
     padding-bottom: 128px;
   }
-}
-
-.final-cta-bg-layer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
 }
 
 .final-cta-content {

@@ -221,8 +221,25 @@
   border-color: var(--dark-border-subtle);
   box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.4);
 }
-.dark .glass-nav-scrolled {
-  background: rgba(19, 19, 19, 0.6);
-  border-color: var(--dark-border-subtle);
-  box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.4);
+
+/* Consistent, visible keyboard-focus indicator across the whole landing
+   page — almost nothing had one before this pass (only ContactForm and the
+   hero background picker touched :focus at all). :focus-visible rather
+   than :focus so it only shows for keyboard navigation, not mouse clicks. */
+.landing-page a:focus-visible,
+.landing-page button:focus-visible,
+.landing-page input:focus-visible,
+.landing-page textarea:focus-visible,
+.landing-page select:focus-visible,
+.landing-page [tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* FinalCTA is the one section left permanently dark regardless of the
+   theme toggle — its focus ring must use the fixed dark accent, since
+   --accent would go black-on-black there in light theme. */
+.final-cta-section a:focus-visible,
+.final-cta-section button:focus-visible {
+  outline-color: var(--dark-accent);
 }

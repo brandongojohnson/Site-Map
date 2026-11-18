@@ -20,29 +20,6 @@
   }
 }
 
-.faq-contact-line {
-  font-size: 14px;
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.5);
-}
-.dark .faq-contact-line {
-  color: var(--text-secondary);
-}
-
-.faq-contact-link {
-  color: var(--accent);
-  transition: color 0.2s ease-out;
-}
-.faq-contact-link:hover {
-  color: #131313;
-}
-.dark .faq-contact-link {
-  color: var(--accent);
-}
-.dark .faq-contact-link:hover {
-  color: var(--text-primary);
-}
-
 .faq-item {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 20px 0;

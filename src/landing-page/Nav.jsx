@@ -27,6 +27,10 @@ const Nav = ({ onGetStarted, theme, onToggleTheme }) => {
   const [startOpen, setStartOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  // Below 768px, .nav-links and .nav-login-btn hide entirely with no other
+  // way to reach them — this panel is that "other way" (see .nav-mobile-*
+  // in Nav.css, only shown below that breakpoint).
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -74,12 +78,13 @@ const Nav = ({ onGetStarted, theme, onToggleTheme }) => {
 
         <div className="nav-actions">
           <button
-            onClick={onToggleTheme}
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className={`nav-theme-btn ${darkCls}`}
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            className={`nav-mobile-toggle ${darkCls}`}
           >
-            <span className="material-symbols-outlined nav-theme-icon">
-              {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+            <span className="material-symbols-outlined nav-mobile-toggle-icon">
+              {mobileOpen ? 'close' : 'menu'}
             </span>
           </button>
 
@@ -170,6 +175,37 @@ const Nav = ({ onGetStarted, theme, onToggleTheme }) => {
           </div>
         </div>
       </nav>
+
+      {mobileOpen && (
+        <>
+          <button aria-label="Close menu" onClick={() => setMobileOpen(false)} className="nav-menu-overlay" />
+          <div className={`nav-mobile-panel ${DROPDOWN_GLASS}`}>
+          {LINKS.map((l) => (
+            <button
+              key={l.label}
+              onClick={() => {
+                setMobileOpen(false);
+                scrollTo(l.href);
+              }}
+              className="nav-mobile-link"
+            >
+              {l.label}
+            </button>
+          ))}
+          {!user && (
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                setAuthOpen(true);
+              }}
+              className="nav-mobile-link"
+            >
+              Log in
+            </button>
+          )}
+          </div>
+        </>
+      )}
     </header>
 
     {/* Rendered as a header sibling, not a child — GLASS_NAV_SCROLLED's

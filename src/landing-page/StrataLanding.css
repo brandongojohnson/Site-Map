@@ -1,0 +1,154 @@
+@tailwind utilities;
+
+/* ---- scoped reset (replaces Tailwind preflight so the rest of the app is untouched) ---- */
+.strata-lp { background: #000; color: #f4f4f5; font-family: 'Onest', 'Inter', -apple-system, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
+.strata-lp *, .strata-lp *::before, .strata-lp *::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: currentColor; }
+.strata-lp h1, .strata-lp h2, .strata-lp h3, .strata-lp h4, .strata-lp p, .strata-lp ul { margin: 0; font-size: inherit; font-weight: inherit; }
+.strata-lp ul { padding: 0; list-style: none; }
+.strata-lp a { color: inherit; text-decoration: inherit; }
+.strata-lp button { background: transparent; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; text-align: inherit; }
+.strata-lp svg, .strata-lp img { display: block; }
+.strata-lp .hidden { display: none; }
+.strata-lp .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; line-height: 1; letter-spacing: normal; text-transform: none; white-space: nowrap; direction: ltr; }
+
+
+/* ---- Tailwind's base CSS variables (gradients, transforms, filters, shadows), scoped to the landing page ---- */
+.strata-lp, .strata-lp *, .strata-lp ::before, .strata-lp ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  
+}
+
+/* ---- design-specific classes from the Strata design ---- */
+@keyframes strata-marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+.strata-lp .animate-marquee { display: flex; width: max-content; animation: strata-marquee 35s linear infinite; }
+.strata-lp .animate-marquee:hover { animation-play-state: paused; }
+.strata-lp .glass-card { background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); }
+.strata-lp .glass-card-hover { transition: all .3s cubic-bezier(.16, 1, .3, 1); }
+.strata-lp .glass-card-hover:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.22); transform: translateY(-2px); box-shadow: 0 25px 60px rgba(0, 102, 255, 0.15); }
+.strata-lp .text-glow { text-shadow: 0 0 40px rgba(255, 255, 255, 0.35); }
+.strata-lp .vision-glow { box-shadow: 0 0 60px -10px rgba(0, 102, 255, 0.35); }
+@media (prefers-reduced-motion: reduce) { .strata-lp .animate-marquee, .strata-lp .animate-ping { animation: none; } }
+
+/* ================= LIGHT MODE =================
+   The design is authored dark. .is-light remaps its colour utilities. */
+.strata-lp { transition: background-color .35s ease, color .35s ease; }
+.strata-lp.is-light { --ink: #0b0b0f; background: #f5f5f7; color: #18181b; color-scheme: light; }
+.strata-lp.is-light.bg-black, .strata-lp.is-light .bg-black { background-color: #f5f5f7; }
+.strata-lp.is-light .text-glow { text-shadow: none; }
+
+/* text */
+.strata-lp.is-light .text-white { color: var(--ink); }
+.strata-lp.is-light .hover\:text-white:hover { color: var(--ink); }
+.strata-lp.is-light .text-zinc-100 { color: #18181b; }
+.strata-lp.is-light .text-zinc-200 { color: #27272a; }
+.strata-lp.is-light .text-zinc-300 { color: #3f3f46; }
+.strata-lp.is-light .text-zinc-400, .strata-lp.is-light .text-\[\#a1a1aa\] { color: #52525b; }
+.strata-lp.is-light .text-zinc-500 { color: #71717a; }
+.strata-lp.is-light .text-white\/70 { color: rgba(11,11,15,.6); }
+.strata-lp.is-light .text-\[\#2997ff\] { color: #0071e3; }
+.strata-lp.is-light .text-emerald-400 { color: #059669; }
+
+/* white-on-colour stays white (blue chips/buttons, avatars) */
+.strata-lp.is-light .bg-\[\#0071e3\], .strata-lp.is-light .bg-\[\#0071e3\] .text-white,
+.strata-lp.is-light .bg-amber-500, .strata-lp.is-light .bg-purple-500,
+.strata-lp.is-light .bg-zinc-800 { color: #fff; }
+
+/* the white pill buttons become dark pills */
+.strata-lp.is-light .bg-white.text-black { background-color: #0b0b0f; color: #fff; }
+.strata-lp.is-light .hover\:bg-zinc-200:hover { background-color: #27272a; }
+.strata-lp.is-light .bg-white { background-color: #0b0b0f; }
+
+/* translucent white fills -> translucent black fills */
+.strata-lp.is-light .bg-white\/5, .strata-lp.is-light .bg-white\/\[0\.02\], .strata-lp.is-light .bg-white\/\[0\.03\], .strata-lp.is-light .bg-white\/\[0\.04\] { background-color: rgba(0,0,0,.035); }
+.strata-lp.is-light .bg-white\/10 { background-color: rgba(0,0,0,.06); }
+.strata-lp.is-light .bg-white\/15 { background-color: rgba(0,0,0,.08); }
+.strata-lp.is-light .bg-white\/20 { background-color: rgba(0,0,0,.12); }
+.strata-lp.is-light .hover\:bg-white\/5:hover { background-color: rgba(0,0,0,.05); }
+.strata-lp.is-light .hover\:bg-white\/10:hover { background-color: rgba(0,0,0,.08); }
+.strata-lp.is-light .hover\:bg-white\/15:hover { background-color: rgba(0,0,0,.1); }
+/* dark inset panels -> light inset panels */
+.strata-lp.is-light .bg-black\/40, .strata-lp.is-light .bg-black\/50, .strata-lp.is-light .bg-black\/60 { background-color: rgba(0,0,0,.04); }
+
+/* borders */
+.strata-lp.is-light .border-white\/5 { border-color: rgba(0,0,0,.05); }
+.strata-lp.is-light .border-white\/10 { border-color: rgba(0,0,0,.1); }
+.strata-lp.is-light .border-white\/15 { border-color: rgba(0,0,0,.13); }
+.strata-lp.is-light .border-white\/20 { border-color: rgba(0,0,0,.16); }
+.strata-lp.is-light .border-black { border-color: #fff; }
+.strata-lp.is-light .border-\[\#2997ff\] { border-color: #0071e3; }
+
+/* glass + glows */
+.strata-lp.is-light .glass-card { background: rgba(255,255,255,.72); border-color: rgba(0,0,0,.08); box-shadow: 0 10px 34px rgba(20,20,40,.08); }
+.strata-lp.is-light .glass-card-hover:hover { background: #fff; border-color: rgba(0,113,227,.35); box-shadow: 0 18px 44px rgba(0,113,227,.14); }
+.strata-lp.is-light .vision-glow { box-shadow: 0 0 60px -10px rgba(0,113,227,.22); }
+.strata-lp.is-light [class*="rgba(0,0,0,0.8)"], .strata-lp.is-light [class*="rgba(0,0,0,0.9)"], .strata-lp.is-light [class*="rgba(0,0,0,0.6)"] { box-shadow: 0 14px 40px rgba(20,20,40,.12); }
+.strata-lp.is-light [class*="rgba(255,255,255,0.4)"], .strata-lp.is-light [class*="rgba(255,255,255,0.35)"] { box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+.strata-lp.is-light [class*="rgba(255,255,255,0.12)_1px"] { background-image: radial-gradient(rgba(0,0,0,.12) 1px, transparent 1px); }
+.strata-lp.is-light .theme-toggle { color: #52525b; }
+.strata-lp.is-light .text-red-400 { color: #dc2626; }
+.strata-lp.is-light .placeholder\:text-zinc-500::placeholder { color: #8a8a93; }
+.strata-lp.is-light .focus\:border-\[\#2997ff\]:focus { border-color: #0071e3; }
+.strata-lp.is-light .rotate-45.text-\[\#2997ff\] { color: #0071e3; }
+
+/* ---- hero mockup: scripted collaborators create/delete nodes ---- */
+.strata-lp .strata-cursor { transition: left 1.2s cubic-bezier(.45,.05,.35,1), top 1.2s cubic-bezier(.45,.05,.35,1); will-change: left, top; }
+.strata-lp .cursor-ring { position: absolute; left: 0; top: 0; width: 26px; height: 26px; margin: -9px 0 0 -9px; border-radius: 9999px; border: 2px solid currentColor; animation: strata-ring .55s ease-out forwards; }
+@keyframes strata-ring { from { transform: scale(.3); opacity: .95; } to { transform: scale(1.7); opacity: 0; } }
+.strata-lp .dn-cell { flex: 1 1 0%; min-width: 0; }
+.strata-lp .dn-in { animation: strata-node-in .5s cubic-bezier(.2,.8,.2,1) both; }
+.strata-lp .dn-out { animation: strata-node-out .45s ease-in both; pointer-events: none; }
+@keyframes strata-node-in { from { flex-grow: 0; opacity: 0; } to { flex-grow: 1; opacity: 1; } }
+@keyframes strata-node-out { from { flex-grow: 1; opacity: 1; } to { flex-grow: 0; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .strata-lp .strata-cursor { transition: none; } .strata-lp .dn-in, .strata-lp .dn-out { animation: none; } }
+.strata-lp .strata-caret { display: inline-block; width: 1.5px; height: 1em; margin-left: 1px; vertical-align: -2px; background: #2997ff; animation: strata-blink 1s steps(1) infinite; }
+@keyframes strata-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .strata-lp .strata-caret { animation: none; } }

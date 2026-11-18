@@ -1,21 +1,9 @@
 import React from 'react';
 import './Footer.css';
 
-const COLUMNS = [
-  {
-    title: 'Platform',
-    links: ['Card Sort', 'Sitemap Builder', 'Insights Dashboard', 'Integrations', 'Pricing'],
-  },
-  {
-    title: 'Resources',
-    links: ['Guides', 'Templates', 'Blog', 'Help Center', 'API Docs'],
-  },
-  {
-    title: 'Legal',
-    links: ['Privacy Policy', 'Terms of Service', 'Security', 'Cookie Policy'],
-  },
-];
-
+// No Platform/Resources/Legal link columns here — those pointed at pages
+// that don't exist yet (they all fell back to "#top"), which read as
+// broken/misleading navigation. Re-add once there are real destinations.
 const SOCIALS = [
   { label: 'X (Twitter)', icon: 'alternate_email' },
   { label: 'LinkedIn', icon: 'work' },
@@ -26,31 +14,14 @@ const SOCIALS = [
 const Footer = () => (
   <footer id="footer" className="landing-footer">
     <div className="landing-footer-inner">
-      <div className="footer-grid">
-        <div>
-          <a href="#top" className="footer-brand-link">
-            Sortly
-          </a>
-          <p className="footer-brand-desc">
-            Card sorting and sitemap design for teams who'd rather agree on structure once, in
-            one place.
-          </p>
-        </div>
-
-        {COLUMNS.map((col) => (
-          <div key={col.title}>
-            <h4 className="footer-col-title">{col.title}</h4>
-            <ul className="footer-col-links">
-              {col.links.map((link) => (
-                <li key={link}>
-                  <a href="#top" className="footer-link">
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div className="footer-brand">
+        <a href="#top" className="footer-brand-link">
+          Sortly
+        </a>
+        <p className="footer-brand-desc">
+          Card sorting and sitemap design for teams who'd rather agree on structure once, in
+          one place.
+        </p>
       </div>
 
       <div className="footer-bottom">
