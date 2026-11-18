@@ -89,7 +89,7 @@
   transition: all 0.15s;
 }
 .wizard-progress-bar.is-done {
-  background: #7161ef;
+  background: var(--app-accent);
 }
 .wizard-progress-bar.is-pending {
   background: #dcdcdc;
@@ -147,7 +147,7 @@
 }
 .wizard-input:focus {
   outline: none;
-  border-color: #7161ef;
+  border-color: var(--app-accent-text);
 }
 
 .wizard-textarea-intention {
@@ -223,7 +223,7 @@
 
 .wizard-next-btn {
   padding: 12px 32px;
-  background: #7161ef;
+  background: var(--app-accent);
   color: #fff;
   border-radius: 4px;
   font-weight: 700;

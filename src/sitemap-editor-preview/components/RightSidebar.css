@@ -1,4 +1,4 @@
-.right-sidebar {
+.sitemap-preview .right-sidebar {
   position: fixed;
   right: 0;
   top: 0;
@@ -11,14 +11,14 @@
   overflow: auto;
 }
 
-.right-sidebar-header {
+.sitemap-preview .right-sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
 }
 
-.right-sidebar-title {
+.sitemap-preview .right-sidebar-title {
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -26,27 +26,27 @@
   color: var(--text-primary);
 }
 
-.right-sidebar-close {
+.sitemap-preview .right-sidebar-close {
   color: var(--text-secondary);
   transition: color 0.2s ease-out;
 }
-.right-sidebar-close:hover {
+.sitemap-preview .right-sidebar-close:hover {
   color: var(--accent);
 }
 
-.right-sidebar-body {
+.sitemap-preview .right-sidebar-body {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-.right-sidebar-field {
+.sitemap-preview .right-sidebar-field {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.right-sidebar-label {
+.sitemap-preview .right-sidebar-label {
   display: block;
   font-size: 10px;
   text-transform: uppercase;
@@ -54,7 +54,7 @@
   color: var(--text-secondary);
 }
 
-.right-sidebar-input {
+.sitemap-preview .right-sidebar-input {
   width: 100%;
   background: var(--bg-surface-raised);
   border: 1px solid var(--border-subtle);
@@ -64,13 +64,13 @@
   color: var(--text-primary);
   transition: all 0.2s ease-out;
 }
-.right-sidebar-input:focus {
+.sitemap-preview .right-sidebar-input:focus {
   outline: none;
   box-shadow: 0 0 0 1px var(--accent);
   background: var(--bg-surface-raised);
 }
 
-.right-sidebar-slug-wrap {
+.sitemap-preview .right-sidebar-slug-wrap {
   display: flex;
   align-items: center;
   background: var(--bg-surface-raised);
@@ -79,14 +79,14 @@
   overflow: hidden;
 }
 
-.right-sidebar-slug-prefix {
+.sitemap-preview .right-sidebar-slug-prefix {
   padding-left: 16px;
   font-size: 12px;
   color: var(--text-muted);
   font-family: 'JetBrains Mono', monospace;
 }
 
-.right-sidebar-slug-input {
+.sitemap-preview .right-sidebar-slug-input {
   width: 100%;
   background: transparent;
   border: none;
@@ -96,11 +96,11 @@
   font-size: 12px;
   color: var(--text-primary);
 }
-.right-sidebar-slug-input:focus {
+.sitemap-preview .right-sidebar-slug-input:focus {
   outline: none;
 }
 
-.right-sidebar-textarea {
+.sitemap-preview .right-sidebar-textarea {
   width: 100%;
   background: var(--bg-surface-raised);
   border: 1px solid var(--border-subtle);
@@ -111,18 +111,18 @@
   transition: all 0.2s ease-out;
   resize: none;
 }
-.right-sidebar-textarea:focus {
+.sitemap-preview .right-sidebar-textarea:focus {
   outline: none;
   box-shadow: 0 0 0 1px var(--accent);
   background: var(--bg-surface-raised);
 }
 
-.right-sidebar-status-row {
+.sitemap-preview .right-sidebar-status-row {
   display: flex;
   gap: 8px;
 }
 
-.right-sidebar-status-btn {
+.sitemap-preview .right-sidebar-status-btn {
   flex: 1 1 0%;
   padding: 8px 0;
   border-radius: 8px;
@@ -133,26 +133,26 @@
   transition: color 0.2s ease-out, background-color 0.2s ease-out;
 }
 
-.right-sidebar-status-btn.is-active {
+.sitemap-preview .right-sidebar-status-btn.is-active {
   background: var(--accent);
   color: var(--accent-foreground);
 }
 
-.right-sidebar-status-btn.is-inactive {
+.sitemap-preview .right-sidebar-status-btn.is-inactive {
   background: var(--bg-surface-raised);
   color: var(--text-secondary);
 }
-.right-sidebar-status-btn.is-inactive:hover {
+.sitemap-preview .right-sidebar-status-btn.is-inactive:hover {
   background: #26272b;
 }
 
-.right-sidebar-delete-section {
+.sitemap-preview .right-sidebar-delete-section {
   padding-top: 32px;
   margin-top: 32px;
   border-top: 1px solid var(--border-subtle);
 }
 
-.right-sidebar-delete-btn {
+.sitemap-preview .right-sidebar-delete-btn {
   width: 100%;
   display: flex;
   align-items: center;
@@ -168,10 +168,10 @@
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
-.right-sidebar-delete-btn:hover {
+.sitemap-preview .right-sidebar-delete-btn:hover {
   background: rgba(239, 68, 68, 0.1);
 }
 
-.right-sidebar-delete-icon {
+.sitemap-preview .right-sidebar-delete-icon {
   font-size: 14px;
 }

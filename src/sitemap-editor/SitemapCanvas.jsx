@@ -15,8 +15,8 @@ const SitemapCanvas = ({
     <main
       className="sitemap-canvas"
       style={{
-        background: '#fafafa',
-        backgroundImage: 'radial-gradient(circle, #d0d0d0 1px, transparent 1px)',
+        background: 'var(--app-canvas-bg, #fafafa)',
+        backgroundImage: 'radial-gradient(circle, var(--app-canvas-dot, #d0d0d0) 1px, transparent 1px)',
         backgroundSize: '24px 24px',
         cursor: isPanning ? 'grabbing' : 'grab',
         marginRight: selectedId ? '320px' : '0',
@@ -40,7 +40,7 @@ const SitemapCanvas = ({
                 key={i}
                 d={elbowPath(e.x1, e.y1, e.x2, e.y2)}
                 fill="none"
-                stroke="#d0d0d0"
+                stroke="var(--app-canvas-dot, #d0d0d0)"
                 strokeWidth={1.5}
                 strokeLinecap="round"
               />

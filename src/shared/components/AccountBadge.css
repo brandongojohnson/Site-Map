@@ -37,7 +37,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #eeecfd;
+  background: var(--app-accent-tint);
   font-size: 13px;
   font-weight: 600;
   color: var(--accent);

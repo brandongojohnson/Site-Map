@@ -7,7 +7,8 @@
    Naming matches the landing page's token system (see sharedStyles.css) —
    this preview is always-dark, so it only needs one set of values rather
    than the light/dark split used there. */
-:root {
+.sitemap-preview {
+  display: contents; /* wrapper only carries the tokens; it must not affect layout */
   --bg-primary: #0a0a0b;
   --bg-surface: #141416;
   --bg-surface-raised: #1c1d20;

@@ -83,7 +83,7 @@ const StrataContact = () => (
         <div className="block font-mono text-[11px] text-[#2997ff] uppercase tracking-wider mb-4">
           [ Get in touch ]
         </div>
-        <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.03em] text-white leading-[1.1] mb-5">
+        <h2 className="text-3xl md:text-5xl font-normal tracking-[-0.03em] text-white leading-[1.1] mb-5">
           Have a question before you start?
         </h2>
         <p className="text-[16px] text-[#a1a1aa] leading-relaxed max-w-md">

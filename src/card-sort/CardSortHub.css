@@ -65,7 +65,7 @@
 }
 .card-sort-delete-btn:hover {
   background: #f3f3f4;
-  color: #7161ef;
+  color: var(--app-accent-text);
 }
 
 .card-sort-delete-icon {
@@ -131,7 +131,7 @@
   text-align: left;
   border-radius: 8px;
   padding: 24px;
-  background: #dc2626;
+  background: var(--app-accent);
   color: #fff;
   transition: opacity 0.15s;
 }

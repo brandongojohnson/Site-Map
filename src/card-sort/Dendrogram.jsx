@@ -99,7 +99,7 @@ const Dendrogram = ({ labels, matrix }) => {
                 y={leaf.y}
                 dominantBaseline="middle"
                 fontSize={11}
-                fill="#0b0b0b"
+                fill="var(--app-ink, #0b0b0b)"
               >
                 {leaf.label}
               </text>

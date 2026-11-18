@@ -242,7 +242,7 @@
 
 .results-action-primary {
   padding: 12px 24px;
-  background: #dc2626;
+  background: var(--app-accent);
   color: #fff;
   border-radius: 4px;
   font-weight: 700;
@@ -334,11 +334,11 @@
   background: #e8e8e8;
 }
 .results-tab.is-active {
-  background: #dc2626;
+  background: var(--app-accent);
   color: #fff;
 }
 .results-tab.is-active:hover {
-  background: #dc2626;
+  background: var(--app-accent);
 }
 
 .results-toolbar-actions {
@@ -402,7 +402,7 @@
 .centered-check-badge {
   width: 64px;
   height: 64px;
-  background: #7161ef;
+  background: var(--app-accent);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -453,7 +453,7 @@
 .centered-copy-btn {
   flex-shrink: 0;
   padding: 8px 16px;
-  background: #dc2626;
+  background: var(--app-accent);
   color: #fff;
   border-radius: 4px;
   font-weight: 700;
@@ -561,13 +561,13 @@
 }
 .take-study-name-input:focus {
   outline: none;
-  border-color: #7161ef;
+  border-color: var(--app-accent-text);
 }
 
 .take-study-begin-btn {
   width: 100%;
   padding: 12px 0;
-  background: #dc2626;
+  background: var(--app-accent);
   color: #fff;
   border-radius: 4px;
   font-weight: 700;

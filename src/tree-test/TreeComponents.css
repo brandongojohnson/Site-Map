@@ -168,7 +168,7 @@
 }
 .tasks-step-remove-btn:hover {
   background: #f3f3f4;
-  color: #7161ef;
+  color: var(--app-accent-text);
 }
 
 .tasks-step-form {
@@ -202,7 +202,7 @@
 .tasks-step-add-btn {
   margin-top: 16px;
   padding: 10px 20px;
-  background: #7161ef;
+  background: var(--app-accent);
   color: #fff;
   border-radius: 4px;
   font-weight: 700;
@@ -255,13 +255,13 @@
   background: #fafafa;
 }
 .tree-picker-row.is-checked {
-  background: #eeecfd;
+  background: var(--app-accent-tint);
   border-color: rgba(113, 97, 239, 0.4);
 }
 
 .tree-picker-checkbox {
   border-radius: 2px;
-  accent-color: #7161ef;
+  accent-color: var(--app-accent-text);
 }
 
 .tree-picker-row-icon {
@@ -310,7 +310,7 @@
   color: #8a8a8a;
 }
 .tree-nav-breadcrumb-btn:hover {
-  color: #7161ef;
+  color: var(--app-accent-text);
   background: #f3f3f4;
 }
 .tree-nav-breadcrumb-btn.is-current {
@@ -376,7 +376,7 @@
 
 .tree-nav-choose-btn {
   padding: 10px 20px;
-  background: #7161ef;
+  background: var(--app-accent);
   color: #fff;
   border-radius: 4px;
   font-weight: 700;

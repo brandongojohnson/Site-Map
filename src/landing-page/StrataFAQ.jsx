@@ -63,7 +63,7 @@ const StrataFAQ = () => (
         <div className="block font-mono text-[11px] text-[#2997ff] uppercase tracking-wider mb-4">
           [ FAQ ]
         </div>
-        <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.03em] text-white leading-[1.1]">
+        <h2 className="text-3xl md:text-5xl font-normal tracking-[-0.03em] text-white leading-[1.1]">
           Common questions.
         </h2>
       </div>

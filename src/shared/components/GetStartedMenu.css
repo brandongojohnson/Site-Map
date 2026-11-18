@@ -68,7 +68,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: #eeecfd;
+  background: var(--app-accent-tint);
 }
 
 .get-started-menu-item-icon .material-symbols-outlined {

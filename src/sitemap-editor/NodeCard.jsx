@@ -19,7 +19,7 @@ const NodeCard = ({ node, isSelected, onSelect, onAddChild }) => {
           <feDropShadow
             dx="0" dy="2"
             stdDeviation={isSelected ? '6' : '3'}
-            floodColor={isSelected ? '#7161EF' : '#c6c6c6'}
+            floodColor={isSelected ? 'var(--app-accent, #0071e3)' : '#c6c6c6'}
             floodOpacity={isSelected ? '0.25' : '0.25'}
           />
         </filter>
@@ -29,8 +29,8 @@ const NodeCard = ({ node, isSelected, onSelect, onAddChild }) => {
         x={0} y={0}
         width={NODE_W} height={NODE_H}
         rx={12} ry={12}
-        fill="white"
-        stroke={isSelected ? '#7161EF' : hovered ? '#555' : '#e0e0e0'}
+        fill="var(--app-node-fill, white)"
+        stroke={isSelected ? 'var(--app-accent, #0071e3)' : hovered ? 'var(--app-node-stroke-hover, #555)' : 'var(--app-node-stroke, #e0e0e0)'}
         strokeWidth={isSelected ? 2 : 1}
         filter={`url(#shadow-${node.id})`}
         onClick={() => onSelect()}
@@ -41,7 +41,7 @@ const NodeCard = ({ node, isSelected, onSelect, onAddChild }) => {
         {node.label}
       </text>
 
-      <text x={12} y={58} fontSize={15} fill="#111" fontFamily="inherit"
+      <text x={12} y={58} fontSize={15} fill="var(--app-ink, #111)" fontFamily="inherit"
         style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
         onClick={() => onSelect()}>
         {node.title}
@@ -71,7 +71,7 @@ const NodeCard = ({ node, isSelected, onSelect, onAddChild }) => {
 
       {hovered && (
         <g onClick={(e) => { e.stopPropagation(); onAddChild(node.id); }}>
-          <circle cx={NODE_W / 2} cy={NODE_H + 28} r={14} fill="#7161EF" stroke="white" strokeWidth={2} />
+          <circle cx={NODE_W / 2} cy={NODE_H + 28} r={14} fill="var(--app-accent, #0071e3)" stroke="var(--app-node-fill, white)" strokeWidth={2} />
           <text x={NODE_W / 2} y={NODE_H + 33} textAnchor="middle" fontSize={18} fill="white"
             style={{ userSelect: 'none', fontWeight: 600 }}>
             +

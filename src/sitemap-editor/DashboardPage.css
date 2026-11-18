@@ -168,7 +168,7 @@
   transition: all 0.15s;
 }
 .dashboard-board-card:hover .dashboard-board-open-btn {
-  background: #7161ef;
+  background: var(--app-accent);
   color: #fff;
 }
 
@@ -185,8 +185,8 @@
   transition: all 0.15s;
 }
 .dashboard-create-tile:hover {
-  border-color: #7161ef;
-  color: #7161ef;
+  border-color: var(--app-accent-text);
+  color: var(--app-accent-text);
 }
 .dashboard-create-tile:disabled {
   opacity: 0.5;

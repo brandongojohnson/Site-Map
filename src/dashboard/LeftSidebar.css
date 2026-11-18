@@ -28,7 +28,7 @@
 .left-sidebar-primary-btn {
   width: 100%;
   padding: 12px 0;
-  background: #dc2626;
+  background: var(--app-accent);
   color: #fff;
   border-radius: 10px;
   font-weight: 700;

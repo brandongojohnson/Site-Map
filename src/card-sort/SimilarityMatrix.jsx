@@ -5,7 +5,7 @@ import './CardSortCharts.css';
 const RAMP = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#2a78d6', '#1c5cab', '#104281', '#0d366b'];
 
 const valueToColor = (v) => {
-  if (v <= 0) return '#fcfcfb';
+  if (v <= 0) return 'var(--app-matrix-empty, #fcfcfb)';
   const step = Math.min(RAMP.length - 1, Math.floor(v * RAMP.length));
   return RAMP[step];
 };
@@ -87,8 +87,8 @@ const SimilarityMatrix = ({ labels, matrix }) => {
                       style={{
                         width: CELL,
                         height: CELL,
-                        background: isDiagonal ? '#e1e0d9' : valueToColor(v),
-                        outline: isHovered && !isDiagonal ? '2px solid #0b0b0b' : 'none',
+                        background: isDiagonal ? 'var(--app-matrix-diag, #e1e0d9)' : valueToColor(v),
+                        outline: isHovered && !isDiagonal ? '2px solid var(--app-ink, #0b0b0b)' : 'none',
                         outlineOffset: -2,
                       }}
                     />

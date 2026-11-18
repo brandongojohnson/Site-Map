@@ -23,7 +23,7 @@
 
 .sitemap-editor-error-btn {
   padding: 12px 24px;
-  background: #7161ef;
+  background: var(--app-accent);
   color: #fff;
   border-radius: 4px;
   font-weight: 700;

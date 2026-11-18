@@ -74,8 +74,8 @@
   transition: all 0.15s;
 }
 .templates-import-tile:hover {
-  border-color: #7161ef;
-  color: #7161ef;
+  border-color: var(--app-accent-text);
+  color: var(--app-accent-text);
 }
 
 .templates-import-tile-icon {
@@ -137,7 +137,7 @@
   width: 32px;
   height: 32px;
   border-radius: 4px;
-  background: #eeecfd;
+  background: var(--app-accent-tint);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -145,7 +145,7 @@
 }
 .templates-card-icon .material-symbols-outlined {
   font-size: 17px;
-  color: #7161ef;
+  color: var(--app-accent-text);
 }
 
 .templates-card-meta {
@@ -187,7 +187,7 @@
   transition: all 0.15s;
 }
 .templates-card:hover .templates-card-btn {
-  background: #7161ef;
+  background: var(--app-accent);
   color: #fff;
 }
 .templates-card-btn:disabled {

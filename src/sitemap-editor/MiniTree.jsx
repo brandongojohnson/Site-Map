@@ -34,7 +34,7 @@ const MiniTree = ({ tree, className = '' }) => {
             key={i}
             d={`M ${e.x1} ${e.y1} L ${e.x1} ${midY} L ${e.x2} ${midY} L ${e.x2} ${e.y2}`}
             fill="none"
-            stroke="#d9d9de"
+            stroke="var(--app-line-2, #d9d9de)"
             strokeWidth={1}
           />
         );
@@ -47,8 +47,8 @@ const MiniTree = ({ tree, className = '' }) => {
           width={NW}
           height={NH}
           rx={4}
-          fill="white"
-          stroke={n.id === rootId ? '#7161EF' : '#e0e0e3'}
+          fill="var(--app-node-fill, white)"
+          stroke={n.id === rootId ? 'var(--app-accent, #0071e3)' : 'var(--app-node-stroke, #e0e0e3)'}
           strokeWidth={n.id === rootId ? 1.5 : 1}
         />
       ))}

@@ -1,0 +1,13 @@
+/* Global tokens for the app screens (Sitemap, Card Sort, Tree Test) and their
+   shared components (AccountBadge, GetStartedMenu, AuthModal).
+   The accent matches the landing page: #0071e3 for fills, and for text and
+   borders #0071e3 on light / #2997ff on dark (see app-dark.css). */
+:root {
+  --accent: #0071e3;
+  --accent-rgb: 0, 113, 227;
+  --accent-foreground: #ffffff;
+
+  --app-accent: #0071e3;       /* button fills, progress bars, badges */
+  --app-accent-text: #0071e3;  /* accent text, focus rings, selected borders */
+  --app-accent-tint: #e6f1fd;  /* light accent wash (icon chips, checked rows) */
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { destinationBreakdown } from './analysisUtils';
 import './TreeTestCharts.css';
 
-const BAR_HUE = '#2a78d6';
+const BAR_HUE = 'var(--app-accent, #0071e3)';
 const WRONG_HUE = '#c6c6c6';
 
 // Per task, where participants actually ended up — the correct destination

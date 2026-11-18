@@ -1,7 +1,7 @@
 import React from 'react';
 import './CardSortCharts.css';
 
-const BAR_HUE = '#2a78d6'; // sequential blue, single-series accent
+const BAR_HUE = 'var(--app-accent, #0071e3)'; // sequential blue, single-series accent
 
 const CategoryFrequency = ({ frequencies, sessionCount }) => {
   if (frequencies.length === 0) {

@@ -87,7 +87,7 @@
   transition: all 0.15s;
 }
 .wizard-progress-bar.is-done {
-  background: #7161ef;
+  background: var(--app-accent);
 }
 .wizard-progress-bar.is-pending {
   background: #dcdcdc;
@@ -142,7 +142,7 @@
 }
 .wizard-input:focus {
   outline: none;
-  border-color: #7161ef;
+  border-color: var(--app-accent-text);
 }
 
 .wizard-textarea-intention {
@@ -178,7 +178,7 @@
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 .wizard-type-card.is-selected {
-  border-color: #7161ef;
+  border-color: var(--app-accent-text);
   background: #fff;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 }
@@ -243,7 +243,7 @@
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: normal;
-  background: #dc2626;
+  background: var(--app-accent);
   color: #fff;
   transition: all 0.15s;
 }
@@ -341,7 +341,7 @@
 
 .wizard-next-btn {
   padding: 12px 32px;
-  background: #dc2626;
+  background: var(--app-accent);
   color: #fff;
   border-radius: 4px;
   font-weight: 700;

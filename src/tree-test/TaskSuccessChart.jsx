@@ -1,8 +1,8 @@
 import React from 'react';
 import './TreeTestCharts.css';
 
-const SUCCESS_HUE = '#2a78d6'; // sequential blue, mirrors card-sort's single-series accent
-const DIRECT_HUE = '#7161EF'; // brand accent, layered on top of success as a sub-measure
+const SUCCESS_HUE = '#9ec5f4'; // sequential blue, mirrors card-sort's single-series accent
+const DIRECT_HUE = 'var(--app-accent, #0071e3)'; // brand accent, layered on top of success as a sub-measure
 
 // One row per task: success rate as the primary bar, with the share of
 // successes that were direct (no backtracking) layered underneath it as a

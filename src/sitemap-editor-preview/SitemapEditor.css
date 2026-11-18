@@ -1,4 +1,4 @@
-.sitemap-editor-loading {
+.sitemap-preview .sitemap-editor-loading {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,7 +8,7 @@
   color: var(--text-primary);
 }
 
-.sitemap-editor-error {
+.sitemap-preview .sitemap-editor-error {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,11 +20,11 @@
   background: var(--bg-primary);
 }
 
-.sitemap-editor-error-text {
+.sitemap-preview .sitemap-editor-error-text {
   color: #f87171;
 }
 
-.sitemap-editor-error-btn {
+.sitemap-preview .sitemap-editor-error-btn {
   padding: 12px 24px;
   background: var(--accent);
   color: var(--accent-foreground);
@@ -35,11 +35,11 @@
   letter-spacing: 0.02em;
   transition: opacity 0.2s ease-out;
 }
-.sitemap-editor-error-btn:hover {
+.sitemap-preview .sitemap-editor-error-btn:hover {
   opacity: 0.9;
 }
 
-.sitemap-editor-shell {
+.sitemap-preview .sitemap-editor-shell {
   color: var(--text-primary);
   background: var(--bg-primary);
   min-height: 100vh;

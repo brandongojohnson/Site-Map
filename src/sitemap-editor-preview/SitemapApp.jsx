@@ -15,7 +15,7 @@ import { useAuth } from '../card-sort/useAuth';
 // visitors can still build and edit a sitemap freely — they just land on
 // Templates instead of the boards-in-progress list, and can't navigate back
 // to it either.
-const SitemapApp = ({ onNavigateApp }) => {
+const SitemapAppInner = ({ onNavigateApp }) => {
   const { user } = useAuth();
   const [view, setView] = useState(null); // null while auth state resolves
   const [boardId, setBoardId] = useState(null);
@@ -67,5 +67,13 @@ const SitemapApp = ({ onNavigateApp }) => {
 
   return <TemplatesPage onNavigate={navigate} onOpenBoard={openBoard} hideDashboard={!user} />;
 };
+
+// Everything in this folder's CSS is scoped under .sitemap-preview (see
+// scripts/scope-preview-css.mjs) so it can't restyle the live Sitemap Studio.
+const SitemapApp = (props) => (
+  <div className="sitemap-preview">
+    <SitemapAppInner {...props} />
+  </div>
+);
 
 export default SitemapApp;
