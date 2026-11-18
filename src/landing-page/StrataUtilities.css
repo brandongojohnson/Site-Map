@@ -675,6 +675,10 @@
   align-self: flex-start;
 }
 
+.strata-lp .overflow-visible {
+  overflow: visible;
+}
+
 .strata-lp .overflow-hidden {
   overflow: hidden;
 }

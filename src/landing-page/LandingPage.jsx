@@ -230,7 +230,7 @@ function SpatialEngine() {
     <div className="text-[13px] text-white font-bold">/workspace/settings</div>
     <div className="font-mono text-[10px] text-zinc-400 mt-0.5">Direct Child Nodes: 3</div>
     </div>
-    <svg className="w-full max-w-[420px] h-16 my-1" fill="none" viewBox="0 0 420 64">
+    <svg className="w-full max-w-[420px] h-16 my-1 overflow-visible" fill="none" viewBox="0 0 420 64">
     <path d="M 210 0 C 210 32, 70 32, 70 64" stroke="#a1a1aa" strokeWidth="1.5" strokeLinecap="round"></path>
     <path d="M 210 0 C 210 32, 210 32, 210 64" stroke="#a1a1aa" strokeWidth="1.5" strokeLinecap="round"></path>
     <path d="M 210 0 C 210 32, 350 32, 350 64" stroke="#a1a1aa" strokeWidth="1.5" strokeLinecap="round"></path>
