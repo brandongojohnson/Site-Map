@@ -792,6 +792,11 @@
   background-color: rgb(0 113 227 / var(--tw-bg-opacity, 1));
 }
 
+.strata-lp .bg-\[\#2997ff\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(41 151 255 / var(--tw-bg-opacity, 1));
+}
+
 .strata-lp .bg-\[\#0071e3\]\/20 {
   background-color: rgb(0 113 227 / 0.2);
 }
@@ -800,13 +805,8 @@
   background-color: rgb(0 113 227 / 0.3);
 }
 
-.strata-lp .bg-\[\#2997ff\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(41 151 255 / var(--tw-bg-opacity, 1));
-}
-
-.strata-lp .bg-\[\#2997ff\]\/40 {
-  background-color: rgb(41 151 255 / 0.4);
+.strata-lp .bg-\[\#0071e3\]\/40 {
+  background-color: rgb(0 113 227 / 0.4);
 }
 
 .strata-lp .bg-\[\#a1a1aa\] {

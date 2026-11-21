@@ -7,6 +7,8 @@ import TreeTestHub from "./tree-test/TreeTestHub";
 import TakeTreeTestStudy from "./tree-test/TakeStudy";
 import LandingPage from "./landing-page/LandingPage";
 import Qarin from "./qarin/Qarin";
+import ColorReplacer from "./shared/ColorReplacer";
+import { restore as restoreColorReplacements, refresh as refreshColorReplacements } from "./shared/colorReplace";
 import "./styles/app-tokens.css";
 import "./styles/app-dark.css";
 
@@ -34,6 +36,18 @@ export default function App() {
     return () => window.removeEventListener("popstate", onPop);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Saved colour replacements (see shared/colorReplace.js): restore once on load, then
+  // re-apply whenever the screen changes so newly mounted SVG / inline-styled nodes pick them up.
+  useEffect(() => {
+    const t = setTimeout(restoreColorReplacements, 0);
+    return () => clearTimeout(t);
+  }, []);
+  useEffect(() => {
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => { raf2 = requestAnimationFrame(refreshColorReplacements); });
+    return () => { cancelAnimationFrame(raf1); cancelAnimationFrame(raf2); };
+  }, [view]);
 
   // Dark theme for the app screens (not the landing page, which themes itself,
   // and not the standalone ?preview= pages). Study links shared with
@@ -89,17 +103,19 @@ export default function App() {
     setView(next);
   };
 
+  const withTool = (screen) => (<>{screen}<ColorReplacer /></>);
+
   if (view === "landing") {
-    return <LandingPage onGetStarted={navigate} />;
+    return withTool(<LandingPage onGetStarted={navigate} />);
   }
 
   if (view === "cardsort") {
-    return <CardSortHub onNavigate={navigate} />;
+    return withTool(<CardSortHub onNavigate={navigate} />);
   }
 
   if (view === "treetest") {
-    return <TreeTestHub onNavigate={navigate} />;
+    return withTool(<TreeTestHub onNavigate={navigate} />);
   }
 
-  return <SitemapApp onNavigateApp={navigate} />;
+  return withTool(<SitemapApp onNavigateApp={navigate} />);
 }

@@ -23,7 +23,7 @@ const THEME_KEY = 'sortly-landing-theme';
 
 const NAV = [
   ['Features', 'features'],
-  ['How it works', 'how-it-works'],
+  ['Our Approach', 'our-approach'],
   ['Pricing', 'pricing'],
   ['Contact', 'contact'],
 ];
@@ -106,8 +106,8 @@ function Hero({ onStart }) {
     <section id="product" className="scroll-mt-28 relative w-full pt-12 md:pt-16 pb-20 px-6 lg:px-12 flex flex-col items-center">
     {/* Apple-Pro Typography with Sheen Gradient */}
     <h1 className="text-center text-[32px] sm:text-[54px] md:text-[65px] lg:text-[68px] font-normal tracking-[-0.035em] max-w-4xl mx-auto mb-6 leading-[1.05]">
-    <span className="text-white">Turn complexity</span><br />
-    <span className="text-white">into clarity.</span>
+    <span className="text-white">Turn Complexity</span><br />
+    <span className="text-white">Into Clarity.</span>
     </h1>
     <p className="text-[15px] md:text-[17px] text-white text-center max-w-2xl mx-auto mb-10 leading-[22.5px] font-normal">
           Plan site structure, stress-test mental models in spatial depth, and ship an architecture your entire team agrees on.
@@ -136,7 +136,7 @@ function Hero({ onStart }) {
     <div className="flex items-center gap-2">
     <span className="material-symbols-outlined text-[#2997ff] text-[18px]">view_in_ar</span>
     <span className="text-[13px] font-semibold text-zinc-100">Acme_Global_IA_v4.spatial</span>
-    <span className="font-mono text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">SYNCED 60FPS</span>
+    <span className="font-mono text-[10px] text-[#2997ff] bg-[#0071e3]/20 px-2 py-0.5 rounded-full border border-[#2997ff]/30">SYNCED 60FPS</span>
     </div>
     </div>
     {/* Center Tools Pill */}
@@ -195,8 +195,8 @@ function SpatialEngine() {
               Traditional flowcharting tools flatten information architecture. Sortly treats hierarchy as multi-dimensional spatial systems with live URL computing, breadcrumb routing, and zero click-depth loss.
             </p>
     <div className="space-y-3.5 w-full">
-    <div className="flex items-start gap-3.5 p-4 rounded-2xl glass-card glass-card-hover">
-    <div className="w-9 h-9 rounded-xl bg-[#0071e3]/20 border border-[#2997ff]/30 flex items-center justify-center text-[#2997ff] shrink-0">
+    <div className="flex items-center gap-3.5 p-4 rounded-2xl glass-card glass-card-hover">
+    <div className="w-9 h-9 flex items-center justify-center text-white shrink-0">
     <span className="material-symbols-outlined text-[19px]">account_tree</span>
     </div>
     <div>
@@ -204,8 +204,8 @@ function SpatialEngine() {
     <p className="text-zinc-400 text-[13px] mt-0.5">Drag an entire category branch with 200 child nodes. Parent routing recalculates instantaneously.</p>
     </div>
     </div>
-    <div className="flex items-start gap-3.5 p-4 rounded-2xl glass-card glass-card-hover">
-    <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white shrink-0">
+    <div className="flex items-center gap-3.5 p-4 rounded-2xl glass-card glass-card-hover">
+    <div className="w-9 h-9 flex items-center justify-center text-white shrink-0">
     <span className="material-symbols-outlined text-[19px]">rule</span>
     </div>
     <div>
@@ -433,7 +433,7 @@ function Pipeline() {
   const [step, setStep] = useState(1);
 
   return (
-    <section id="how-it-works" className="scroll-mt-28 w-full py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
+    <section id="our-approach" className="scroll-mt-28 w-full py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
     <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
     <div>
     <div className="block font-mono text-[11px] text-[#2997ff] uppercase tracking-wider mb-3">

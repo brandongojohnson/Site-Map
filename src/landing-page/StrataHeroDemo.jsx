@@ -41,9 +41,9 @@ const NodeCell = ({ node, first, last, cellRef }) => {
   const editing = !!node.edit;
   const fresh = phase === 'enter';
   const doomed = phase === 'doomed';
-  const border = doomed ? 'border-red-500/70' : fresh || editing || node.active ? 'border-[#2997ff]' : 'border-white/10';
-  const tagCls = doomed ? 'text-red-400 font-bold' : fresh || editing || node.active ? 'text-[#2997ff] font-bold' : 'text-zinc-500';
-  const subCls = doomed ? 'text-red-400' : node.subBlue ? 'text-[#2997ff]' : node.active ? 'text-zinc-400' : 'text-zinc-500';
+  const border = doomed ? 'border-white/30' : fresh || editing || node.active ? 'border-[#2997ff]' : 'border-white/10';
+  const tagCls = doomed ? 'text-zinc-400 font-bold' : fresh || editing || node.active ? 'text-[#2997ff] font-bold' : 'text-zinc-500';
+  const subCls = doomed ? 'text-zinc-500' : node.subBlue ? 'text-[#2997ff]' : node.active ? 'text-zinc-400' : 'text-zinc-500';
   const tag = doomed ? 'DELETING' : editing ? 'EDITING' : fresh ? 'L1 • NEW' : node.tag;
   const phaseCls = phase === 'enter' ? 'dn-in' : phase === 'leave' ? 'dn-out' : '';
 
@@ -61,7 +61,7 @@ const NodeCell = ({ node, first, last, cellRef }) => {
       >
         <span className={`font-mono text-[9px] ${tagCls}`}>{tag}</span>
         <div className={`text-[12px] truncate min-h-[18px] ${node.active ? 'font-bold text-white' : 'font-medium text-zinc-200'}`}>
-          {node.edit === 'select' ? <span className="bg-[#2997ff]/40 rounded-sm">{node.label}</span> : node.label}
+          {node.edit === 'select' ? <span className="bg-[#0071e3]/40 rounded-sm">{node.label}</span> : node.label}
           {node.edit === 'type' && <span className="strata-caret" />}
         </div>
         <span className={`font-mono text-[10px] truncate ${subCls}`}>{node.sub}</span>
@@ -255,11 +255,11 @@ const HeroSitemapDemo = () => {
                 <div
                   key={n.id}
                   className={`flex items-center justify-between py-1 px-2 rounded transition-colors duration-300 ${
-                    doomed ? 'bg-red-500/10 text-red-400' : fresh ? 'bg-[#0071e3]/20 text-[#2997ff]' : 'hover:bg-white/5 text-zinc-300'
+                    doomed ? 'bg-white/5 text-zinc-500' : fresh ? 'bg-[#0071e3]/20 text-[#2997ff]' : 'hover:bg-white/5 text-zinc-300'
                   }`}
                 >
                   <span className={`truncate ${doomed ? 'line-through' : ''}`}>{n.label}</span>
-                  <span className={`font-mono text-[10px] ${doomed ? 'text-red-400' : fresh ? 'text-[#2997ff]' : 'text-zinc-500'}`}>
+                  <span className={`font-mono text-[10px] ${doomed ? 'text-zinc-500' : fresh ? 'text-[#2997ff]' : 'text-zinc-500'}`}>
                     {SIDE_COUNT[n.id] ?? 0}
                   </span>
                 </div>
@@ -274,7 +274,7 @@ const HeroSitemapDemo = () => {
           </div>
           <div className="flex justify-between items-center text-[11px]">
             <span className="text-zinc-400">Orphaned Nodes</span>
-            <span className="font-mono text-emerald-400 font-semibold">0 Detected</span>
+            <span className="font-mono text-[#2997ff] font-semibold">0 Detected</span>
           </div>
           <div className="flex justify-between items-center text-[11px]">
             <span className="text-zinc-400">Sort Consensus</span>
@@ -295,7 +295,7 @@ const HeroSitemapDemo = () => {
         <div className="relative z-10 w-64 glass-card rounded-2xl border border-white/20 p-3.5 flex flex-col gap-1.5 hover:border-[#2997ff] transition-all">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[10px] text-zinc-400 font-semibold uppercase">L0 • Root Anchor</span>
-            <span className="font-mono text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">LIVE 200</span>
+            <span className="font-mono text-[10px] text-[#2997ff] bg-[#0071e3]/20 px-2 py-0.5 rounded-full border border-[#2997ff]/30">LIVE 200</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="material-symbols-outlined text-[17px] text-[#2997ff]">layers</span>
@@ -375,10 +375,10 @@ const HeroSitemapDemo = () => {
           <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
             <div className="flex items-center justify-between text-[11px]">
               <span className="text-zinc-400">Tree Test Directness</span>
-              <span className="font-mono text-emerald-400 font-bold">88%</span>
+              <span className="font-mono text-[#2997ff] font-bold">88%</span>
             </div>
             <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
-              <div className="bg-emerald-400 h-full w-[88%]"></div>
+              <div className="bg-[#2997ff] h-full w-[88%]"></div>
             </div>
             <p className="text-[10px] text-zinc-500">Avg search time: 8.2s with zero backtracking.</p>
           </div>
